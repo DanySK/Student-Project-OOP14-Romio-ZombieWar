@@ -1,0 +1,10 @@
+package SessioniDiGioco;
+
+import java.awt.Graphics2D;
+
+public abstract class SessioneDiGioco {
+	protected ControllerDiSessione cds;
+	public abstract void init();
+	public abstract void update();
+	public abstract void draw(Graphics2D g);
+}
