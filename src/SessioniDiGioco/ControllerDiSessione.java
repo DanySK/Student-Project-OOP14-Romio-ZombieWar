@@ -32,4 +32,15 @@ public class ControllerDiSessione {
 	public void draw(Graphics2D g){
 		sessioni.get(sessioneCorrente).draw(g);
 	}
+	/*KEYBOARD*/
+	public void keyPressed(int k){
+		sessioni.get(sessioneCorrente).keyPressed(k);
+	}
+	public void keyReleased(int k){
+		sessioni.get(sessioneCorrente).keyReleased(k);
+	}
+	/*MOUSE*/
+	public void mouseClicked(){
+		sessioni.get(sessioneCorrente).mouseClicked();
+	}
 }
