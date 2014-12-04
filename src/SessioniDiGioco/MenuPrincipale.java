@@ -3,9 +3,7 @@ package SessioniDiGioco;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints.Key;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -81,13 +79,11 @@ public class MenuPrincipale extends SessioneDiGioco{
 				currentChoice=0;
 			}
 		}
-	}
-	
+	}	
 	public void keyReleased(int k){
 		
 	}
-	public void mouseClicked() {
-	
+	public void mouseClicked() {	
 		
 	}
 }
