@@ -74,6 +74,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		g2.dispose();
 	}
 		
+	@Override
 	public void run() {
 		this.init();
 		long start;
@@ -98,34 +99,42 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 				
 	}
 	/*MOUSE*/
+	@Override
 	public void mouseClicked(MouseEvent e) {
 		cds.mouseClicked();
 	}
 	
+	@Override
 	public void mouseEntered(MouseEvent e) {
 			
 	}
 	
+	@Override
 	public void mouseExited(MouseEvent e) {
 			
 	}
 	
+	@Override
 	public void mousePressed(MouseEvent e) {
 			
 	}
 	
+	@Override
 	public void mouseReleased(MouseEvent e) {
 			
 	}
 	/*KEYBOARD*/
+	@Override
 	public void keyPressed(KeyEvent e) {
 		cds.keyPressed(e.getKeyCode());
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 		cds.keyReleased(e.getKeyCode());
 	}
 
+	@Override
 	public void keyTyped(KeyEvent e) {
 		
 	}

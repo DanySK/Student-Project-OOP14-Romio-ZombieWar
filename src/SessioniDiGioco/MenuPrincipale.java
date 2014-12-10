@@ -25,6 +25,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 		this.cds=cds;
 		this.init();		
 	}
+	@Override
 	public void init(){
 		/*Carico l'immagine dello sfondo del menu*/
 		try {
@@ -37,9 +38,11 @@ public class MenuPrincipale extends SessioneDiGioco{
 		defaultColor=(Color.BLACK);
 		choiceColor=(Color.RED);
 	}
+	@Override
 	public void update(){
 		
 	}
+	@Override
 	public void draw(Graphics2D g){
 		/*Disegno l'immagine di sfondo*/
 		g.drawImage(background,0,0,null);
@@ -58,11 +61,16 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}
 	private void select(){
 		switch(currentChoice){
-			case 0: this.cds.setState(ControllerDiSessione.SELEZIONEPERSONAGGIO);
+			case 0:{ 
+				this.cds.aggiungiSessione(new LivelloUno());
+				this.cds.setState(ControllerDiSessione.LIVELLO1);
+				break;
+			}
 			case 1: //about
 			case 2: System.exit(0);break;
 		}
 	}
+	@Override
 	public void keyPressed(int k){
 		if(k== KeyEvent.VK_ENTER){
 			select();
@@ -80,9 +88,11 @@ public class MenuPrincipale extends SessioneDiGioco{
 			}
 		}
 	}	
+	@Override
 	public void keyReleased(int k){
 		
 	}
+	@Override
 	public void mouseClicked() {	
 		
 	}
