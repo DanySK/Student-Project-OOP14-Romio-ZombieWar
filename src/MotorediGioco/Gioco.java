@@ -8,8 +8,8 @@ public class Gioco {
 		//Creo il frame del gioco utilizzando
 		JFrame gameFrame = new JFrame("ProgettoOOP-ZombieWar");
 		gameFrame.setContentPane(new PannelloDiGioco());
-		gameFrame.pack();
 		gameFrame.setResizable(false);
+		gameFrame.pack();		
 		gameFrame.setVisible(true);
 	}
 }

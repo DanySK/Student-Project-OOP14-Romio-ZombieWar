@@ -18,8 +18,8 @@ public class Animazione {
 	public void setDelay(long d) { delay = d; }
 	public void setFrame(int i) { currentFrame = i; }
 	public void calculateDefaultDelay(){
-		/*Tempo assegnato a ciascun frame di default: cambio animazione ogni 1/60 sec*/
-		delay= 1000/60;
+		/*delay ottimale per la camminata in 5 frame*/
+		delay= 100;
 	}
 	public void setDelay(int delay){
 		/*Possibilità di impostare il framerate per la nostra animazione a piacere*/

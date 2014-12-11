@@ -10,8 +10,11 @@ public class Modello2d {
 	int xScreen,yScreen;
 	//Coordinate nella mappa
 	int xMap,yMap;
-	//Dimensioni e puntatore all'immagine
+	//Dimensioni immagine
 	int width,height;
+	//Rotazone dell'immagine
+	double rotazione;
+	//Immagine
 	BufferedImage sprite;	
 	//Ciascuno personaggio del nostro gioco ha un'animazione per la camminata
 	Animazione camminata;
@@ -44,6 +47,7 @@ public class Modello2d {
 		}
 		/*Imposto l'animazione della camminata*/
 		camminata= new Animazione(tmp);
+		camminata.calculateDefaultDelay();
 		
 	}
 	public int getXScreen(){ return xScreen; }

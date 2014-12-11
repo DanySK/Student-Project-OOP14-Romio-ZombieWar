@@ -1,6 +1,8 @@
 package Entita;
 
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Player extends Modello2d {
@@ -23,6 +25,23 @@ public class Player extends Modello2d {
 		this.setCamminata(player, width, height);
 	}
 	
+	/*Metodi per il movimento*/
+	public void setLeft(boolean value){
+		left = (value == true) ? true : false;
+	}
+	
+	public void setRight(boolean value){
+		right = (value == true) ? true : false;
+	}
+	
+	public void setUp(boolean value){
+		up = (value == true) ? true : false;
+	}
+	
+	public void setDown(boolean value){
+		down = (value == true) ? true : false;
+	}
+	
 	public void calcolaPosizione(){
 		//MOVIMENTI
 		if (left){ 
@@ -40,8 +59,8 @@ public class Player extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				xScreen += 2;
 				xMap+=2;
-				if(xScreen>730){ xScreen = 730; }
-				if(xMap>730){ xMap = 730; }			
+				if(xScreen>640-width){ xScreen = 640-width; }
+				if(xMap>730-width){ xMap = 730-width; }			
 			}
 			else { xMap += 2; }
 		}				
@@ -66,18 +85,26 @@ public class Player extends Modello2d {
 			else{ yMap +=2;	}
 		}
 	}
+	public void calcolaRotazione(){
+		/*Rotazione dello sprite*/
+		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-this.yScreen,
+				MouseInfo.getPointerInfo().getLocation().getX()-this.xScreen)-Math.PI/2;
+	}
 
 	public void update(){
 		/*Se comandiamo al personaggio di spostarsi eseguiamo questa routine*/
 		if(left||right||up||down){
 			camminata.update();
 			this.calcolaPosizione();
-		}		
-		
+		}
+		this.calcolaRotazione();
 	}
 	
 	public void draw(Graphics2D g){
-		g.drawImage(camminata.getImage(),xScreen,yScreen,null);
+		AffineTransform at = new AffineTransform();
+		at.translate(xScreen, yScreen);
+		at.rotate(rotazione,width/2,height/2);
+		g.drawImage(camminata.getImage(),at,null);
 	}
 	
 }
