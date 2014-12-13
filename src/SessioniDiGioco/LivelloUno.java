@@ -19,17 +19,19 @@ public class LivelloUno extends SessioneDiGioco{
 	}
 	@Override
 	public void init(){
-		/*Inizializziamo il giocatore*/
-		player = new Player();
 		/*Inizializziamo la mappa*/
 		mappa = new Mappa("/backgrounds/map.png");
+		/*Inizializziamo il giocatore*/
+		player = Player.getIstance();
 		/*Inizializziamo le armi*/
-		weaponInit();
+		weaponInit();		
 	}
 	private void weaponInit(){
-		armi = new Arma[2];
 		armi[0]=new Arma("glock21", 2, 15, false);
+		armi[0].setTRANSFORM(10, 20, 1.6,0,-20,25);	
 		armi[1]=new Arma("ak47", 4, 30, true);
+		armi[1].setTRANSFORM(7, 14, 1.3,-0.3,-8,40);
+		player.setWeapons(armi);
 	}
 	@Override
 	public void update(){

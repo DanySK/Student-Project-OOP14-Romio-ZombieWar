@@ -6,10 +6,22 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Player extends Modello2d {
+	//Vogliamo che all'interno del gioco venga creata un'unica entità player
+	private static Player giocatore;
 	//Sprite del personaggio
 	BufferedImage player;
-	public Player(){
+	Arma[]arsenale;
+	Arma armacorrente;
+	
+	private Player(){
 		this.init();
+	}
+	
+	public static Player getIstance(){
+		if(giocatore==null){
+			giocatore = new Player();
+		}
+		return giocatore;		
 	}
 	
 	public void init(){
@@ -22,7 +34,7 @@ public class Player extends Modello2d {
 		this.width= player.getWidth()/5;
 		this.height= player.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setCamminata(player, width, height);
+		this.setCamminata(player, width, height);		
 	}
 	
 	/*Metodi per il movimento*/
@@ -85,6 +97,10 @@ public class Player extends Modello2d {
 			else{ yMap +=2;	}
 		}
 	}
+	public void setWeapons(Arma[]arsenale){
+		this.arsenale=arsenale;
+		armacorrente=this.arsenale[0];
+	}
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
 		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-this.yScreen,
@@ -102,9 +118,17 @@ public class Player extends Modello2d {
 	
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
+		at.scale(0.8, 0.8);
 		at.translate(xScreen, yScreen);
 		at.rotate(rotazione,width/2,height/2);
+		/*Disegno il giocatore*/
 		g.drawImage(camminata.getImage(),at,null);
+		/*Disegno l'arma corrente, associando le stesse operazione di movimento legate al giocatore*/
+		//draw GUN
+		AffineTransform gun =new AffineTransform(at);	
+		gun.translate(armacorrente.xTRANSLATE,armacorrente.yTRANSLATE);
+		g.drawImage(armacorrente.getImage(),gun,null);
+
 	}
 	
 }

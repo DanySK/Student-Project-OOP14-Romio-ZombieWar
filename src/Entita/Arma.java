@@ -13,22 +13,42 @@ public class Arma {
 	private boolean reloading;
 	private boolean automatica;
 	private long start,end;
+	/*Variabile per il render visivo*/
+	public int xTRANSLATE;
+	public int yTRANSLATE;
+	public double rotation;
+	public double muzzle_rotation;
+	public int xMUZZLETRANSLATE;
+	public int YMUZZLETRANSLATE;
+	
 	public Arma(String nome,int danno, int capacità,boolean automatica){
 		this.nome=nome;
 		this.danno=danno;
 		this.colpi=this.capacità=capacità;
+		this.automatica = automatica;
 		/*Carichiamo l'immagine*/
 		try {
 			image = ImageIO.read(getClass().getResourceAsStream("/sprites/"+nome+".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		this.automatica = automatica;
+	}
+	public void setTRANSFORM(int x, int y, double rotation, double muzzlerotation,
+			int xMUZZLE, int YMUZZLE){
+		this.xTRANSLATE=x;
+		this.yTRANSLATE=y;
+		this.rotation=rotation;
+		this.muzzle_rotation= muzzlerotation;
+		xMUZZLETRANSLATE=xMUZZLE;
+		YMUZZLETRANSLATE=YMUZZLE;
 	}
 	public int shoot(){
 		return 0;
 	}
 	public void reload(){
 		
+	}
+	public BufferedImage getImage(){
+		return this.image;
 	}
 }
