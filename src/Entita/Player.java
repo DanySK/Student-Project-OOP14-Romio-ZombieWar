@@ -16,7 +16,12 @@ public class Player extends Modello2d {
 	private Player(){
 		this.init();
 	}
-	
+	private static class Holder {
+		static final Player INSTANCE = new Player();
+	}
+	public static Player getInstance() {
+		return Holder.INSTANCE;
+	}
 	public static Player getIstance(){
 		if(giocatore==null){
 			giocatore = new Player();
@@ -26,7 +31,7 @@ public class Player extends Modello2d {
 	
 	public void init(){
 		/*Carichiamo l'immagine del nostro personaggio*/
-		this.player=setSprite("/sprites/avion.png");
+		this.player=setSprite("/sprites/avion2.png");
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
 		xMap=yMap=0;
 		xScreen=yScreen=0;
@@ -60,8 +65,7 @@ public class Player extends Modello2d {
 			if(xMap<(640/2) || xMap > 730-320 ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				xScreen -= 2;
-				if( xScreen < 0 ){ xScreen = 0; }
-				xMap-=2;
+				xMap-=2;			
 				if( xMap < 0 ){ xMap = 0; }			
 			}
 			else { xMap -=2 ; }
@@ -71,7 +75,6 @@ public class Player extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				xScreen += 2;
 				xMap+=2;
-				if(xScreen>640-width){ xScreen = 640-width; }
 				if(xMap>730-width){ xMap = 730-width; }			
 			}
 			else { xMap += 2; }
@@ -81,7 +84,6 @@ public class Player extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				yScreen -= 2;
 				yMap -= 2;
-				if(yScreen<topy){ yScreen = topy; }
 				if(yMap<topy){ yMap = topy; }
 			}
 			else{ yMap -= 2; }
@@ -91,7 +93,6 @@ public class Player extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				yScreen += 2;
 				yMap +=2;
-				if(yScreen>= 480-width){yScreen= 480-width; }
 				if(yMap>bottomy-width) {yMap = bottomy-width; }
 		    }
 			else{ yMap +=2;	}
@@ -118,7 +119,6 @@ public class Player extends Modello2d {
 	
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
-		at.scale(0.8, 0.8);
 		at.translate(xScreen, yScreen);
 		at.rotate(rotazione,width/2,height/2);
 		/*Disegno il giocatore*/
@@ -126,6 +126,7 @@ public class Player extends Modello2d {
 		/*Disegno l'arma corrente, associando le stesse operazione di movimento legate al giocatore*/
 		//draw GUN
 		AffineTransform gun =new AffineTransform(at);	
+		gun.scale(0.8,0.8);
 		gun.translate(armacorrente.xTRANSLATE,armacorrente.yTRANSLATE);
 		g.drawImage(armacorrente.getImage(),gun,null);
 

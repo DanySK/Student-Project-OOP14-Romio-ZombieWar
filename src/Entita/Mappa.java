@@ -10,10 +10,10 @@ public class Mappa{
 	/*Immagine della mappa*/
 	BufferedImage mappa;
 	/*Coordinate del personaggio*/
-	int camerax,cameray;
+	double camerax,cameray;
 	/*Coordinate per calcolare la traiettoria del personaggio*/
-	int previous_Yposition=0;
-	int previous_Xposition=0;
+	double previous_Yposition=0;
+	double previous_Xposition=0;
 	
 	public Mappa(String path){
 		try {
@@ -23,32 +23,32 @@ public class Mappa{
 		}
 	}
 	
-	public void update(int playerx,int playery){
+	public void update(double d,double e){
 		/*Dobbiamo seguire il personaggio con la nostra camera, noi muoviamo la mappa sotto*/
-		if(playerx>320 && playerx<410 && previous_Xposition<=this.camerax){
+		if(d>320 && d<410 && previous_Xposition<=this.camerax){
 			//going right
-			this.camerax=(playerx-320);
+			this.camerax=(d-320);
 			previous_Xposition = this.camerax;
 		}
-		else if(playerx>320 && playerx<410 && previous_Xposition>this.camerax){
+		else if(d>320 && d<410 && previous_Xposition>this.camerax){
 			//going left
-			this.camerax=(playerx-320);
+			this.camerax=(d-320);
 			previous_Xposition = this.camerax;
 		}		
-		if((playery)>240 && (playery<814) && previous_Yposition<=this.cameray){
+		if((e)>240 && (e<814) && previous_Yposition<=this.cameray){
 			//going down
-			this.cameray=(playery-240);
+			this.cameray=(e-240);
 			previous_Yposition= this.cameray;			
 		}
-		else if((playery)>240 && (playery<814)  && previous_Yposition>this.cameray){
+		else if((e)>240 && (e<814)  && previous_Yposition>this.cameray){
 			//going up
-			this.cameray=(playery+240);
+			this.cameray=(e+240);
 			previous_Yposition=this.cameray;			
 		}
 	}
 	
 	public void draw(Graphics2D g){
-		g.drawImage(mappa,-camerax,-cameray,null);
+		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}
 	
 }

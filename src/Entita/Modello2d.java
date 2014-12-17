@@ -7,9 +7,9 @@ import javax.imageio.ImageIO;
 
 public class Modello2d {
 	//Coordinate nella finestra
-	int xScreen,yScreen;
+	double xScreen,yScreen;
 	//Coordinate nella mappa
-	int xMap,yMap;
+	double xMap,yMap;
 	//Dimensioni immagine
 	int width,height;
 	//Rotazone dell'immagine
@@ -50,8 +50,8 @@ public class Modello2d {
 		camminata.calculateDefaultDelay();
 		
 	}
-	public int getXScreen(){ return xScreen; }
-	public int getYScreen(){ return yScreen; }
-	public int getXMap(){ return xMap; }
-	public int getYMap(){ return yMap; }
+	public double getXScreen(){ return xScreen; }
+	public double getYScreen(){ return yScreen; }
+	public double getXMap(){ return xMap; }
+	public double getYMap(){ return yMap; }
 }

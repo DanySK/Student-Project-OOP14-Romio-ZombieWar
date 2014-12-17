@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import Entita.Arma;
 import Entita.Mappa;
 import Entita.Player;
+import Entita.ZombieMom;
 
 public class LivelloUno extends SessioneDiGioco{
 	/*Un giocatore*/
@@ -14,6 +15,12 @@ public class LivelloUno extends SessioneDiGioco{
 	Mappa mappa;
 	/*Vettore contenenti le armi*/
 	Arma[] armi = new Arma [2];
+	/*Zombie*/
+	ZombieMom zombie;
+	/*Update thread*/
+	Thread updater;
+	/*Drawing thread*/
+	Thread malaria;
 	public LivelloUno(){
 		this.init();
 	}
@@ -24,7 +31,9 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo il giocatore*/
 		player = Player.getIstance();
 		/*Inizializziamo le armi*/
-		weaponInit();		
+		weaponInit();
+		/*Inizializziamo uno zombie*/
+		zombie = new ZombieMom(10,10);		
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
@@ -39,6 +48,8 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa.update(player.getXMap(), player.getYMap());
 		/*Imponiamo l'update al giocatore*/
 		player.update();
+		/*Imponiamo l'update allo zombie*/
+		zombie.update(player.getXScreen(),player.getYScreen(),player.getXMap(), player.getYMap());
 	}
 	@Override
 	public void draw(Graphics2D g){
@@ -46,6 +57,8 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa.draw(g);
 		/*Disegniamo il giocatore*/
 		player.draw(g);
+		/*Disegniamo lo zombie*/
+		zombie.draw(g);
 	}
 	@Override
 	public void keyPressed(int k){
@@ -65,10 +78,11 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_D): player.setRight(false);break;
 		case(KeyEvent.VK_W): player.setUp(false);break;
 		case(KeyEvent.VK_S): player.setDown(false);break;
+		default: break;
 	}
 	}
 	@Override
 	public void mouseClicked(){
 		
-	}
+	}	
 }
