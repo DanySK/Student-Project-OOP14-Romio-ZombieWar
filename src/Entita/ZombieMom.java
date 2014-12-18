@@ -1,24 +1,26 @@
 package Entita;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class ZombieMom extends Modello2d{
+	/*Immagine dello zombie*/
 	BufferedImage zombie;
-	Thread zombieThread;
-	double playerDistance;
-	double baseDistance;	
+	/*Varibile che controlla se il player è nel range dello zombie*/
+	boolean range;
 	//player
-	private double playerXScreen;
-	private double playerYScreen;
-	private double playerXMAP;
-	private double playerYMAP;	
+	Player player;	
+	//Base
+	Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
-	public ZombieMom(int xSpawn, int ySpawn){
+	public ZombieMom(int xSpawn, int ySpawn,Player player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
 		this.xMap=xSpawn;
 		this.yMap=ySpawn;
+		this.player = player;
+		this.base = base;
 		this.init();
 	}
 	public void init(){
@@ -32,14 +34,22 @@ public class ZombieMom extends Modello2d{
 		this.height= zombie.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
 		this.setCamminata(zombie, width, height);
+	
+	}
+	public boolean visionRange() {
+		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
+		if(vision.intersects(player.getRectangle())){
+			return true;
+		}else{
+			return false;
+		}
+
 	}
 	public void calcolaPosizione(){
 		/*Calcoliamo la distanza tra zombie e giocare e zombie base*/
-		/*Ipotizziamo che la base sia nel punto (310,0)*/	
-		playerDistance = Math.pow(playerYMAP-yMap,2)+ Math.pow(playerXMAP-xMap,2);
-		baseDistance =  Math.pow(0-yMap,2)+ Math.pow(310-xMap,2);
-		if(playerDistance<baseDistance){
-			double rapporto = Math.atan2((playerYMAP-yMap),(playerXMAP-xMap));
+		/*Ipotizziamo che la base sia nel punto (310,0)*/
+		if(visionRange()){
+			double rapporto = Math.atan2((player.getYMap()-yMap),(player.getXMap()-xMap));
 			/*Obbiettivo: caccia giocatore*/
 			xMap += Math.cos(rapporto);
 			yMap += Math.sin(rapporto);
@@ -48,36 +58,39 @@ public class ZombieMom extends Modello2d{
 			yScreen += Math.sin(rapporto);
 		}else{
 			/*Obbiettivo attacca la base*/
-			double rapporto = Math.atan2((0-yMap),(310-xMap));
-			xMap += Math.cos(rapporto);
-			yMap += Math.sin(rapporto);
-			/*Aggiorniamo le coordinate nella finestra*/
-			xScreen += Math.cos(rapporto);
-			yScreen += Math.sin(rapporto);
+			if(!base.intersect(this.getRectangle())){
+				double rapporto = Math.atan2((0-yMap),(310-xMap));
+				xMap += Math.cos(rapporto);
+				yMap += Math.sin(rapporto);
+				/*Aggiorniamo le coordinate nella finestra*/
+				xScreen += Math.cos(rapporto);
+				yScreen += Math.sin(rapporto);
+			}else{
+				return;
+			}
 		}
-		
+
 	}
-	public void update(double playerXScreen, double playerYScreen, double playerXMap, double playerYMap){
+	public void update(){
 		camminata.update();
-		this.playerXScreen=playerXScreen;
-		this.playerYScreen=playerYScreen;
-		
-		this.playerXMAP = playerXMap;
-		this.playerYMAP = playerYMap;
 		this.calcolaPosizione();		
 	}
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
 		//Disegniamo lo zombie solo se è nel campo di visibilità del giocatore
-		if(playerXMAP>320 && playerXMAP<410){
-			xScreen=  320+(xMap-playerXMAP);
+		if(player.getXMap()>320 && player.getXMap()<410){
+			xScreen=  320+(xMap-player.getXMap());
 		}
-		if(playerYMAP>240 && playerYMAP<814){
-			yScreen= 240+(yMap-playerYMAP);
+		if(player.getYMap()>240 && player.getYMap()<814){
+			yScreen= 240+(yMap-player.getYMap());
 		}
-		at.translate(xScreen, yScreen);		
-		at.rotate(Math.atan2(playerYScreen-yScreen,playerXScreen-xScreen)+1.5,14.5,17);
+		at.translate(xScreen, yScreen);
+		if(visionRange()){
+			at.rotate(Math.atan2(player.getYScreen()-yScreen,player.getXScreen()-xScreen)+1.5,14.5,17);
+		}else{
+			at.rotate(Math.atan2(0-yScreen,310-xScreen)+1.5,14.5,17);
+		}
 		g.drawImage(camminata.getImage(),at , null);
 	}
-		
+
 }

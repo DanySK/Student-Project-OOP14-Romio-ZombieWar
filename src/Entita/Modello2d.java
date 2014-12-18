@@ -1,5 +1,6 @@
 package Entita;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -38,6 +39,7 @@ public class Modello2d {
 		}
 		return sprite;
 	}
+	
 	public void setCamminata(BufferedImage sprite, int width, int height){
 		/*Ritaglio i frame dallo sprite*/
 		BufferedImage[] tmp = new BufferedImage[sprite.getWidth()/height];
@@ -50,6 +52,16 @@ public class Modello2d {
 		camminata.calculateDefaultDelay();
 		
 	}
+	public boolean intesects(Modello2d o){
+		Rectangle r1 = getRectangle();
+		Rectangle r2 = o.getRectangle();
+		return r1.intersects(r2);
+	}
+	
+	public Rectangle getRectangle(){
+		return new Rectangle((int)xMap,(int)yMap,width,height);
+	}
+	
 	public double getXScreen(){ return xScreen; }
 	public double getYScreen(){ return yScreen; }
 	public double getXMap(){ return xMap; }

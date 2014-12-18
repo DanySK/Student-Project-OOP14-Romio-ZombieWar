@@ -104,8 +104,8 @@ public class Player extends Modello2d {
 	}
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
-		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-this.yScreen,
-				MouseInfo.getPointerInfo().getLocation().getX()-this.xScreen)-Math.PI/2;
+		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-(this.yScreen+height/2),
+				MouseInfo.getPointerInfo().getLocation().getX()-(this.xScreen+width/2))-Math.PI/2;
 	}
 
 	public void update(){

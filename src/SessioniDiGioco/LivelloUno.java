@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 import Entita.Arma;
+import Entita.Base;
 import Entita.Mappa;
 import Entita.Player;
 import Entita.ZombieMom;
@@ -17,10 +18,8 @@ public class LivelloUno extends SessioneDiGioco{
 	Arma[] armi = new Arma [2];
 	/*Zombie*/
 	ZombieMom zombie;
-	/*Update thread*/
-	Thread updater;
-	/*Drawing thread*/
-	Thread malaria;
+	/*Bse da difendere*/
+	Base base;
 	public LivelloUno(){
 		this.init();
 	}
@@ -28,12 +27,14 @@ public class LivelloUno extends SessioneDiGioco{
 	public void init(){
 		/*Inizializziamo la mappa*/
 		mappa = new Mappa("/backgrounds/map.png");
+		/*Inizializziamo la base*/
+		base = Base.getIstance();
 		/*Inizializziamo il giocatore*/
 		player = Player.getIstance();
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		zombie = new ZombieMom(10,10);		
+		zombie = new ZombieMom(0,0,player,base);	
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
@@ -49,7 +50,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Imponiamo l'update al giocatore*/
 		player.update();
 		/*Imponiamo l'update allo zombie*/
-		zombie.update(player.getXScreen(),player.getYScreen(),player.getXMap(), player.getYMap());
+		zombie.update();
 	}
 	@Override
 	public void draw(Graphics2D g){
