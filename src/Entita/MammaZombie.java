@@ -3,19 +3,16 @@ package Entita;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 
-public class ZombieMom extends Modello2d{
-	/*Immagine dello zombie*/
-	BufferedImage zombie;
+public class MammaZombie extends Modello2d{
 	/*Varibile che controlla se il player è nel range dello zombie*/
 	boolean range;
 	//player
-	Player player;	
+	Giocatore player;	
 	//Base
 	Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
-	public ZombieMom(int xSpawn, int ySpawn,Player player,Base base) {
+	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
 		this.xMap=xSpawn;
 		this.yMap=ySpawn;
@@ -25,15 +22,15 @@ public class ZombieMom extends Modello2d{
 	}
 	public void init(){
 		/*Carichiamo l'immagine dello zombie*/
-		this.zombie=setSprite("/sprites/zombieMom.png");
+		this.sprite=setSprite("/sprites/zombieMom.png");
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
 		xMap=yMap=0;
 		xScreen=yScreen=0;
 		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
-		this.width= zombie.getWidth()/4;
-		this.height= zombie.getHeight();
+		this.width= sprite.getWidth()/4;
+		this.height= sprite.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setCamminata(zombie, width, height);
+		this.setCamminata(sprite, width, height);
 	
 	}
 	public boolean visionRange() {

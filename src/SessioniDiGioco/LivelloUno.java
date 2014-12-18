@@ -6,18 +6,18 @@ import java.awt.event.KeyEvent;
 import Entita.Arma;
 import Entita.Base;
 import Entita.Mappa;
-import Entita.Player;
-import Entita.ZombieMom;
+import Entita.Giocatore;
+import Entita.MammaZombie;
 
 public class LivelloUno extends SessioneDiGioco{
 	/*Un giocatore*/
-	Player player;
+	Giocatore player;
 	/*Una mappa*/
 	Mappa mappa;
 	/*Vettore contenenti le armi*/
 	Arma[] armi = new Arma [2];
 	/*Zombie*/
-	ZombieMom zombie;
+	MammaZombie zombie;
 	/*Bse da difendere*/
 	Base base;
 	public LivelloUno(){
@@ -30,11 +30,11 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo la base*/
 		base = Base.getIstance();
 		/*Inizializziamo il giocatore*/
-		player = Player.getIstance();
+		player = Giocatore.getIstance();
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		zombie = new ZombieMom(0,0,player,base);	
+		zombie = new MammaZombie(0,0,player,base);	
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
