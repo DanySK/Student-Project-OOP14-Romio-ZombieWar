@@ -20,6 +20,9 @@ public class LivelloUno extends SessioneDiGioco{
 	MammaZombie zombie;
 	/*Bse da difendere*/
 	Base base;
+	/*Thread dello zombie*/
+	Thread t;
+	ZombieThread zt;
 	public LivelloUno(){
 		this.init();
 	}
@@ -34,7 +37,11 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		zombie = new MammaZombie(0,0,g,base);	
+		zombie = new MammaZombie(0,0,g,base);
+		/*Inizializziamo il thread per lo zombie*/
+		zt = new ZombieThread(zombie);
+		t = new Thread(zt);
+		t.start();
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
@@ -50,7 +57,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Imponiamo l'update al giocatore*/
 		g.update();
 		/*Imponiamo l'update allo zombie*/
-		zombie.update();
+		//zombie.update();
 	}
 	@Override
 	public void draw(Graphics2D grafica){
@@ -65,10 +72,10 @@ public class LivelloUno extends SessioneDiGioco{
 	public void keyPressed(int k){
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
-			case(KeyEvent.VK_A): g.setLeft(true);break;
-			case(KeyEvent.VK_D): g.setRight(true);break;
-			case(KeyEvent.VK_W): g.setUp(true);break;
-			case(KeyEvent.VK_S): g.setDown(true);break;
+		case(KeyEvent.VK_A): g.setLeft(true);break;
+		case(KeyEvent.VK_D): g.setRight(true);break;
+		case(KeyEvent.VK_W): g.setUp(true);break;
+		case(KeyEvent.VK_S): g.setDown(true);break;
 		}
 	}
 	@Override
@@ -80,10 +87,10 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_W): g.setUp(false);break;
 		case(KeyEvent.VK_S): g.setDown(false);break;
 		default: break;
-	}
+		}
 	}
 	@Override
 	public void mouseClicked(){
-		
+
 	}	
 }

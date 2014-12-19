@@ -12,7 +12,7 @@ public class Giocatore extends Modello2d {
 	BufferedImage player;
 	Arma[]arsenale;
 	Arma armacorrente;
-	
+
 	private Giocatore(){
 		this.init();
 	}
@@ -28,37 +28,37 @@ public class Giocatore extends Modello2d {
 		}
 		return giocatore;		
 	}
-	
+
 	public void init(){
 		/*Carichiamo l'immagine del nostro personaggio*/
 		this.player=setSprite("/sprites/avion2.png");
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
-		xMap=yMap=0;
-		xScreen=yScreen=0;
+		xMap=yMap=50;
+		xScreen=yScreen=50;
 		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
 		this.width= player.getWidth()/5;
 		this.height= player.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
 		this.setCamminata(player, width, height);		
 	}
-	
+
 	/*Metodi per il movimento*/
 	public void setLeft(boolean value){
 		left = (value == true) ? true : false;
 	}
-	
+
 	public void setRight(boolean value){
 		right = (value == true) ? true : false;
 	}
-	
+
 	public void setUp(boolean value){
 		up = (value == true) ? true : false;
 	}
-	
+
 	public void setDown(boolean value){
 		down = (value == true) ? true : false;
 	}
-	
+
 	public void calcolaPosizione(){
 		//MOVIMENTI
 		if (left){ 
@@ -94,7 +94,7 @@ public class Giocatore extends Modello2d {
 				yScreen += 2;
 				yMap +=2;
 				if(yMap>bottomy-width) {yMap = bottomy-width; }
-		    }
+			}
 			else{ yMap +=2;	}
 		}
 	}
@@ -116,7 +116,7 @@ public class Giocatore extends Modello2d {
 		}
 		this.calcolaRotazione();
 	}
-	
+
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
 		at.translate(xScreen, yScreen);
@@ -131,5 +131,5 @@ public class Giocatore extends Modello2d {
 		g.drawImage(armacorrente.getImage(),gun,null);
 
 	}
-	
+
 }
