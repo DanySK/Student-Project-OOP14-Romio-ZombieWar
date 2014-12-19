@@ -33,6 +33,7 @@ public class MammaZombie extends Modello2d{
 		this.setCamminata(sprite, width, height);
 	
 	}
+	/*Controlla se il giocatore è nel raggio di visione del giocatore*/
 	public boolean visionRange() {
 		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
 		if(vision.intersects(player.getRectangle())){
@@ -83,8 +84,10 @@ public class MammaZombie extends Modello2d{
 		}
 		at.translate(xScreen, yScreen);
 		if(visionRange()){
+			/*Girato verso il giocatore*/
 			at.rotate(Math.atan2(player.getYScreen()-yScreen,player.getXScreen()-xScreen)+1.5,14.5,17);
 		}else{
+			/*Girato verso la base*/
 			at.rotate(Math.atan2(0-yScreen,310-xScreen)+1.5,14.5,17);
 		}
 		g.drawImage(camminata.getImage(),at , null);

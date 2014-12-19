@@ -11,7 +11,7 @@ import Entita.MammaZombie;
 
 public class LivelloUno extends SessioneDiGioco{
 	/*Un giocatore*/
-	Giocatore player;
+	Giocatore g;
 	/*Una mappa*/
 	Mappa mappa;
 	/*Vettore contenenti le armi*/
@@ -30,55 +30,55 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo la base*/
 		base = Base.getIstance();
 		/*Inizializziamo il giocatore*/
-		player = Giocatore.getIstance();
+		g = Giocatore.getIstance();
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		zombie = new MammaZombie(0,0,player,base);	
+		zombie = new MammaZombie(0,0,g,base);	
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
 		armi[0].setTRANSFORM(10, 20, 1.6,0,-20,25);	
 		armi[1]=new Arma("ak47", 4, 30, true);
 		armi[1].setTRANSFORM(7, 14, 1.3,-0.3,-8,40);
-		player.setWeapons(armi);
+		g.setWeapons(armi);
 	}
 	@Override
 	public void update(){
 		/*Spostiamo la posizione della mappa*/
-		mappa.update(player.getXMap(), player.getYMap());
+		mappa.update(g.getXMap(), g.getYMap());
 		/*Imponiamo l'update al giocatore*/
-		player.update();
+		g.update();
 		/*Imponiamo l'update allo zombie*/
 		zombie.update();
 	}
 	@Override
-	public void draw(Graphics2D g){
+	public void draw(Graphics2D grafica){
 		/*Disegniamo la mappa*/
-		mappa.draw(g);
+		mappa.draw(grafica);
 		/*Disegniamo il giocatore*/
-		player.draw(g);
+		g.draw(grafica);
 		/*Disegniamo lo zombie*/
-		zombie.draw(g);
+		zombie.draw(grafica);
 	}
 	@Override
 	public void keyPressed(int k){
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
-			case(KeyEvent.VK_A): player.setLeft(true);break;
-			case(KeyEvent.VK_D): player.setRight(true);break;
-			case(KeyEvent.VK_W): player.setUp(true);break;
-			case(KeyEvent.VK_S): player.setDown(true);break;
+			case(KeyEvent.VK_A): g.setLeft(true);break;
+			case(KeyEvent.VK_D): g.setRight(true);break;
+			case(KeyEvent.VK_W): g.setUp(true);break;
+			case(KeyEvent.VK_S): g.setDown(true);break;
 		}
 	}
 	@Override
 	public void keyReleased(int k){
 		/*Imponiamo al personaggio di stare fermo*/
 		switch(k){
-		case(KeyEvent.VK_A): player.setLeft(false);break;
-		case(KeyEvent.VK_D): player.setRight(false);break;
-		case(KeyEvent.VK_W): player.setUp(false);break;
-		case(KeyEvent.VK_S): player.setDown(false);break;
+		case(KeyEvent.VK_A): g.setLeft(false);break;
+		case(KeyEvent.VK_D): g.setRight(false);break;
+		case(KeyEvent.VK_W): g.setUp(false);break;
+		case(KeyEvent.VK_S): g.setDown(false);break;
 		default: break;
 	}
 	}
