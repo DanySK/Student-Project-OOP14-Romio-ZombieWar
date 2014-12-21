@@ -14,8 +14,8 @@ public class MammaZombie extends Modello2d{
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
-		this.xMap=xSpawn;
-		this.yMap=ySpawn;
+		this.xMap=this.xScreen=xSpawn;
+		this.yMap=this.yScreen=ySpawn;
 		this.player = player;
 		this.base = base;
 		this.init();
@@ -23,9 +23,6 @@ public class MammaZombie extends Modello2d{
 	public void init(){
 		/*Carichiamo l'immagine dello zombie*/
 		this.sprite=setSprite("/sprites/zombieMom.png");
-		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
-		xMap=yMap=0;
-		xScreen=yScreen=0;
 		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
 		this.width= sprite.getWidth()/4;
 		this.height= sprite.getHeight();

@@ -29,8 +29,8 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	private long targetTime = 1000/FPS;
 	/*Controller di Sessione*/
 	private ControllerDiSessione cds;
-	
-	public PannelloDiGioco(){
+	private static PannelloDiGioco p;
+	private PannelloDiGioco(){
 		super();
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
 		/*Per utilizzare il keyListener dobbiamo imporre il requestFocus al nostro JPanel*/
@@ -45,6 +45,12 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			addMouseListener(this);
 			gameThread.start();
 		}				
+	}
+	public static PannelloDiGioco getIstanceof(){
+		if(PannelloDiGioco.p == null){
+			p = new PannelloDiGioco();
+		}
+		return p;
 	}
 	
 	private void init(){
@@ -72,6 +78,9 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,WIDTH,HEIGHT, null);
 		g2.dispose();
+	}
+	public Graphics2D getgraphics(){
+		return g;
 	}
 		
 	@Override

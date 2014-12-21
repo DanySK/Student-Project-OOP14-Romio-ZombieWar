@@ -2,6 +2,9 @@ package SessioniDiGioco;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import Entita.Arma;
 import Entita.Base;
@@ -17,7 +20,7 @@ public class LivelloUno extends SessioneDiGioco{
 	/*Vettore contenenti le armi*/
 	Arma[] armi = new Arma [2];
 	/*Zombie*/
-	MammaZombie zombie;
+	List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
 	/*Bse da difendere*/
 	Base base;
 	/*Thread dello zombie*/
@@ -37,9 +40,11 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		zombie = new MammaZombie(0,0,g,base);
+		for(int i =0; i <1; i++){
+			list.add(new MammaZombie(0+i*50,0,g,base));
+		}		
 		/*Inizializziamo il thread per lo zombie*/
-		zt = new ZombieThread(zombie);
+		zt = new ZombieThread(list);
 		t = new Thread(zt);
 		t.start();
 	}
@@ -66,7 +71,13 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Disegniamo il giocatore*/
 		g.draw(grafica);
 		/*Disegniamo lo zombie*/
-		zombie.draw(grafica);
+		synchronized (list) {
+			for(int i = 0; i<list.size();i++)
+			{
+				list.get(i).draw(grafica);			
+			}
+		}
+		
 	}
 	@Override
 	public void keyPressed(int k){
