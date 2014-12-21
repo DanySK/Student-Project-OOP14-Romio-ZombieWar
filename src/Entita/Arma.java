@@ -8,7 +8,7 @@ public class Arma {
 	private String nome;
 	private int danno;
 	private int colpi;
-	private int capacità;
+	private int capacita;
 	private BufferedImage image;
 	private boolean reloading;
 	private boolean automatica;
@@ -21,10 +21,10 @@ public class Arma {
 	public int xMUZZLETRANSLATE;
 	public int YMUZZLETRANSLATE;
 	
-	public Arma(String nome,int danno, int capacità,boolean automatica){
+	public Arma(String nome,int danno, int capacita,boolean automatica){
 		this.nome=nome;
 		this.danno=danno;
-		this.colpi=this.capacità=capacità;
+		this.colpi=this.capacita=capacita;
 		this.automatica = automatica;
 		/*Carichiamo l'immagine*/
 		try {
