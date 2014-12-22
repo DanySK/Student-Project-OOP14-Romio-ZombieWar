@@ -40,7 +40,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		for(int i =0; i <1; i++){
+		for(int i =0; i <10; i++){
 			list.add(new MammaZombie(0+i*50,0,g,base));
 		}		
 		/*Inizializziamo il thread per lo zombie*/
@@ -71,13 +71,11 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Disegniamo il giocatore*/
 		g.draw(grafica);
 		/*Disegniamo lo zombie*/
-		synchronized (list) {
-			for(int i = 0; i<list.size();i++)
-			{
-				list.get(i).draw(grafica);			
+		for(int i = 0;i<10;i++){
+			synchronized (list) {
+				list.get(i).draw(grafica);
 			}
 		}
-		
 	}
 	@Override
 	public void keyPressed(int k){
