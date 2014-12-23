@@ -1,12 +1,13 @@
 package Entita;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Modello2d {
+public abstract class Modello2d {
 	//Coordinate nella finestra
 	double xScreen,yScreen;
 	//Coordinate nella mappa
@@ -29,7 +30,7 @@ public class Modello2d {
 	static final int rightx=720;
 	static final int topy=0;
 	static final int bottomy=1054;
-	
+
 
 	public BufferedImage setSprite(String path){
 		try {
@@ -39,7 +40,7 @@ public class Modello2d {
 		}
 		return sprite;
 	}
-	
+
 	public void setCamminata(BufferedImage sprite, int width, int height){
 		/*Ritaglio i frame dallo sprite*/
 		BufferedImage[] tmp = new BufferedImage[sprite.getWidth()/height];
@@ -50,18 +51,20 @@ public class Modello2d {
 		/*Imposto l'animazione della camminata*/
 		camminata= new Animazione(tmp);
 		camminata.calculateDefaultDelay();
-		
+
 	}
 	public boolean intesects(Modello2d o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
 	}
-	
+
 	public Rectangle getRectangle(){
 		return new Rectangle((int)xMap,(int)yMap,width,height);
 	}
-	
+	public abstract void update();
+	public abstract void draw(Graphics2D g);
+
 	public double getXScreen(){ return xScreen; }
 	public double getYScreen(){ return yScreen; }
 	public double getXMap(){ return xMap; }

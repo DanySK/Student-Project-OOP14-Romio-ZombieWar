@@ -14,7 +14,7 @@ public class Mappa{
 	/*Coordinate per calcolare la traiettoria del personaggio*/
 	double previous_Yposition=0;
 	double previous_Xposition=0;
-	
+
 	public Mappa(String path){
 		try {
 			mappa = ImageIO.read(getClass().getResourceAsStream(path));
@@ -22,7 +22,7 @@ public class Mappa{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void update(double d,double e){
 		/*Dobbiamo seguire il personaggio con la nostra camera, noi muoviamo la mappa sotto*/
 		if(d>320 && d<410 && previous_Xposition<=this.camerax){
@@ -46,9 +46,9 @@ public class Mappa{
 			previous_Yposition=this.cameray;			
 		}
 	}
-	
+
 	public void draw(Graphics2D g){
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}
-	
+
 }

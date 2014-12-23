@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 public class MammaZombie extends Modello2d{
-	/*Varibile che controlla se il player è nel range dello zombie*/
+	/*Varibile che controlla se il player ï¿½ nel range dello zombie*/
 	boolean range;
 	//player
 	Giocatore player;	
@@ -30,7 +30,7 @@ public class MammaZombie extends Modello2d{
 		this.setCamminata(sprite, width, height);
 	
 	}
-	/*Controlla se il giocatore è nel raggio di visione del giocatore*/
+	/*Controlla se il giocatore ï¿½ nel raggio di visione del giocatore*/
 	public boolean visionRange() {
 		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
 		if(vision.intersects(player.getRectangle())){
@@ -72,7 +72,7 @@ public class MammaZombie extends Modello2d{
 	}
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
-		//Disegniamo lo zombie solo se è nel campo di visibilità del giocatore
+		//Disegniamo lo zombie solo se ï¿½ nel campo di visibilitï¿½ del giocatore
 		if(player.getXMap()>320 && player.getXMap()<410){
 			xScreen=  320+(xMap-player.getXMap());
 		}
@@ -85,9 +85,14 @@ public class MammaZombie extends Modello2d{
 			at.rotate(Math.atan2(player.getYScreen()-yScreen,player.getXScreen()-xScreen)+1.5,14.5,17);
 		}else{
 			/*Girato verso la base*/
-			at.rotate(Math.atan2(0-yScreen,310-xScreen)+1.5,14.5,17);
+			at.rotate(Math.atan2(0-yMap,310-xMap)+1.5,14.5,17);
 		}
-		g.drawImage(camminata.getImage(),at , null);
+		try{
+			g.drawImage(camminata.getImage(),at , null);
+		}
+		catch(IndexOutOfBoundsException e){
+			return;
+		}
 	}
 
 }

@@ -10,5 +10,4 @@ public abstract class SessioneDiGioco {
 	public abstract void keyPressed(int k);
 	public abstract void keyReleased(int k);
 	public abstract void mouseClicked();
-
 }

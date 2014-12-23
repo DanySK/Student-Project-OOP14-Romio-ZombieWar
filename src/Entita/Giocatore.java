@@ -6,12 +6,16 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Giocatore extends Modello2d {
-	//Vogliamo che all'interno del gioco venga creata un'unica entità player
+	//Vogliamo che all'interno del gioco venga creata un'unica entitï¿½ player
 	private static Giocatore giocatore;
 	//Sprite del personaggio
 	BufferedImage player;
 	Arma[]arsenale;
 	Arma armacorrente;
+	//Sparo
+	private boolean reloading;
+	private long startTime;
+	private boolean shooting;
 
 	private Giocatore(){
 		this.init();
@@ -100,7 +104,7 @@ public class Giocatore extends Modello2d {
 	}
 	public void setWeapons(Arma[]arsenale){
 		this.arsenale=arsenale;
-		armacorrente=this.arsenale[0];
+		armacorrente=this.arsenale[1];
 	}
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
@@ -109,6 +113,9 @@ public class Giocatore extends Modello2d {
 	}
 
 	public void update(){
+		if(reloading){
+			this.reload();
+		}
 		/*Se comandiamo al personaggio di spostarsi eseguiamo questa routine*/
 		if(left||right||up||down){
 			camminata.update();
@@ -130,6 +137,20 @@ public class Giocatore extends Modello2d {
 		gun.translate(armacorrente.xTRANSLATE,armacorrente.yTRANSLATE);
 		g.drawImage(armacorrente.getImage(),gun,null);
 
+	}
+	public boolean shoot(){
+		if(armacorrente.shoot()>0){
+			reloading=false;
+			return true;
+		}else
+		{	
+			this.reload();
+			return false;
+		}
+	}
+	private void reload(){
+		this.reloading = true;
+		armacorrente.reload();
 	}
 
 }

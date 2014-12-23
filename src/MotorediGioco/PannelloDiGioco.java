@@ -97,7 +97,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			elapsed = System.currentTimeMillis() - start;
 			/*Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni*/
 			wait = targetTime - elapsed;
-			if(wait < 0) wait =0;
+			if(wait < 0) wait =5;
 			try {
 				Thread.sleep(wait);
 			} catch (InterruptedException e) {

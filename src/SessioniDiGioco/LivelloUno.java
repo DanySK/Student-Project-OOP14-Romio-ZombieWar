@@ -1,31 +1,41 @@
 package SessioniDiGioco;
 
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+
+import javax.sql.rowset.spi.SyncResolver;
 
 import Entita.Arma;
 import Entita.Base;
 import Entita.Mappa;
 import Entita.Giocatore;
 import Entita.MammaZombie;
+import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
 	/*Un giocatore*/
-	Giocatore g;
+	private Giocatore g;
 	/*Una mappa*/
-	Mappa mappa;
+	private Mappa mappa;
 	/*Vettore contenenti le armi*/
-	Arma[] armi = new Arma [2];
+	private Arma[] armi = new Arma [2];
 	/*Zombie*/
-	List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
+	private List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
+	private static final int NUMZOMBIE = 20;
 	/*Bse da difendere*/
-	Base base;
+	private Base base;
 	/*Thread dello zombie*/
-	Thread t;
-	ZombieThread zt;
+	private Thread t;
+	private ZombieThread zt;
+	private Thread p;
+	private ProiettileThread pt;
+	/*Proiettili*/
+	private List<Proiettile> proiettili = Collections.synchronizedList(new ArrayList<Proiettile>());
 	public LivelloUno(){
 		this.init();
 	}
@@ -40,13 +50,19 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
-		for(int i =0; i <10; i++){
-			list.add(new MammaZombie(0+i*50,0,g,base));
+		for(int i =0; i <NUMZOMBIE; i++){
+			Random rn = new Random();
+			int n = 400;
+			int j = (rn.nextInt() % n)+100;
+			list.add(new MammaZombie(j,800,g,base));
 		}		
 		/*Inizializziamo il thread per lo zombie*/
-		zt = new ZombieThread(list);
+		zt = new ZombieThread(list,30);
 		t = new Thread(zt);
 		t.start();
+		pt = new ProiettileThread(proiettili, 20);
+		p = new Thread(pt);
+		p.start();
 	}
 	private void weaponInit(){
 		armi[0]=new Arma("glock21", 2, 15, false);
@@ -60,9 +76,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(g.getXMap(), g.getYMap());
 		/*Imponiamo l'update al giocatore*/
-		g.update();
-		/*Imponiamo l'update allo zombie*/
-		//zombie.update();
+		g.update();		
 	}
 	@Override
 	public void draw(Graphics2D grafica){
@@ -70,11 +84,17 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa.draw(grafica);
 		/*Disegniamo il giocatore*/
 		g.draw(grafica);
-		/*Disegniamo lo zombie*/
-		for(int i = 0;i<10;i++){
+		/*Disegniamo gli zombie*/
+		for(int i = 0;i<NUMZOMBIE;i++){
 			synchronized (list) {
 				list.get(i).draw(grafica);
 			}
+		}
+		/*Disegniamo i proiettili*/
+		for(int i =0; i<proiettili.size();i++){
+			synchronized (proiettili) {
+				proiettili.get(i).draw(grafica);	
+			}			
 		}
 	}
 	@Override
@@ -100,6 +120,14 @@ public class LivelloUno extends SessioneDiGioco{
 	}
 	@Override
 	public void mouseClicked(){
-
+		if(g.shoot()){	
+			//TODO!!!!			
+			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x;
+			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y;
+			synchronized (proiettili) {
+				proiettili.add(new Proiettile(g,(int)xMOUSE,(int)yMOUSE));
+			}			
+		}
+		
 	}	
 }

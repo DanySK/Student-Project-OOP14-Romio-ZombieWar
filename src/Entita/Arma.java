@@ -20,7 +20,7 @@ public class Arma {
 	public double muzzle_rotation;
 	public int xMUZZLETRANSLATE;
 	public int YMUZZLETRANSLATE;
-	
+
 	public Arma(String nome,int danno, int capacita,boolean automatica){
 		this.nome=nome;
 		this.danno=danno;
@@ -43,10 +43,26 @@ public class Arma {
 		YMUZZLETRANSLATE=YMUZZLE;
 	}
 	public int shoot(){
-		return 0;
+		if(this.colpi>0){
+			this.reloading=false;
+			this.colpi--;
+			System.out.println(""+this.colpi);
+		}
+		return this.colpi;
 	}
 	public void reload(){
-		
+		if(!reloading){
+			this.start= System.currentTimeMillis();
+			reloading =true;
+		}
+		if(reloading){
+			if((end=System.currentTimeMillis())>(start+1500))
+			{
+				//ha finito di caricare
+				this.colpi=capacita;
+				reloading = false;
+			}
+		}
 	}
 	public BufferedImage getImage(){
 		return this.image;

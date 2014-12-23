@@ -20,7 +20,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 	private Font font;
 	private Color defaultColor;
 	private Color choiceColor;
-	
+
 	public MenuPrincipale(ControllerDiSessione cds){
 		this.cds=cds;
 		this.init();		
@@ -40,14 +40,14 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}
 	@Override
 	public void update(){
-		
+
 	}
 	@Override
 	public void draw(Graphics2D g){
 		/*Disegno l'immagine di sfondo*/
 		g.drawImage(background,0,0,null);
 		g.setFont(font);
-		/*Il colore della scelta è rosso, quello di default è nero*/
+		/*Il colore della scelta ï¿½ rosso, quello di default ï¿½ nero*/
 		for(int i = 0; i<scelta.length; i++){
 			if(currentChoice==i){
 				g.setColor(choiceColor);				
@@ -57,17 +57,17 @@ public class MenuPrincipale extends SessioneDiGioco{
 			}
 			g.drawString(scelta[i], 280, 200+i*50);
 		}
-		
+
 	}
 	private void select(){
 		switch(currentChoice){
-			case 0:{ 
-				this.cds.aggiungiSessione(new LivelloUno());
-				this.cds.setState(ControllerDiSessione.LIVELLO1);
-				break;
-			}
-			case 1: //about
-			case 2: System.exit(0);break;
+		case 0:{ 
+			this.cds.aggiungiSessione(new LivelloUno());
+			this.cds.setState(ControllerDiSessione.LIVELLO1);
+			break;
+		}
+		case 1: //about
+		case 2: System.exit(0);break;
 		}
 	}
 	@Override
@@ -90,10 +90,10 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}	
 	@Override
 	public void keyReleased(int k){
-		
+
 	}
 	@Override
 	public void mouseClicked() {	
-		
+
 	}
 }

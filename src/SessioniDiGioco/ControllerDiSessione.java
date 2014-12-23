@@ -6,14 +6,14 @@ import java.util.ArrayList;
 public class ControllerDiSessione {	
 	private ArrayList<SessioneDiGioco> sessioni;
 	private int sessioneCorrente;
-	
+
 	public static final int MENU=0;	
 	public static final int SELEZIONEPERSONAGGIO=1;
 	public static final int LIVELLO1=2;
-		
+
 	public ControllerDiSessione(){		
 		sessioni = new ArrayList<SessioneDiGioco>();
-		
+
 		sessioneCorrente= MENU;
 		sessioni.add(new MenuPrincipale(this));	
 		sessioni.add(new SelezionePersonaggio(this));
