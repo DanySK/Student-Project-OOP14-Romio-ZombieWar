@@ -7,13 +7,13 @@ import javax.imageio.ImageIO;
 
 public class Proiettile extends Modello2d {
 	private double rapporto;
-	public Proiettile(Giocatore g,int xCursore,int yCursore){
+	public Proiettile(Giocatore g,double xCursore,double yCursore){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		rapporto = Math.atan2((yCursore-(g.getYScreen()+g.height/2)),(xCursore-(g.getXScreen()+g.width/2)));
+		rapporto = Math.atan2(yCursore-(g.getYScreen()+g.height/2),(xCursore-(g.getXScreen()+g.width/2)));
 		this.xScreen = g.getXScreen()+g.width/2;
 		this.yScreen = g.getYScreen()+g.height/2;
 	}

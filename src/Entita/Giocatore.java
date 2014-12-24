@@ -4,6 +4,9 @@ import java.awt.Graphics2D;
 import java.awt.MouseInfo;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class Giocatore extends Modello2d {
 	//Vogliamo che all'interno del gioco venga creata un'unica entit� player
@@ -16,6 +19,7 @@ public class Giocatore extends Modello2d {
 	private boolean reloading;
 	private long startTime;
 	private boolean shooting;
+	private BufferedImage crosshair;
 
 	private Giocatore(){
 		this.init();
@@ -34,6 +38,13 @@ public class Giocatore extends Modello2d {
 	}
 
 	public void init(){
+		/*Cambiamo l'immagine del puntatore*/
+		try {
+			this.crosshair = ImageIO.read(getClass().getResourceAsStream("/sprites/cross.png"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		/*Carichiamo l'immagine del nostro personaggio*/
 		this.player=setSprite("/sprites/avion2.png");
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
@@ -136,6 +147,8 @@ public class Giocatore extends Modello2d {
 		gun.scale(0.8,0.8);
 		gun.translate(armacorrente.xTRANSLATE,armacorrente.yTRANSLATE);
 		g.drawImage(armacorrente.getImage(),gun,null);
+		/*Disegna mirino*/
+		g.drawImage(crosshair,MouseInfo.getPointerInfo().getLocation().x,MouseInfo.getPointerInfo().getLocation().y,null);
 
 	}
 	public boolean shoot(){

@@ -16,8 +16,12 @@ public class ProiettileThread extends UpdateThread {
 				synchronized (list) {
 					for(int i=0;i<list.size();i++){
 						if(((Modello2d) list.get(i)).getXScreen()>640||((Modello2d) list.get(i)).getXScreen()<0||((Modello2d) list.get(i)).getYScreen()>480||((Modello2d) list.get(i)).getYScreen()<0)
+						{
 							list.remove(i);
-						((Proiettile) list.get(i)).update();			
+						}
+						else{
+							((Proiettile) list.get(i)).update();			
+						}
 					}
 				}try {
 					Thread.sleep(waiting);

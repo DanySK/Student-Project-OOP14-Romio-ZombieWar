@@ -8,8 +8,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import javax.sql.rowset.spi.SyncResolver;
-
 import Entita.Arma;
 import Entita.Base;
 import Entita.Mappa;
@@ -122,10 +120,10 @@ public class LivelloUno extends SessioneDiGioco{
 	public void mouseClicked(){
 		if(g.shoot()){	
 			//TODO!!!!			
-			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x;
-			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y;
+			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x+15*Math.random();
+			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y+15*Math.random();
 			synchronized (proiettili) {
-				proiettili.add(new Proiettile(g,(int)xMOUSE,(int)yMOUSE));
+				proiettili.add(new Proiettile(g,xMOUSE,yMOUSE));
 			}			
 		}
 		
