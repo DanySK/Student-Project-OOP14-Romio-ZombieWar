@@ -5,6 +5,7 @@ import java.awt.MouseInfo;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -13,8 +14,8 @@ public class Giocatore extends Modello2d {
 	private static Giocatore giocatore;
 	//Sprite del personaggio
 	BufferedImage player;
-	Arma[]arsenale;
-	Arma armacorrente;
+	ArmaImpl[]arsenale;
+	ArmaImpl armacorrente;
 	//Sparo
 	private boolean reloading;
 	private long startTime;
@@ -113,9 +114,9 @@ public class Giocatore extends Modello2d {
 			else{ yMap +=2;	}
 		}
 	}
-	public void setWeapons(Arma[]arsenale){
+	public void setWeapons(ArmaImpl[]arsenale){
 		this.arsenale=arsenale;
-		armacorrente=this.arsenale[1];
+		armacorrente=this.arsenale[2];
 	}
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
@@ -145,14 +146,14 @@ public class Giocatore extends Modello2d {
 		//draw GUN
 		AffineTransform gun =new AffineTransform(at);	
 		gun.scale(0.8,0.8);
-		gun.translate(armacorrente.xTRANSLATE,armacorrente.yTRANSLATE);
+		gun.translate(armacorrente.getX(),armacorrente.getY());
 		g.drawImage(armacorrente.getImage(),gun,null);
 		/*Disegna mirino*/
 		g.drawImage(crosshair,MouseInfo.getPointerInfo().getLocation().x,MouseInfo.getPointerInfo().getLocation().y,null);
 
 	}
-	public boolean shoot(){
-		if(armacorrente.shoot()>0){
+	public boolean shoot(double xMouse,double yMouse,List<Proiettile>l){
+		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
 			reloading=false;
 			return true;
 		}else

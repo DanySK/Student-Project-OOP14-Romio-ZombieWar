@@ -9,10 +9,14 @@ import java.util.List;
 import java.util.Random;
 
 import Entita.Arma;
+import Entita.ArmaImpl;
 import Entita.Base;
+import Entita.Fucile;
 import Entita.Mappa;
 import Entita.Giocatore;
 import Entita.MammaZombie;
+import Entita.Mitra;
+import Entita.Pistola;
 import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
@@ -21,7 +25,7 @@ public class LivelloUno extends SessioneDiGioco{
 	/*Una mappa*/
 	private Mappa mappa;
 	/*Vettore contenenti le armi*/
-	private Arma[] armi = new Arma [2];
+	private ArmaImpl[] armi = new ArmaImpl [3];
 	/*Zombie*/
 	private List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
 	private static final int NUMZOMBIE = 20;
@@ -63,10 +67,10 @@ public class LivelloUno extends SessioneDiGioco{
 		p.start();
 	}
 	private void weaponInit(){
-		armi[0]=new Arma("glock21", 2, 15, false);
-		armi[0].setTRANSFORM(10, 20, 1.6,0,-20,25);	
-		armi[1]=new Arma("ak47", 4, 30, true);
-		armi[1].setTRANSFORM(7, 14, 1.3,-0.3,-8,40);
+		/*TODO!!!!! Inizializzazione dell'arsenale in base al livello*/
+		armi[0] = new Pistola();
+		armi[1] = new Fucile();
+		armi[2] = new Mitra();
 		g.setWeapons(armi);
 	}
 	@Override
@@ -117,15 +121,13 @@ public class LivelloUno extends SessioneDiGioco{
 		}
 	}
 	@Override
-	public void mouseClicked(){
-		if(g.shoot()){	
-			//TODO!!!!			
+	public void mouseClicked(){				
 			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x+15*Math.random();
 			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y+15*Math.random();
 			synchronized (proiettili) {
-				proiettili.add(new Proiettile(g,xMOUSE,yMOUSE));
+				g.shoot(xMOUSE, yMOUSE,proiettili);
 			}			
-		}
+	}
 		
-	}	
+		
 }
