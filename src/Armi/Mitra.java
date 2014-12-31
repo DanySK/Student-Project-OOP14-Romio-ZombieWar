@@ -1,6 +1,9 @@
-package Entita;
+package Armi;
 
 import java.util.List;
+
+import Entita.Giocatore;
+import Entita.Proiettile;
 
 public class Mitra extends ArmaImpl{
 	public Mitra(){

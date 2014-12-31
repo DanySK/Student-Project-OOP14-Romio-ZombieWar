@@ -1,15 +1,19 @@
-package Entita;
+package Armi;
 
 import java.util.List;
 
-public class Pistola extends ArmaImpl {
-	public Pistola(){
-		this.danno = 5;
-		this.caricatore = 15;
-		this.colpi = 15;
-		this.x = 10;
-		this.y = 20;
-		this.setImage("/sprites/glock21.png");
+import Armi.ArmaImpl;
+import Entita.Giocatore;
+import Entita.Proiettile;
+
+public class Fucile extends ArmaImpl {
+	public Fucile(){
+			this.danno = 10;
+			this.caricatore = 30;
+			this.colpi = 30;
+			this.x = 7;
+			this.y = 17;
+			this.setImage("/sprites/ak47.png");
 	}
 	@Override
 	public int shoot(Giocatore g,double xMouse,double yMouse,List<Proiettile>l) {
@@ -22,6 +26,4 @@ public class Pistola extends ArmaImpl {
 		}
 		return this.colpi;
 	}
-
-
 }

@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import Armi.ArmaImpl;
+
 public class Giocatore extends Modello2d {
 	//Vogliamo che all'interno del gioco venga creata un'unica entit� player
 	private static Giocatore giocatore;
@@ -156,8 +158,8 @@ public class Giocatore extends Modello2d {
 		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
 			reloading=false;
 			return true;
-		}else
-		{	
+		}
+		else{	
 			this.reload();
 			return false;
 		}

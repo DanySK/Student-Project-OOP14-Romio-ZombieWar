@@ -1,9 +1,13 @@
-package Entita;
+package Armi;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
+import Entita.Giocatore;
+import Entita.Proiettile;
 
 public class ArmaImpl implements Arma {
 	

@@ -8,15 +8,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import Entita.Arma;
-import Entita.ArmaImpl;
+import Armi.ArmaImpl;
+import Armi.Fucile;
+import Armi.Mitra;
+import Armi.Pistola;
 import Entita.Base;
-import Entita.Fucile;
 import Entita.Mappa;
 import Entita.Giocatore;
 import Entita.MammaZombie;
-import Entita.Mitra;
-import Entita.Pistola;
 import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
@@ -87,17 +86,18 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Disegniamo il giocatore*/
 		g.draw(grafica);
 		/*Disegniamo gli zombie*/
-		for(int i = 0;i<NUMZOMBIE;i++){
-			synchronized (list) {
-				list.get(i).draw(grafica);
-			}
-		}
 		/*Disegniamo i proiettili*/
 		for(int i =0; i<proiettili.size();i++){
 			synchronized (proiettili) {
 				proiettili.get(i).draw(grafica);	
 			}			
 		}
+		for(int i = 0;i<NUMZOMBIE;i++){
+			synchronized (list) {
+				list.get(i).draw(grafica);
+			}
+		}
+	
 	}
 	@Override
 	public void keyPressed(int k){

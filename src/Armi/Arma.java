@@ -1,6 +1,9 @@
-package Entita;
+package Armi;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
+import Entita.Giocatore;
+import Entita.Proiettile;
 
 
 public interface Arma {
