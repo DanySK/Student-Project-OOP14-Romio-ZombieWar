@@ -118,7 +118,7 @@ public class Giocatore extends Modello2d {
 	}
 	public void setWeapons(ArmaImpl[]arsenale){
 		this.arsenale=arsenale;
-		armacorrente=this.arsenale[2];
+		armacorrente=this.arsenale[0];
 	}
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
@@ -167,6 +167,9 @@ public class Giocatore extends Modello2d {
 	private void reload(){
 		this.reloading = true;
 		armacorrente.reload();
+	}
+	public void setGun(int i){
+		armacorrente = this.arsenale[i];
 	}
 
 }

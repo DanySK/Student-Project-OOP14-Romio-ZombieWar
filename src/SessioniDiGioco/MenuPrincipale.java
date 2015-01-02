@@ -96,4 +96,9 @@ public class MenuPrincipale extends SessioneDiGioco{
 	public void mouseClicked() {	
 
 	}
+	@Override
+	public void mouseReleased() {
+		// TODO Auto-generated method stub
+		
+	}
 }

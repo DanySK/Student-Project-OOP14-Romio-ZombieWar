@@ -43,4 +43,7 @@ public class ControllerDiSessione {
 	public void mouseClicked(){
 		sessioni.get(sessioneCorrente).mouseClicked();
 	}
+	public void mouseReleased(){
+		sessioni.get(sessioneCorrente).mouseReleased();
+	}
 }

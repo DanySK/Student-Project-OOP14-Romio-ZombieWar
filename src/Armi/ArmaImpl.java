@@ -6,10 +6,9 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import Entita.Giocatore;
 import Entita.Proiettile;
 
-public class ArmaImpl implements Arma {
+public abstract class ArmaImpl implements Arma {
 	
 	protected int danno;
 	protected int colpi;
@@ -25,12 +24,6 @@ public class ArmaImpl implements Arma {
 	protected int y;
 	/*Lista contenente tutti i colpi attualmente in esecuzione*/
 	protected List<Proiettile> list;
-
-	@Override
-	public int shoot(Giocatore g,double xMouse,double yMouse, List<Proiettile> l) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	@Override
 	public void reload() {

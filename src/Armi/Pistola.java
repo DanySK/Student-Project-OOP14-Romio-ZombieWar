@@ -19,8 +19,8 @@ public class Pistola extends ArmaImpl {
 		if(this.colpi>0){
 			this.reloading=false;
 			/*Aggiungiamo un singolo proiettile*/
-			l.add(new Proiettile(g,xMouse,yMouse));
 			this.colpi--;
+			l.add(new Proiettile(g,xMouse,yMouse));
 			System.out.println(""+this.colpi);
 		}
 		return this.colpi;

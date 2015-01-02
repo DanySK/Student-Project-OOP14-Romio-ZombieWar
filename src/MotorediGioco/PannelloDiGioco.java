@@ -36,16 +36,17 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		/*Per utilizzare il keyListener dobbiamo imporre il requestFocus al nostro JPanel*/
 		setFocusable(true);
 		requestFocus();
-		this.init();
-		/*Inizializziamo il gameThread*/
+		/*Inizializziamo il gameThread*/		
 		if(gameThread== null){
 			gameThread= new Thread(this);
-			/*Aggiungiamo i controlli per le periferiche*/		
+			/*Aggiungiamo i controlli per le periferiche*/	
 			addKeyListener(this);
 			addMouseListener(this);
 			gameThread.start();
-		}				
+		}	
+			
 	}
+	
 	public static PannelloDiGioco getIstanceof(){
 		if(PannelloDiGioco.p == null){
 			p = new PannelloDiGioco();
@@ -90,14 +91,14 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		long elapsed;
 		long wait;
 		while(running){	
-			start = System.currentTimeMillis();
+			start = System.nanoTime();
 			update();
 			draw();
 			drawToScreen();
-			elapsed = System.currentTimeMillis() - start;
+			elapsed = System.nanoTime() - start;
 			/*Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni*/
-			wait = targetTime - elapsed;
-			if(wait < 0) wait =5;
+			wait = targetTime - elapsed/1000000;
+			if(wait < 0) wait =0;
 			try {
 				Thread.sleep(wait);
 			} catch (InterruptedException e) {
@@ -110,7 +111,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	/*MOUSE*/
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		cds.mouseClicked();
+		
 	}
 	
 	@Override
@@ -125,12 +126,12 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	
 	@Override
 	public void mousePressed(MouseEvent e) {
-			
+		cds.mouseClicked();
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
-			
+		cds.mouseReleased();
 	}
 	/*KEYBOARD*/
 	@Override

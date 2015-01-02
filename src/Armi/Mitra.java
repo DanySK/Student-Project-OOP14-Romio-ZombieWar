@@ -19,10 +19,10 @@ public class Mitra extends ArmaImpl{
 		if(this.colpi>0){
 			this.reloading=false;
 			/*Aggiungiamo un singolo proiettile*/
-			l.add(new Proiettile(g,xMouse,yMouse));
-			l.add(new Proiettile(g,xMouse+30,yMouse+30));
-			l.add(new Proiettile(g,xMouse-30,yMouse-30));
 			this.colpi-=3;
+			l.add(new Proiettile(g,xMouse,yMouse));
+			l.add(new Proiettile(g,xMouse+15*Math.random(),yMouse+50*Math.random()));
+			l.add(new Proiettile(g,xMouse-15*Math.random(),yMouse-50*Math.random()));
 			System.out.println(""+this.colpi);
 		}
 		return this.colpi;
