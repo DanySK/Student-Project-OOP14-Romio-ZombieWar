@@ -9,27 +9,29 @@ import javax.imageio.ImageIO;
 
 public abstract class Modello2d {
 	//Coordinate nella finestra
-	double xScreen,yScreen;
+	protected double xScreen,yScreen;
 	//Coordinate nella mappa
-	double xMap,yMap;
+	protected double xMap,yMap;
 	//Dimensioni immagine
-	int width,height;
+	protected int width,height;
 	//Rotazone dell'immagine
-	double rotazione;
+	protected double rotazione;
 	//Immagine
-	BufferedImage sprite;	
+	protected BufferedImage sprite;	
 	//Ciascuno personaggio del nostro gioco ha un'animazione per la camminata
-	Animazione camminata;
+	protected Animazione camminata;
 	//Movimenti
-	boolean left;
-	boolean right;
-	boolean up;
-	boolean down;
+	protected boolean left;
+	protected boolean right;
+	protected boolean up;
+	protected boolean down;
 	//Angoli della mappa nella quale si muove il personaggio
-	static final int leftx=0;
-	static final int rightx=720;
-	static final int topy=0;
-	static final int bottomy=1054;
+	protected static final int leftx=0;
+	protected static final int rightx=720;
+	protected static final int topy=0;
+	protected static final int bottomy=1054;
+	//Campi del personaggio
+	protected int hp;
 
 
 	public BufferedImage setSprite(String path){
@@ -69,4 +71,7 @@ public abstract class Modello2d {
 	public double getYScreen(){ return yScreen; }
 	public double getXMap(){ return xMap; }
 	public double getYMap(){ return yMap; }
+	public Rectangle getCollisionRectangle(){
+		return new Rectangle((int)xScreen,(int)yScreen,width,height);
+	}
 }

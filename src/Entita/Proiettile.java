@@ -1,6 +1,7 @@
 package Entita;
 
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -19,14 +20,17 @@ public class Proiettile extends Modello2d {
 	}
 	public void calcolaPosizione(){
 		/*Calcoliamo la taiettoria del proiettile*/
-		this.xScreen += 5*Math.cos(rapporto);
-		this.yScreen += 5*Math.sin(rapporto);
+		this.xScreen += 10*Math.cos(rapporto);
+		this.yScreen += 10*Math.sin(rapporto);
 	}
 	public void update(){
 		this.calcolaPosizione();
 	}
 	public void draw(Graphics2D g){
 		g.drawImage(sprite,(int)xScreen,(int)yScreen,null);
+	}
+	public Point getPosition(){
+		return new Point((int)xScreen,(int)yScreen);
 	}
 	
 }

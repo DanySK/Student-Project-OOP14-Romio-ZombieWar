@@ -6,11 +6,11 @@ import java.awt.geom.AffineTransform;
 
 public class MammaZombie extends Modello2d{
 	/*Varibile che controlla se il player � nel range dello zombie*/
-	boolean range;
+	private boolean range;
 	//player
-	Giocatore player;	
+	private Giocatore player;	
 	//Base
-	Base base;
+	private Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
@@ -28,6 +28,8 @@ public class MammaZombie extends Modello2d{
 		this.height= sprite.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
 		this.setCamminata(sprite, width, height);
+		/*Inizializziamo la vita dello zombie*/
+		this.hp = 25;
 	
 	}
 	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
@@ -65,6 +67,9 @@ public class MammaZombie extends Modello2d{
 			}
 		}
 
+	}
+	public void colpito(int danno){
+		this.hp -= danno;
 	}
 	public void update(){
 		camminata.update();

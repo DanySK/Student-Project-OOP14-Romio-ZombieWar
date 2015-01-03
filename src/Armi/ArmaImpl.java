@@ -63,4 +63,8 @@ public abstract class ArmaImpl implements Arma {
 		return this.y;
 	}
 
+	public int getDamage() {
+		return danno;
+	}
+
 }

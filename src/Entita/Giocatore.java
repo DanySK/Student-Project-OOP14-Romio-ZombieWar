@@ -171,5 +171,8 @@ public class Giocatore extends Modello2d {
 	public void setGun(int i){
 		armacorrente = this.arsenale[i];
 	}
+	public int getWeaponDamage() {
+		return armacorrente.getDamage();
+	}
 
 }
