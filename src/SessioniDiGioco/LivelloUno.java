@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import Armi.ArmaImpl;
 import Armi.Fucile;
 import Armi.Mitra;
@@ -63,7 +62,7 @@ public class LivelloUno extends SessioneDiGioco{
 		t = new Thread(zt);
 		t.start();
 		/*Inizializziamo il thread per i proiettili*/
-		pt = new ProiettileThread(proiettili);
+		pt = new ProiettileThread(proiettili,list);
 		p = new Thread(pt);
 		p.start();
 	}
@@ -74,23 +73,28 @@ public class LivelloUno extends SessioneDiGioco{
 		armi[2] = new Mitra();
 		g.setWeapons(armi);
 	}
+	/*
 	public void checkCollision(){
 		/*Controlliamo le collisione tra proiettili e zombie*/
-		synchronized (proiettili) {
+	/*
+		try {
 			for(Proiettile p: proiettili){
-				synchronized (list) {
-					for(MammaZombie alive:list){
-						if(alive.getCollisionRectangle().contains(p.getPosition()))			
-						{
-							alive.colpito(g.getWeaponDamage());
-							proiettili.remove(p);
-							return;
-						}
+				for(MammaZombie alive:list){
+					if(alive.getCollisionRectangle().contains(p.getPosition()))			
+					{
+						alive.colpito(g.getWeaponDamage());
+						proiettili.remove(p);
+						return;
 					}
 				}
-			}
+			}				
+
+		}
+		catch (ConcurrentModificationException e) {
+			return;
 		}
 	}
+	*/
 	@Override
 	public void update(){		
 		/*Imponiamo l'update al giocatore*/
@@ -98,7 +102,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(g.getXMap(), g.getYMap());
 		/*Collisioni proiettili zombies*/
-		this.checkCollision();
+		//this.checkCollision();
 		/*Controlliamo se sono ancora vivi degli zombie*/
 		if(list.isEmpty()){
 			cds.setState(3);
