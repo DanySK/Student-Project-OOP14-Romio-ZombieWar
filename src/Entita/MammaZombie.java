@@ -34,6 +34,7 @@ public class MammaZombie extends Modello2d{
 	}
 	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
 	public boolean visionRange() {
+		/*TODOOO FARLO PARAMETRICO CON IL CAMPO RANGE*/
 		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
 		if(vision.intersects(player.getRectangle())){
 			return true;

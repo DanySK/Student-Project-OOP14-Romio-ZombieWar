@@ -23,14 +23,16 @@ public class ProiettileThread extends UpdateThread{
 							p.remove(i);							
 						}
 						else{
+							/*Dopo ciascun update controlliamo se il proiettile ha colpito un zombie*/
 							p.get(i).update();
 							this.checkCollision(p.get(i));
 						}
 					}
 				}
-				Thread.sleep(30);
+				/*Tempo di attesa tra un update e il successivo*/
+				Thread.sleep(15);
 			}catch(Exception e){
-				e.printStackTrace();				
+				return;				
 			}
 		}
 

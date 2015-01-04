@@ -61,9 +61,8 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}
 	private void select(){
 		switch(currentChoice){
-		case 0:{ 
-			this.cds.aggiungiSessione(new LivelloUno());
-			this.cds.setState(ControllerDiSessione.LIVELLO1);
+		case 0:{
+			this.cds.setState(ControllerDiSessione.SELEZIONEPERSONAGGIO);			
 			break;
 		}
 		case 1: //about
@@ -99,6 +98,6 @@ public class MenuPrincipale extends SessioneDiGioco{
 	@Override
 	public void mouseReleased() {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

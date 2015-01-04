@@ -27,12 +27,7 @@ public class Giocatore extends Modello2d {
 	private Giocatore(){
 		this.init();
 	}
-	private static class Holder {
-		static final Giocatore INSTANCE = new Giocatore();
-	}
-	public static Giocatore getInstance() {
-		return Holder.INSTANCE;
-	}
+
 	public static Giocatore getIstance(){
 		if(giocatore==null){
 			giocatore = new Giocatore();
@@ -48,18 +43,10 @@ public class Giocatore extends Modello2d {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*Carichiamo l'immagine del nostro personaggio*/
-		this.player=setSprite("/sprites/avion2.png");
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
 		xMap=yMap=50;
-		xScreen=yScreen=50;
-		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
-		this.width= player.getWidth()/5;
-		this.height= player.getHeight();
-		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setCamminata(player, width, height);		
+		xScreen=yScreen=50;				
 	}
-
 	/*Metodi per il movimento*/
 	public void setLeft(boolean value){
 		left = (value == true) ? true : false;
@@ -173,6 +160,14 @@ public class Giocatore extends Modello2d {
 	}
 	public int getWeaponDamage() {
 		return armacorrente.getDamage();
+	}
+	public void setSkin(String path){
+		this.player=setSprite(path);
+		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
+		this.width= player.getWidth()/5;
+		this.height= player.getHeight();
+		/*Creiamo l'animazione per il nostro personaggio*/
+		this.setCamminata(player, width, height);
 	}
 
 }

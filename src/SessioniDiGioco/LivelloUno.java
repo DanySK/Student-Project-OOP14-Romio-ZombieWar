@@ -18,6 +18,7 @@ import Entita.MammaZombie;
 import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
+	private ControllerDiSessione cds;
 	/*Un giocatore*/
 	private Giocatore g;
 	/*Una mappa*/
@@ -26,7 +27,7 @@ public class LivelloUno extends SessioneDiGioco{
 	private ArmaImpl[] armi = new ArmaImpl [3];
 	/*Zombie*/
 	private List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
-	private static final int NUMZOMBIE = 30;
+	private static final int NUMZOMBIE = 1000;
 	/*Bse da difendere*/
 	private Base base;
 	/*Thread degli zombie*/
@@ -37,7 +38,8 @@ public class LivelloUno extends SessioneDiGioco{
 	private ProiettileThread pt;
 	/*Proiettili*/
 	private List<Proiettile> proiettili= Collections.synchronizedList(new ArrayList<Proiettile>()) ;
-	public LivelloUno(){
+	public LivelloUno(ControllerDiSessione cds){
+		this.cds = cds;
 		this.init();
 	}
 	@Override
@@ -73,36 +75,13 @@ public class LivelloUno extends SessioneDiGioco{
 		armi[2] = new Mitra();
 		g.setWeapons(armi);
 	}
-	/*
-	public void checkCollision(){
-		/*Controlliamo le collisione tra proiettili e zombie*/
-	/*
-		try {
-			for(Proiettile p: proiettili){
-				for(MammaZombie alive:list){
-					if(alive.getCollisionRectangle().contains(p.getPosition()))			
-					{
-						alive.colpito(g.getWeaponDamage());
-						proiettili.remove(p);
-						return;
-					}
-				}
-			}				
-
-		}
-		catch (ConcurrentModificationException e) {
-			return;
-		}
-	}
-	*/
+	
 	@Override
 	public void update(){		
 		/*Imponiamo l'update al giocatore*/
 		g.update();		
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(g.getXMap(), g.getYMap());
-		/*Collisioni proiettili zombies*/
-		//this.checkCollision();
 		/*Controlliamo se sono ancora vivi degli zombie*/
 		if(list.isEmpty()){
 			cds.setState(3);
@@ -155,10 +134,6 @@ public class LivelloUno extends SessioneDiGioco{
 	public void mouseClicked(){				
 			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x+15*Math.random();
 			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y+15*Math.random();
-			/*
-			synchronized (proiettili) {
-				proiettili.add(new Proiettile(g, xMOUSE, yMOUSE));
-			}*/
 			synchronized (proiettili) {
 				g.shoot(xMOUSE, yMOUSE,proiettili);		
 			}
