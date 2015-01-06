@@ -8,12 +8,14 @@ import javax.imageio.ImageIO;
 
 public class Proiettile extends Modello2d {
 	private double rapporto;
-	public Proiettile(Giocatore g,double xCursore,double yCursore){
+	private int danno;
+	public Proiettile(Giocatore g,double xCursore,double yCursore,int danno){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		this.danno = danno;
 		rapporto = Math.atan2(yCursore-(g.getYScreen()+g.height/2),(xCursore-(g.getXScreen()+g.width/2)));
 		this.xScreen = g.getXScreen()+g.width/2;
 		this.yScreen = g.getYScreen()+g.height/2;
@@ -36,5 +38,7 @@ public class Proiettile extends Modello2d {
 	public Point getPosition(){
 		return new Point((int)xMap,(int)yMap);
 	}
-	
+	public int getDanno(){
+		return this.danno;
+	}
 }

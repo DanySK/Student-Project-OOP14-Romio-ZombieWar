@@ -31,8 +31,8 @@ public abstract class Modello2d {
 	protected static final int topy=0;
 	protected static final int bottomy=1054;
 	//Campi del personaggio
-	protected int hp;
-
+	protected double hp;
+	protected boolean alive=true;
 
 	public BufferedImage setSprite(String path){
 		try {
@@ -71,7 +71,10 @@ public abstract class Modello2d {
 	public double getYScreen(){ return yScreen; }
 	public double getXMap(){ return xMap; }
 	public double getYMap(){ return yMap; }
-	public Rectangle getCollisionRectangle(){
-		return new Rectangle((int)xScreen,(int)yScreen,width,height);
+	public boolean isAlive(){
+		return this.alive;
+	}
+	public double getHp(){
+		return this.hp;
 	}
 }

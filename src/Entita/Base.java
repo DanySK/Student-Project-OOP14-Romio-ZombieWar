@@ -6,12 +6,15 @@ import java.awt.Rectangle;
 
 public class Base {
 	private static Base base;
-	Polygon p;
+	private Polygon p;
 	/*Coordinate della base*/
-	int [] xPoint = {200,220,270,470,555,555}; 
-	int [] yPoint = {0,80,120,120,80,0};
+	private int [] xPoint = {200,220,270,470,555,555}; 
+	private int [] yPoint = {0,80,120,120,80,0};
+	private int vita;
+	private boolean alive = true;
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
+		vita = 1000;
 	}
 	public static Base getIstance(){
 		if(base == null){
@@ -24,5 +27,17 @@ public class Base {
 	}
 	public void draw(Graphics2D g){
 		g.draw(p);
+	}
+	public int getVita(){
+		return this.vita;
+	}
+	public Polygon getCollisionRectangle(){
+		return p;
+	}
+	public void colpito(double d){
+		this.vita -= d;
+		if(vita<=0){
+			alive = false;
+		}
 	}
 }

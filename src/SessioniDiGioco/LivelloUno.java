@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+
 import Armi.ArmaImpl;
 import Armi.Fucile;
 import Armi.Mitra;
 import Armi.Pistola;
 import Entita.Base;
+import Entita.HUD;
 import Entita.Mappa;
 import Entita.Giocatore;
 import Entita.MammaZombie;
 import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
-	private ControllerDiSessione cds;
 	/*Un giocatore*/
 	private Giocatore g;
 	/*Una mappa*/
@@ -27,8 +28,8 @@ public class LivelloUno extends SessioneDiGioco{
 	private ArmaImpl[] armi = new ArmaImpl [3];
 	/*Zombie*/
 	private List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
-	private static final int NUMZOMBIE = 1000;
-	/*Bse da difendere*/
+	private static final int NUMZOMBIE = 20;
+	/*Base da difendere*/
 	private Base base;
 	/*Thread degli zombie*/
 	private Thread t;
@@ -38,9 +39,11 @@ public class LivelloUno extends SessioneDiGioco{
 	private ProiettileThread pt;
 	/*Proiettili*/
 	private List<Proiettile> proiettili= Collections.synchronizedList(new ArrayList<Proiettile>()) ;
+	/*HUD di gioco*/
+	private HUD h;
+	
 	public LivelloUno(ControllerDiSessione cds){
 		this.cds = cds;
-		this.init();
 	}
 	@Override
 	public void init(){
@@ -55,9 +58,11 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo uno zombie*/
 		for(int i =0; i <NUMZOMBIE; i++){
 			Random rn = new Random();
-			int n = 400;
+			int n = 800;
 			int j = (rn.nextInt() % n)+100;
-			list.add(new MammaZombie(j,800,g,base));
+			synchronized (list) {
+				list.add(new MammaZombie(j,1000,g,base));
+			}			
 		}		
 		/*Inizializziamo il thread per lo zombie*/		
 		zt = new ZombieThread(list,30);
@@ -67,6 +72,8 @@ public class LivelloUno extends SessioneDiGioco{
 		pt = new ProiettileThread(proiettili,list);
 		p = new Thread(pt);
 		p.start();
+		/*Inizializziamo l'HUD di gioco*/
+		h = new HUD();
 	}
 	private void weaponInit(){
 		/*TODO!!!!! Inizializzazione dell'arsenale in base al livello*/
@@ -77,31 +84,31 @@ public class LivelloUno extends SessioneDiGioco{
 	}
 	
 	@Override
-	public void update(){		
+	public void update(){	
 		/*Imponiamo l'update al giocatore*/
 		g.update();		
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(g.getXMap(), g.getYMap());
-		/*Controlliamo se sono ancora vivi degli zombie*/
-		if(list.isEmpty()){
-			cds.setState(3);
-		}
+		/*Update dell'HUD*/
+		h.update();
 	}
 	@Override
-	public void draw(Graphics2D grafica){
+	public void draw(Graphics2D grafica){		
 		/*Disegniamo la mappa*/
 		mappa.draw(grafica);
+		/*Disegniamo l'HUD di gioco*/
+		h.draw(grafica);
 		/*Disegniamo il giocatore*/
 		g.draw(grafica);		
 		/*Disegniamo gli zombie*/
-		synchronized (list) {
-			for(int i = 0;i<NUMZOMBIE;i++){			
-				list.get(i).draw(grafica);
+		for(int j =0;j<list.size();j++){
+			synchronized (list) {
+				list.get(j).draw(grafica);
 			}
 		}
 		/*Disegniamo i proiettili*/		
-		for(int i =0; i<proiettili.size();i++){
-			synchronized (proiettili) {
+		synchronized (proiettili) {
+			for(int i =0; i<proiettili.size();i++){
 				proiettili.get(i).draw(grafica);	
 			}			
 		}

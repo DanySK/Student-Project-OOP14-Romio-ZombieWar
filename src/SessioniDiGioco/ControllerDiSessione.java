@@ -16,7 +16,6 @@ public class ControllerDiSessione {
 	public ControllerDiSessione(){
 		g = Giocatore.getIstance();
 		sessioni = new ArrayList<SessioneDiGioco>();
-
 		sessioneCorrente= MENU;
 		sessioni.add(new MenuPrincipale(this));	
 		sessioni.add(new SelezionePersonaggio(this));
@@ -30,8 +29,8 @@ public class ControllerDiSessione {
 		sessioni.get(sessioneCorrente).update();
 	}
 	public void setState(int state){
-		sessioneCorrente=state;
-		sessioni.get(sessioneCorrente).init();
+		sessioni.get(state).init();
+		sessioneCorrente=state;		
 	}
 	public void draw(Graphics2D g){
 		sessioni.get(sessioneCorrente).draw(g);

@@ -20,8 +20,6 @@ public class Giocatore extends Modello2d {
 	ArmaImpl armacorrente;
 	//Sparo
 	private boolean reloading;
-	private long startTime;
-	private boolean shooting;
 	private BufferedImage crosshair;
 
 	private Giocatore(){
@@ -45,7 +43,9 @@ public class Giocatore extends Modello2d {
 		}
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
 		xMap=yMap=50;
-		xScreen=yScreen=50;				
+		xScreen=yScreen=50;
+		/*Inizializziamo la vita del giocatore*/
+		this.hp = 25;
 	}
 	/*Metodi per il movimento*/
 	public void setLeft(boolean value){
@@ -103,14 +103,56 @@ public class Giocatore extends Modello2d {
 			else{ yMap +=2;	}
 		}
 	}
+	
 	public void setWeapons(ArmaImpl[]arsenale){
 		this.arsenale=arsenale;
 		armacorrente=this.arsenale[0];
 	}
+	
 	public void calcolaRotazione(){
 		/*Rotazione dello sprite*/
 		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-(this.yScreen+height/2),
 				MouseInfo.getPointerInfo().getLocation().getX()-(this.xScreen+width/2))-Math.PI/2;
+	}
+	
+	public boolean shoot(double xMouse,double yMouse,List<Proiettile>l){
+		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
+			reloading=false;
+			return true;
+		}
+		else{	
+			this.reload();
+			return false;
+		}
+	}
+	
+	private void reload(){
+		this.reloading = true;
+		armacorrente.reload();
+	}
+	
+	public void setGun(int i){
+		armacorrente = this.arsenale[i];
+	}
+	
+	public int getWeaponDamage() {
+		return armacorrente.getDamage();
+	}
+	
+	public void setSkin(String path){
+		this.player=setSprite(path);
+		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
+		this.width= player.getWidth()/5;
+		this.height= player.getHeight();
+		/*Creiamo l'animazione per il nostro personaggio*/
+		this.setCamminata(player, width, height);
+	}
+	
+	public void colpito(double d){
+		this.hp -= d;
+		if(hp<=0){
+			alive = false;
+		}
 	}
 
 	public void update(){
@@ -139,35 +181,6 @@ public class Giocatore extends Modello2d {
 		g.drawImage(armacorrente.getImage(),gun,null);
 		/*Disegna mirino*/
 		g.drawImage(crosshair,MouseInfo.getPointerInfo().getLocation().x,MouseInfo.getPointerInfo().getLocation().y,null);
-
-	}
-	public boolean shoot(double xMouse,double yMouse,List<Proiettile>l){
-		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
-			reloading=false;
-			return true;
-		}
-		else{	
-			this.reload();
-			return false;
-		}
-	}
-	private void reload(){
-		this.reloading = true;
-		armacorrente.reload();
-	}
-	public void setGun(int i){
-		armacorrente = this.arsenale[i];
-	}
-	public int getWeaponDamage() {
-		return armacorrente.getDamage();
-	}
-	public void setSkin(String path){
-		this.player=setSprite(path);
-		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
-		this.width= player.getWidth()/5;
-		this.height= player.getHeight();
-		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setCamminata(player, width, height);
 	}
 
 }

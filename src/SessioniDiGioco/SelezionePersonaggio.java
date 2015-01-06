@@ -4,9 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-
 import javax.imageio.ImageIO;
-
 import Entita.Giocatore;
 
 public class SelezionePersonaggio extends SessioneDiGioco{

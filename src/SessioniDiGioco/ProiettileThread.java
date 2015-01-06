@@ -30,7 +30,7 @@ public class ProiettileThread extends UpdateThread{
 					}
 				}
 				/*Tempo di attesa tra un update e il successivo*/
-				Thread.sleep(15);
+				Thread.sleep(20);
 			}catch(Exception e){
 				return;				
 			}
@@ -43,6 +43,7 @@ public class ProiettileThread extends UpdateThread{
 				synchronized (p) {
 					if(alive.getRectangle().contains(pr.getPosition()))			
 					{
+						alive.colpito(pr.getDanno());
 						p.remove(pr);
 						return;
 					}

@@ -20,7 +20,7 @@ public class Pistola extends ArmaImpl {
 			this.reloading=false;
 			/*Aggiungiamo un singolo proiettile*/
 			this.colpi--;
-			l.add(new Proiettile(g,xMouse,yMouse));
+			l.add(new Proiettile(g,xMouse,yMouse,danno));
 			System.out.println(""+this.colpi);
 		}
 		return this.colpi;

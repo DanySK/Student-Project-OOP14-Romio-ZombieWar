@@ -3,29 +3,48 @@ package SessioniDiGioco;
 import java.util.Collections;
 import java.util.List;
 
+import Entita.Base;
+import Entita.Giocatore;
 import Entita.MammaZombie;
 
 public class ZombieThread extends UpdateThread{
+	private Giocatore g;
+	private Base b;
 	private List<MammaZombie> m;
 	public ZombieThread(List<MammaZombie> l,int w) {
 		this.m = Collections.synchronizedList(l);
 		this.waiting = w;
+		g = Giocatore.getIstance();
+		b = Base.getIstance();
 	}
 	public void run(){
 		while(running){
 			synchronized (m) {
 				for(int i = 0; i<m.size();i++ ){
-					/*Impongo gli update agli zombie*/
-					(m.get(i)).update();
+					/*Impongo gli update agli zombie vivi*/
+					if(m.get(i).isAlive()){
+						(m.get(i)).update();
+						this.checkCollision(m.get(i));
+					}else{
+						m.remove(i);
+					}
 				}
 			}
 
 			try {
 				Thread.sleep(waiting);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+	}
+	private void checkCollision(MammaZombie m){
+		
+		if(m.intesects(g)){
+			g.colpito(m.getDanno());
+		}
+		if(b.getCollisionRectangle().intersects(m.getRectangle())){
+			b.colpito(m.getDanno());			
 		}
 	}
 }

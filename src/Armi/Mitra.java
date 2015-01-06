@@ -6,6 +6,7 @@ import Entita.Giocatore;
 import Entita.Proiettile;
 
 public class Mitra extends ArmaImpl{
+	private double rapporto;
 	public Mitra(){
 		this.danno = 8;
 		this.caricatore = 50;
@@ -20,9 +21,10 @@ public class Mitra extends ArmaImpl{
 			this.reloading=false;
 			/*Aggiungiamo un singolo proiettile*/
 			this.colpi-=3;
-			l.add(new Proiettile(g,xMouse,yMouse));
-			l.add(new Proiettile(g,xMouse+15*Math.random(),yMouse+50*Math.random()));
-			l.add(new Proiettile(g,xMouse-15*Math.random(),yMouse-50*Math.random()));
+			rapporto = Math.atan2(yMouse, xMouse);
+			l.add(new Proiettile(g,xMouse,yMouse,8));
+			l.add(new Proiettile(g,xMouse+50,yMouse+50,danno));
+			l.add(new Proiettile(g,xMouse-50,yMouse-50,danno));
 			System.out.println(""+this.colpi);
 		}
 		return this.colpi;

@@ -12,6 +12,7 @@ public class MammaZombie extends Modello2d{
 	//Base
 	private Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
+	private double danno;
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
 		this.xMap=this.xScreen=xSpawn;
@@ -29,8 +30,8 @@ public class MammaZombie extends Modello2d{
 		/*Creiamo l'animazione per il nostro personaggio*/
 		this.setCamminata(sprite, width, height);
 		/*Inizializziamo la vita dello zombie*/
-		this.hp = 25;
-	
+		this.hp = 25;	
+		this.danno = 0.005;
 	}
 	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
 	public boolean visionRange() {
@@ -71,6 +72,12 @@ public class MammaZombie extends Modello2d{
 	}
 	public void colpito(int danno){
 		this.hp -= danno;
+		if(hp<=0){
+			alive = false;
+		}
+	}
+	public double getDanno(){
+		return this.danno;
 	}
 	public void update(){
 		camminata.update();
@@ -99,6 +106,9 @@ public class MammaZombie extends Modello2d{
 		catch(IndexOutOfBoundsException e){
 			return;
 		}
+	}
+	public Base getBase(){
+		return this.base;
 	}
 
 }
