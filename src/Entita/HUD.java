@@ -6,8 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 public class HUD {
 	/*Entità da visualizzare nell'HUD*/
-	private Base b;
-	private Giocatore p;
 	private int vitaBase;
 	private int vitaGiocatore;
 	private BufferedImage[] armi;
@@ -16,16 +14,14 @@ public class HUD {
 	private Font HUDFont;
 	
 	public HUD(){
-		this.b = Base.getIstance();
-		this.p = Giocatore.getIstance();
 		/*Import delle immagini*/
 		/*Modifica font e colore scritte dell'HUD*/
 		HUDColor = new Color(255,255,255);
 		HUDFont = new Font("AR DESTINE",Font.PLAIN,20);
 	}
-	public void update(){
+	public void update(Base b, Giocatore g){
 		vitaBase = b.getVita();
-		vitaGiocatore = (int)p.getHp();
+		vitaGiocatore = (int)g.getHp();
 	}
 	public void draw(Graphics2D g){
 		g.setColor(HUDColor);

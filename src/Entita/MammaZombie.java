@@ -8,16 +8,21 @@ public class MammaZombie extends Modello2d{
 	/*Varibile che controlla se il player � nel range dello zombie*/
 	private boolean range;
 	//player
-	private Giocatore player;	
+	private Giocatore giocatore;	
 	//Base
 	private Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	private double danno;
+	private boolean attaccandoGiocatore = false;
+	private boolean attaccandoBase = false;
+	private long tentaAttaccoGiocatore;
+	private long tentaAttaccoBase;
+	private long tempoPerColpire = 1000;
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
 		this.xMap=this.xScreen=xSpawn;
 		this.yMap=this.yScreen=ySpawn;
-		this.player = player;
+		this.giocatore = player;
 		this.base = base;
 		this.init();
 	}
@@ -31,13 +36,13 @@ public class MammaZombie extends Modello2d{
 		this.setCamminata(sprite, width, height);
 		/*Inizializziamo la vita dello zombie*/
 		this.hp = 25;	
-		this.danno = 0.005;
+		this.danno = 1;
 	}
 	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
 	public boolean visionRange() {
 		/*TODOOO FARLO PARAMETRICO CON IL CAMPO RANGE*/
 		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
-		if(vision.intersects(player.getRectangle())){
+		if(vision.intersects(giocatore.getRectangle())){
 			return true;
 		}else{
 			return false;
@@ -48,7 +53,7 @@ public class MammaZombie extends Modello2d{
 		/*Calcoliamo la distanza tra zombie e giocare e zombie base*/
 		/*Ipotizziamo che la base sia nel punto (310,0)*/
 		if(visionRange()){
-			double rapporto = Math.atan2((player.getYMap()-yMap),(player.getXMap()-xMap));
+			double rapporto = Math.atan2((giocatore.getYMap()-yMap),(giocatore.getXMap()-xMap));
 			/*Obbiettivo: caccia giocatore*/
 			xMap += Math.cos(rapporto);
 			yMap += Math.sin(rapporto);
@@ -86,16 +91,16 @@ public class MammaZombie extends Modello2d{
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
 		//Disegniamo lo zombie solo se � nel campo di visibilit� del giocatore
-		if(player.getXMap()>320 && player.getXMap()<410){
-			xScreen=  320+(xMap-player.getXMap());
+		if(giocatore.getXMap()>320 && giocatore.getXMap()<410){
+			xScreen=  320+(xMap-giocatore.getXMap());
 		}
-		if(player.getYMap()>240 && player.getYMap()<814){
-			yScreen= 240+(yMap-player.getYMap());
+		if(giocatore.getYMap()>240 && giocatore.getYMap()<814){
+			yScreen= 240+(yMap-giocatore.getYMap());
 		}
 		at.translate(xScreen, yScreen);
 		if(visionRange()){
 			/*Girato verso il giocatore*/
-			at.rotate(Math.atan2(player.getYScreen()-yScreen,player.getXScreen()-xScreen)+1.5,14.5,17);
+			at.rotate(Math.atan2(giocatore.getYScreen()-yScreen,giocatore.getXScreen()-xScreen)+1.5,14.5,17);
 		}else{
 			/*Girato verso la base*/
 			at.rotate(Math.atan2(0-yMap,310-xMap)+1.5,14.5,17);
@@ -107,8 +112,31 @@ public class MammaZombie extends Modello2d{
 			return;
 		}
 	}
-	public Base getBase(){
-		return this.base;
+	public void attack(){
+		/*Utilizziamo un timer per fare in modo tale che lo zombie impieghi x tempo per attaccare
+		 *altrimenti la difficoltà del gioco varierebbe dalla potenza del computer
+		 * */
+		if(this.getRectangle().intersects(giocatore.getRectangle())){
+			if(attaccandoGiocatore == false){
+				tentaAttaccoGiocatore = System.currentTimeMillis();
+			}
+			attaccandoGiocatore = true;
+			if(System.currentTimeMillis()>(tentaAttaccoGiocatore+tempoPerColpire)){
+				giocatore.colpito(this.danno);
+				attaccandoGiocatore = false;
+			}
+		}
+		if(base.getCollisionPolygon().intersects(this.getRectangle())){
+			if(attaccandoBase == false){
+				tentaAttaccoBase = System.currentTimeMillis();
+			}
+			attaccandoBase = true;
+			if(System.currentTimeMillis()>(tentaAttaccoBase+tempoPerColpire)){
+				base.colpito(this.danno);
+				attaccandoBase = false;
+			}
+		}
 	}
-
+	
+	
 }

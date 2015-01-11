@@ -55,7 +55,7 @@ public abstract class Modello2d {
 		camminata.calculateDefaultDelay();
 
 	}
-	public boolean intesects(Modello2d o){
+	public boolean intersects(Modello2d o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);

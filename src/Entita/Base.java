@@ -31,7 +31,7 @@ public class Base {
 	public int getVita(){
 		return this.vita;
 	}
-	public Polygon getCollisionRectangle(){
+	public Polygon getCollisionPolygon(){
 		return p;
 	}
 	public void colpito(double d){

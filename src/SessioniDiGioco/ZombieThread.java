@@ -8,14 +8,10 @@ import Entita.Giocatore;
 import Entita.MammaZombie;
 
 public class ZombieThread extends UpdateThread{
-	private Giocatore g;
-	private Base b;
 	private List<MammaZombie> m;
 	public ZombieThread(List<MammaZombie> l,int w) {
 		this.m = Collections.synchronizedList(l);
 		this.waiting = w;
-		g = Giocatore.getIstance();
-		b = Base.getIstance();
 	}
 	public void run(){
 		while(running){
@@ -39,12 +35,6 @@ public class ZombieThread extends UpdateThread{
 		}
 	}
 	private void checkCollision(MammaZombie m){
-		
-		if(m.intesects(g)){
-			g.colpito(m.getDanno());
-		}
-		if(b.getCollisionRectangle().intersects(m.getRectangle())){
-			b.colpito(m.getDanno());			
-		}
+		m.attack();
 	}
 }
