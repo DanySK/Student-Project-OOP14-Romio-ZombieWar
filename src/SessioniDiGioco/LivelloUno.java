@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-
 import Armi.ArmaImpl;
 import Armi.Fucile;
 import Armi.Mitra;
@@ -41,12 +40,14 @@ public class LivelloUno extends SessioneDiGioco{
 	private List<Proiettile> proiettili= Collections.synchronizedList(new ArrayList<Proiettile>()) ;
 	/*HUD di gioco*/
 	private HUD h;
+	int nprocs;
+	boolean pause = false;
 	
 	public LivelloUno(ControllerDiSessione cds){
-		this.cds = cds;
-	}
-	@Override
-	public void init(){
+		this.cds = cds;		
+		/*Test cpu*/
+		nprocs = Runtime.getRuntime().availableProcessors();
+		System.out.println(nprocs);
 		/*Inizializziamo la mappa*/
 		mappa = new Mappa("/backgrounds/map.png");
 		/*Inizializziamo la base*/
@@ -73,7 +74,14 @@ public class LivelloUno extends SessioneDiGioco{
 		p = new Thread(pt);
 		p.start();
 		/*Inizializziamo l'HUD di gioco*/
-		h = new HUD();
+		h = new HUD();		
+	}
+	@Override
+	public void init(){
+		if(this.pause == true){
+			/*togliamo la pause*/
+			zt.setPausa(false);
+		}
 	}
 	private void weaponInit(){
 		/*TODO!!!!! Inizializzazione dell'arsenale in base al livello*/
@@ -114,7 +122,7 @@ public class LivelloUno extends SessioneDiGioco{
 		}
 	}
 	@Override
-	public void keyPressed(int k){
+	public void keyPressed(int k) throws InterruptedException{
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
 		case(KeyEvent.VK_A): giocatore.setLeft(true);break;
@@ -124,8 +132,15 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_1): giocatore.setGun(0);break;
 		case(KeyEvent.VK_2): giocatore.setGun(1);break;
 		case(KeyEvent.VK_3): giocatore.setGun(2);break;
+		case(KeyEvent.VK_P):
+			pause = true;
+			zt.setPausa(pause);
+			this.cds.setState(ControllerDiSessione.GAMEPAUSE);
+			break;			
 		}
+
 	}
+	
 	@Override
 	public void keyReleased(int k){
 		/*Imponiamo al personaggio di stare fermo*/

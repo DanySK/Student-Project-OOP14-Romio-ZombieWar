@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public abstract class Modello2d {
@@ -53,8 +52,8 @@ public abstract class Modello2d {
 		/*Imposto l'animazione della camminata*/
 		camminata= new Animazione(tmp);
 		camminata.calculateDefaultDelay();
-
 	}
+	
 	public boolean intersects(Modello2d o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
@@ -64,17 +63,31 @@ public abstract class Modello2d {
 	public Rectangle getRectangle(){
 		return new Rectangle((int)xMap,(int)yMap,width,height);
 	}
-	public abstract void update();
-	public abstract void draw(Graphics2D g);
-
-	public double getXScreen(){ return xScreen; }
-	public double getYScreen(){ return yScreen; }
-	public double getXMap(){ return xMap; }
-	public double getYMap(){ return yMap; }
+	
+	public double getXScreen(){
+		return xScreen;
+	}
+	
+	public double getYScreen(){
+		return yScreen;
+	}
+	
+	public double getXMap(){
+		return xMap;
+	}
+	
+	public double getYMap(){
+		return yMap;
+	}
+	
 	public boolean isAlive(){
 		return this.alive;
 	}
+	
 	public double getHp(){
 		return this.hp;
 	}
+	
+	public abstract void update();
+	public abstract void draw(Graphics2D g);
 }

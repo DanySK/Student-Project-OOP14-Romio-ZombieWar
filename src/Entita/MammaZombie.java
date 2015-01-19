@@ -6,24 +6,29 @@ import java.awt.geom.AffineTransform;
 
 public class MammaZombie extends Modello2d{
 	/*Varibile che controlla se il player � nel range dello zombie*/
-	private boolean range;
+	private int range;
 	//player
 	private Giocatore giocatore;	
 	//Base
 	private Base base;
 	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	private double danno;
-	private boolean attaccandoGiocatore = false;
-	private boolean attaccandoBase = false;
+	private boolean attaccandoGiocatore;
+	private boolean attaccandoBase;
 	private long tentaAttaccoGiocatore;
 	private long tentaAttaccoBase;
-	private long tempoPerColpire = 1000;
+	private long tempoPerColpire;
+	private Rectangle vision;
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
 		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
 		this.xMap=this.xScreen=xSpawn;
 		this.yMap=this.yScreen=ySpawn;
 		this.giocatore = player;
 		this.base = base;
+		this.attaccandoBase = false;
+		this.attaccandoGiocatore = false;
+		this.tempoPerColpire = 1000;
+		this.range = 200;
 		this.init();
 	}
 	public void init(){
@@ -41,7 +46,7 @@ public class MammaZombie extends Modello2d{
 	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
 	public boolean visionRange() {
 		/*TODOOO FARLO PARAMETRICO CON IL CAMPO RANGE*/
-		Rectangle vision = new Rectangle((int)xMap-100, (int)yMap-100, 200+width, 200+height);
+		vision = new Rectangle((int)xMap-(range/2), (int)yMap-(range/2), range+width, range+height);
 		if(vision.intersects(giocatore.getRectangle())){
 			return true;
 		}else{
@@ -90,7 +95,9 @@ public class MammaZombie extends Modello2d{
 	}
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
-		//Disegniamo lo zombie solo se � nel campo di visibilit� del giocatore
+		/**
+		 * Disegniamo lo zombie solo se � nel campo di visibilit� del giocatore 
+		 */
 		if(giocatore.getXMap()>320 && giocatore.getXMap()<410){
 			xScreen=  320+(xMap-giocatore.getXMap());
 		}
@@ -111,6 +118,7 @@ public class MammaZombie extends Modello2d{
 		catch(IndexOutOfBoundsException e){
 			return;
 		}
+		
 	}
 	public void attack(){
 		/*Utilizziamo un timer per fare in modo tale che lo zombie impieghi x tempo per attaccare

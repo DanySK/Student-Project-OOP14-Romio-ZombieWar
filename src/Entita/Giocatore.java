@@ -38,7 +38,6 @@ public class Giocatore extends Modello2d {
 		try {
 			this.crosshair = ImageIO.read(getClass().getResourceAsStream("/sprites/cross.png"));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/

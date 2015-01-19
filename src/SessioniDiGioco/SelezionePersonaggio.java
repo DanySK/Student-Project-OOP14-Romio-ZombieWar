@@ -8,12 +8,12 @@ import javax.imageio.ImageIO;
 import Entita.Giocatore;
 
 public class SelezionePersonaggio extends SessioneDiGioco{
-	boolean playerSelect = true;
-	BufferedImage[] ritratti;
-	Giocatore g;
+	private boolean playerSelect = true;
+	private BufferedImage[] ritratti;
+	
 	public SelezionePersonaggio(ControllerDiSessione cds){
 		this.cds = cds;
-		g = Giocatore.getIstance();
+		giocatore = Giocatore.getIstance();
 		ritratti = new BufferedImage[2];
 		try{
 			ritratti[0] = ImageIO.read(getClass().getResourceAsStream("/backgrounds/avionSelect.png"));
@@ -48,9 +48,9 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 		}
 		if(k== KeyEvent.VK_ENTER){
 			if(playerSelect){
-				g.setSkin("/sprites/avion2.png");
+				giocatore.setSkin("/sprites/avion2.png");
 			}else{
-				g.setSkin("/sprites/marine.png");
+				giocatore.setSkin("/sprites/marine.png");
 			}
 			this.cds.setState(ControllerDiSessione.LIVELLO1);
 		}

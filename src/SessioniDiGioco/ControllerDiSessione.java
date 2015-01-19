@@ -3,23 +3,21 @@ package SessioniDiGioco;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import Entita.Giocatore;
-
 public class ControllerDiSessione {	
 	private ArrayList<SessioneDiGioco> sessioni;
 	private int sessioneCorrente;
-	protected Giocatore g;
-	public static final int MENU=0;	
+	private static final int MENU=0;	
 	public static final int SELEZIONEPERSONAGGIO=1;
 	public static final int LIVELLO1=2;
+	public static final int GAMEPAUSE = 3;
 
 	public ControllerDiSessione(){
-		g = Giocatore.getIstance();
 		sessioni = new ArrayList<SessioneDiGioco>();
 		sessioneCorrente= MENU;
 		sessioni.add(new MenuPrincipale(this));	
 		sessioni.add(new SelezionePersonaggio(this));
 		sessioni.add(new LivelloUno(this));
+		sessioni.add(new GamePause(this));
 	}
 	/*Aggiungiamo una nuova sessione di gioco dinamicamente*/
 	public void aggiungiSessione(SessioneDiGioco level){
@@ -29,14 +27,14 @@ public class ControllerDiSessione {
 		sessioni.get(sessioneCorrente).update();
 	}
 	public void setState(int state){
-		sessioni.get(state).init();
-		sessioneCorrente=state;		
+		sessioneCorrente=state;
+		sessioni.get(sessioneCorrente).init();
 	}
 	public void draw(Graphics2D g){
 		sessioni.get(sessioneCorrente).draw(g);
 	}
 	/*KEYBOARD*/
-	public void keyPressed(int k){
+	public void keyPressed(int k) throws InterruptedException{
 		sessioni.get(sessioneCorrente).keyPressed(k);
 	}
 	public void keyReleased(int k){

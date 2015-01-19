@@ -136,7 +136,12 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	/*KEYBOARD*/
 	@Override
 	public void keyPressed(KeyEvent e) {
-		cds.keyPressed(e.getKeyCode());
+		try {
+			cds.keyPressed(e.getKeyCode());
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
 
 	@Override

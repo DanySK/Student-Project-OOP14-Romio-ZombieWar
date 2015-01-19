@@ -11,7 +11,6 @@ public class Base {
 	private int [] xPoint = {200,220,270,470,555,555}; 
 	private int [] yPoint = {0,80,120,120,80,0};
 	private int vita;
-	private boolean alive = true;
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
 		vita = 1000;
@@ -36,8 +35,5 @@ public class Base {
 	}
 	public void colpito(double d){
 		this.vita -= d;
-		if(vita<=0){
-			alive = false;
-		}
 	}
 }

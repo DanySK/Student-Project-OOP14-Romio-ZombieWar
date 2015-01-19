@@ -8,12 +8,12 @@ import javax.imageio.ImageIO;
 
 public class Mappa{
 	/*Immagine della mappa*/
-	BufferedImage mappa;
+	private BufferedImage mappa;
 	/*Coordinate del personaggio*/
-	double camerax,cameray;
+	private double camerax,cameray;
 	/*Coordinate per calcolare la traiettoria del personaggio*/
-	double previous_Yposition=0;
-	double previous_Xposition=0;
+	private double previous_Yposition=0;
+	private double previous_Xposition=0;
 
 	public Mappa(String path){
 		try {

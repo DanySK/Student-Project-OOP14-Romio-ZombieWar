@@ -1,12 +1,12 @@
 package Armi;
-
 import java.util.List;
 
 import Entita.Giocatore;
 import Entita.Proiettile;
 
 public class Mitra extends ArmaImpl{
-	private double rapporto;
+	private double newX;
+	private double newY;
 	public Mitra(){
 		this.danno = 8;
 		this.caricatore = 50;
@@ -19,12 +19,21 @@ public class Mitra extends ArmaImpl{
 	public int shoot(Giocatore g,double xMouse,double yMouse,List<Proiettile>l) {
 		if(this.colpi>0){
 			this.reloading=false;
-			/*Aggiungiamo un singolo proiettile*/
+			/*Aggiungiamo i tre proiettili*/
 			this.colpi-=3;
-			rapporto = Math.atan2(yMouse, xMouse);
+			/*
+			 * Per Ottenere gli altri due colpi:
+			 * Trasliamo il cursore all'origine
+			 * Ruotiamo attorno all'origine dell'angolo ricercato
+			 * Trasliamo nuovamente nella posizione originale
+			 * */
 			l.add(new Proiettile(g,xMouse,yMouse,8));
-			l.add(new Proiettile(g,xMouse+50,yMouse+50,danno));
-			l.add(new Proiettile(g,xMouse-50,yMouse-50,danno));
+			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(0.5) - (yMouse-g.getYScreen())*Math.sin(0.5);
+			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(0.5) + (yMouse-g.getYScreen())*Math.cos(0.5);
+			l.add(new Proiettile(g,newX,newY,danno));
+			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(-0.5) - (yMouse-g.getYScreen())*Math.sin(-0.5);
+			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.5) + (yMouse-g.getYScreen())*Math.cos(-0.5);
+			l.add(new Proiettile(g,newX,newY,danno));
 			System.out.println(""+this.colpi);
 		}
 		return this.colpi;

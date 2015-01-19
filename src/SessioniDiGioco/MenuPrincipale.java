@@ -23,10 +23,6 @@ public class MenuPrincipale extends SessioneDiGioco{
 
 	public MenuPrincipale(ControllerDiSessione cds){
 		this.cds=cds;
-		this.init();		
-	}
-	@Override
-	public void init(){
 		/*Carico l'immagine dello sfondo del menu*/
 		try {
 			background=ImageIO.read(getClass().getResourceAsStream("/backgrounds/menu.png"));
@@ -36,7 +32,11 @@ public class MenuPrincipale extends SessioneDiGioco{
 		/*Seleziono il font della nostra finestra e i colori per stampare le stringhe*/
 		font= new Font("Tahoma",Font.PLAIN,40);
 		defaultColor=(Color.BLACK);
-		choiceColor=(Color.RED);
+		choiceColor=(Color.RED);	
+	}
+	@Override
+	public void init(){
+		
 	}
 	@Override
 	public void update(){

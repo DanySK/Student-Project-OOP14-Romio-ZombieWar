@@ -9,6 +9,7 @@ import javax.imageio.ImageIO;
 public class Proiettile extends Modello2d {
 	private double rapporto;
 	private int danno;
+	
 	public Proiettile(Giocatore g,double xCursore,double yCursore,int danno){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
@@ -22,6 +23,7 @@ public class Proiettile extends Modello2d {
 		this.xMap = g.getXMap()+g.width/2;
 		this.yMap = g.getYMap()+g.height/2;
 	}
+	
 	public void calcolaPosizione(){
 		/*Calcoliamo la taiettoria del proiettile*/
 		this.xScreen += 10*Math.cos(rapporto);
@@ -29,15 +31,19 @@ public class Proiettile extends Modello2d {
 		this.xMap += 10*Math.cos(rapporto);
 		this.yMap += 10*Math.sin(rapporto);
 	}
+	
 	public void update(){
 		this.calcolaPosizione();
 	}
+	
 	public void draw(Graphics2D g){
 		g.drawImage(sprite,(int)xScreen,(int)yScreen,null);
 	}
+	
 	public Point getPosition(){
 		return new Point((int)xMap,(int)yMap);
 	}
+	
 	public int getDanno(){
 		return this.danno;
 	}
