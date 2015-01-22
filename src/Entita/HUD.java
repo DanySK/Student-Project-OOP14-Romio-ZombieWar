@@ -17,7 +17,7 @@ public class HUD {
 		/*Import delle immagini*/
 		/*Modifica font e colore scritte dell'HUD*/
 		HUDColor = new Color(255,255,255);
-		HUDFont = new Font("AR DESTINE",Font.PLAIN,20);
+		HUDFont = new Font("True Lies",Font.PLAIN,16);
 	}
 	public void update(Base b, Giocatore g){
 		vitaBase = b.getVita();

@@ -30,13 +30,13 @@ public class MenuPrincipale extends SessioneDiGioco{
 			e.printStackTrace();
 		}
 		/*Seleziono il font della nostra finestra e i colori per stampare le stringhe*/
-		font= new Font("Tahoma",Font.PLAIN,40);
+		font= new Font("True Lies",Font.PLAIN,40);
 		defaultColor=(Color.BLACK);
 		choiceColor=(Color.RED);	
 	}
 	@Override
 	public void init(){
-		
+		currentChoice = 0;
 	}
 	@Override
 	public void update(){
@@ -61,11 +61,13 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}
 	private void select(){
 		switch(currentChoice){
-		case 0:{
+		case 0:
+			this.cds.aggiungiSessione(new SelezionePersonaggio(cds));
 			this.cds.setState(ControllerDiSessione.SELEZIONEPERSONAGGIO);			
 			break;
-		}
-		case 1: //about
+		case 1: 			
+			this.cds.setState(ControllerDiSessione.OPZIONI);
+			break;	
 		case 2: System.exit(0);break;
 		}
 	}

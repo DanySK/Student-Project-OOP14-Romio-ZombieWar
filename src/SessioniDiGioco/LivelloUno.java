@@ -81,6 +81,7 @@ public class LivelloUno extends SessioneDiGioco{
 		if(this.pause == true){
 			/*togliamo la pause*/
 			zt.setPausa(false);
+			pt.setPausa(false);
 		}
 	}
 	private void weaponInit(){
@@ -132,13 +133,20 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_1): giocatore.setGun(0);break;
 		case(KeyEvent.VK_2): giocatore.setGun(1);break;
 		case(KeyEvent.VK_3): giocatore.setGun(2);break;
-		case(KeyEvent.VK_P):
+		case(KeyEvent.VK_P):{
 			pause = true;
 			zt.setPausa(pause);
-			this.cds.setState(ControllerDiSessione.GAMEPAUSE);
-			break;			
+			pt.setPausa(pause);
+			/*Blocchiamo i movimenti del giocatore*/
+			giocatore.setLeft(false);
+			giocatore.setRight(false);
+			giocatore.setUp(false);
+			giocatore.setDown(false);
+			/*Passiamo allo stato di pausa*/
+			this.cds.setState(ControllerDiSessione.GAMEPAUSE);}
+			break;		
 		}
-
+		
 	}
 	
 	@Override
@@ -148,8 +156,7 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_A): giocatore.setLeft(false);break;
 		case(KeyEvent.VK_D): giocatore.setRight(false);break;
 		case(KeyEvent.VK_W): giocatore.setUp(false);break;
-		case(KeyEvent.VK_S): giocatore.setDown(false);break;
-		default: break;
+		case(KeyEvent.VK_S): giocatore.setDown(false);break;		
 		}
 	}
 	@Override

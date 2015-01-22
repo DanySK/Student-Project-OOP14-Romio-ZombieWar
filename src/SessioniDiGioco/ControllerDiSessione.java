@@ -6,18 +6,20 @@ import java.util.ArrayList;
 public class ControllerDiSessione {	
 	private ArrayList<SessioneDiGioco> sessioni;
 	private int sessioneCorrente;
-	private static final int MENU=0;	
-	public static final int SELEZIONEPERSONAGGIO=1;
-	public static final int LIVELLO1=2;
-	public static final int GAMEPAUSE = 3;
+	public static final int MENU=0;
+	public static final int OPZIONI=1;
+	public static final int SELEZIONEPERSONAGGIO=2;
+	public static final int LIVELLO1=3;
+	public static final int GAMEPAUSE = 4;
 
 	public ControllerDiSessione(){
 		sessioni = new ArrayList<SessioneDiGioco>();
 		sessioneCorrente= MENU;
-		sessioni.add(new MenuPrincipale(this));	
-		sessioni.add(new SelezionePersonaggio(this));
-		sessioni.add(new LivelloUno(this));
-		sessioni.add(new GamePause(this));
+		sessioni.add(new MenuPrincipale(this));
+		sessioni.add(new Opzioni(this));
+		//sessioni.add(new SelezionePersonaggio(this));
+		//sessioni.add(new LivelloUno(this));
+		//sessioni.add(new GamePause(this));
 	}
 	/*Aggiungiamo una nuova sessione di gioco dinamicamente*/
 	public void aggiungiSessione(SessioneDiGioco level){

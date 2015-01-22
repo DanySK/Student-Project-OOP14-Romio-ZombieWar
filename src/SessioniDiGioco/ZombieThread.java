@@ -2,13 +2,11 @@ package SessioniDiGioco;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import Entita.MammaZombie;
 
 public class ZombieThread extends UpdateThread{
 	private List<MammaZombie> m;
-	private final AtomicBoolean pauseFlag = new AtomicBoolean(false);
+	
 	public ZombieThread(List<MammaZombie> l,int w) {
 		this.m = Collections.synchronizedList(l);
 		this.waiting = w;
@@ -57,16 +55,6 @@ public class ZombieThread extends UpdateThread{
 	private void checkCollision(MammaZombie m){
 		m.attack();
 	}
-	public void setPausa(boolean pausa){	
-		if(pausa){
-			pauseFlag.set(true);
-		}
-		else{
-			pauseFlag.set(false);
-			synchronized (pauseFlag) {
-				pauseFlag.notify();
-			}
-		}
-	}
+	
 
 }

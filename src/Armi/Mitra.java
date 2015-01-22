@@ -9,8 +9,8 @@ public class Mitra extends ArmaImpl{
 	private double newY;
 	public Mitra(){
 		this.danno = 8;
-		this.caricatore = 50;
-		this.colpi = 50;
+		this.caricatore = 60;
+		this.colpi = 60;
 		this.x = 7;
 		this.y = 17;
 		this.setImage("/sprites/minigun.png");
@@ -35,6 +35,7 @@ public class Mitra extends ArmaImpl{
 			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.5) + (yMouse-g.getYScreen())*Math.cos(-0.5);
 			l.add(new Proiettile(g,newX,newY,danno));
 			System.out.println(""+this.colpi);
+			System.out.println(""+l.size());
 		}
 		return this.colpi;
 	}

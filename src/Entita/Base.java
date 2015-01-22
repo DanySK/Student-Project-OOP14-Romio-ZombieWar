@@ -13,7 +13,7 @@ public class Base {
 	private int vita;
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
-		vita = 1000;
+		vita = 100;
 	}
 	public static Base getIstance(){
 		if(base == null){

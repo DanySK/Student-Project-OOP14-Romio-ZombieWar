@@ -52,6 +52,8 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 			}else{
 				giocatore.setSkin("/sprites/marine.png");
 			}
+			this.cds.aggiungiSessione(new LivelloUno(cds));
+			this.cds.aggiungiSessione(new GamePause(cds));
 			this.cds.setState(ControllerDiSessione.LIVELLO1);
 		}
 	}
