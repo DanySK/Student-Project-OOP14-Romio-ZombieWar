@@ -1,14 +1,9 @@
 package Entita;
 
 import java.awt.Graphics2D;
-import java.awt.MouseInfo;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import Armi.ArmaImpl;
 
 public class Giocatore extends Modello2d {
@@ -20,7 +15,6 @@ public class Giocatore extends Modello2d {
 	ArmaImpl armacorrente;
 	//Sparo
 	private boolean reloading;
-	private BufferedImage crosshair;
 
 	private Giocatore(){
 		this.init();
@@ -34,12 +28,6 @@ public class Giocatore extends Modello2d {
 	}
 
 	public void init(){
-		/*Cambiamo l'immagine del puntatore*/
-		try {
-			this.crosshair = ImageIO.read(getClass().getResourceAsStream("/sprites/cross.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 		/*Assegniamo al nostro personaggio le coordinate di orgine predefinite*/
 		xMap=yMap=50;
 		xScreen=yScreen=50;
@@ -108,10 +96,9 @@ public class Giocatore extends Modello2d {
 		armacorrente=this.arsenale[0];
 	}
 	
-	public void calcolaRotazione(){
+	public void calcolaRotazione(int x, int y){
 		/*Rotazione dello sprite*/
-		rotazione = Math.atan2(MouseInfo.getPointerInfo().getLocation().getY()-(this.yScreen+height/2),
-				MouseInfo.getPointerInfo().getLocation().getX()-(this.xScreen+width/2))-Math.PI/2;
+		rotazione = Math.atan2(y-(this.yScreen+height/2),x-(this.xScreen+width/2))-Math.PI/2;
 	}
 	
 	public boolean shoot(double xMouse,double yMouse,List<Proiettile>l){
@@ -154,7 +141,7 @@ public class Giocatore extends Modello2d {
 		}
 	}
 
-	public void update(){
+	public void update(int x, int y){
 		if(reloading){
 			this.reload();
 		}
@@ -163,7 +150,7 @@ public class Giocatore extends Modello2d {
 			camminata.update();
 			this.calcolaPosizione();
 		}
-		this.calcolaRotazione();
+		this.calcolaRotazione(x,y);
 	}
 
 	public void draw(Graphics2D g){
@@ -179,7 +166,15 @@ public class Giocatore extends Modello2d {
 		gun.translate(armacorrente.getX(),armacorrente.getY());
 		g.drawImage(armacorrente.getImage(),gun,null);
 		/*Disegna mirino*/
+		/*		
 		g.drawImage(crosshair,MouseInfo.getPointerInfo().getLocation().x,MouseInfo.getPointerInfo().getLocation().y,null);
+		*/
+	}
+
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

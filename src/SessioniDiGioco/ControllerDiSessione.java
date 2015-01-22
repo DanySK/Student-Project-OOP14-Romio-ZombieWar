@@ -43,10 +43,13 @@ public class ControllerDiSessione {
 		sessioni.get(sessioneCorrente).keyReleased(k);
 	}
 	/*MOUSE*/
-	public void mouseClicked(){
-		sessioni.get(sessioneCorrente).mouseClicked();
+	public void mouseClicked(int x, int y){
+		sessioni.get(sessioneCorrente).mouseClicked(x,y);
 	}
 	public void mouseReleased(){
 		sessioni.get(sessioneCorrente).mouseReleased();
+	}
+	public void MouseMovement(int x, int y){
+		sessioni.get(sessioneCorrente).setMouse(x,y);
 	}
 }

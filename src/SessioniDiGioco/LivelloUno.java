@@ -1,7 +1,6 @@
 package SessioniDiGioco;
 
 import java.awt.Graphics2D;
-import java.awt.MouseInfo;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,8 +39,11 @@ public class LivelloUno extends SessioneDiGioco{
 	private List<Proiettile> proiettili= Collections.synchronizedList(new ArrayList<Proiettile>()) ;
 	/*HUD di gioco*/
 	private HUD h;
-	int nprocs;
-	boolean pause = false;
+	private int nprocs;
+	private boolean pause = false;
+	/*Posizione del mouse*/
+	private int xMouse;
+	private int yMouse;
 	
 	public LivelloUno(ControllerDiSessione cds){
 		this.cds = cds;		
@@ -95,7 +97,7 @@ public class LivelloUno extends SessioneDiGioco{
 	@Override
 	public void update(){	
 		/*Imponiamo l'update al giocatore*/
-		giocatore.update();		
+		giocatore.update(xMouse,yMouse);		
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(giocatore.getXMap(), giocatore.getYMap());
 		/*Update dell'HUD*/
@@ -160,9 +162,9 @@ public class LivelloUno extends SessioneDiGioco{
 		}
 	}
 	@Override
-	public void mouseClicked(){				
-			double xMOUSE=MouseInfo.getPointerInfo().getLocation().x+15*Math.random();
-			double yMOUSE=MouseInfo.getPointerInfo().getLocation().y+15*Math.random();
+	public void mouseClicked(int x,int y){
+			double xMOUSE=x+15*Math.random();
+			double yMOUSE=y+15*Math.random();
 			synchronized (proiettili) {
 				giocatore.shoot(xMOUSE, yMOUSE,proiettili);		
 			}
@@ -170,6 +172,11 @@ public class LivelloUno extends SessioneDiGioco{
 	@Override
 	public void mouseReleased() {
 		System.out.println("released");		
+	}
+	@Override
+	public void setMouse(int x, int y) {
+		this.xMouse = x;
+		this.yMouse = y;		
 	}	
 		
 }

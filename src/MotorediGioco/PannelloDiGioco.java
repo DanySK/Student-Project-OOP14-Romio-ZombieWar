@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -14,7 +15,7 @@ import javax.swing.JPanel;
 import SessioniDiGioco.ControllerDiSessione;
 
 @SuppressWarnings("serial")
-public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,MouseListener {
+public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,MouseListener,MouseMotionListener {
 	//Dimensioni
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
@@ -42,18 +43,19 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			/*Aggiungiamo i controlli per le periferiche*/	
 			addKeyListener(this);
 			addMouseListener(this);
+			addMouseMotionListener(this);
 			gameThread.start();
 		}	
-			
+
 	}
-	
+
 	public static PannelloDiGioco getIstanceof(){
 		if(PannelloDiGioco.p == null){
 			p = new PannelloDiGioco();
 		}
 		return p;
 	}
-	
+
 	private void init(){
 		/*Inizializziamo l'immagine di default e il componente g che permettono di stampare
 		i vari sprites nel gioco nel nostro schermo */
@@ -66,7 +68,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		cds = new ControllerDiSessione();
 
 	}	
-	
+
 	private void update(){
 		/*Il gamePanel richiama il metodo update del controllerDiSessione che a sua volta ritrasmette
 		tale compito alla Sessione di Gioco interessata*/
@@ -83,7 +85,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	public Graphics2D getgraphics(){
 		return g;
 	}
-		
+
 	@Override
 	public void run() {
 		this.init();
@@ -104,35 +106,43 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
-		}
-				
+		}			
 	}
 	/*MOUSE*/
 	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-	}
-	
-	@Override
-	public void mouseEntered(MouseEvent e) {
-			
-	}
-	
-	@Override
-	public void mouseExited(MouseEvent e) {
-			
-	}
-	
-	@Override
 	public void mousePressed(MouseEvent e) {
-		cds.mouseClicked();
+		cds.mouseClicked(e.getX(),e.getY());
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		cds.mouseReleased();
+	}	
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		cds.MouseMovement(e.getX(), e.getY());		
 	}
+	
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+
+	}	
 	/*KEYBOARD*/
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -151,6 +161,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
+
 }

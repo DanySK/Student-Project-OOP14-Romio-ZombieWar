@@ -46,13 +46,18 @@ public class GamePause extends SessioneDiGioco{
 	}
 
 	@Override
-	public void mouseClicked() {
+	public void mouseClicked(int x,int y) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void mouseReleased() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void setMouse(int x, int y) {
 		// TODO Auto-generated method stub
 		
 	}

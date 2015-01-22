@@ -11,6 +11,7 @@ public abstract class SessioneDiGioco {
 	public abstract void draw(Graphics2D g);
 	public abstract void keyPressed(int k) throws InterruptedException;
 	public abstract void keyReleased(int k);
-	public abstract void mouseClicked();
+	public abstract void mouseClicked(int x, int y);
 	public abstract void mouseReleased();
+	public abstract void setMouse(int x, int y);
 }
