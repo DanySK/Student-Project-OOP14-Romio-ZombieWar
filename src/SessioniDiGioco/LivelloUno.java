@@ -18,8 +18,6 @@ import Entita.MammaZombie;
 import Entita.Proiettile;
 
 public class LivelloUno extends SessioneDiGioco{
-	/*Un giocatore*/
-	private Giocatore giocatore;
 	/*Una mappa*/
 	private Mappa mappa;
 	/*Vettore contenenti le armi*/

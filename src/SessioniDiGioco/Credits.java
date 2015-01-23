@@ -6,24 +6,22 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Opzioni extends SessioneDiGioco {
+public class Credits extends SessioneDiGioco{
 	private BufferedImage background;
-	public Opzioni(ControllerDiSessione cds){
+	public Credits(ControllerDiSessione cds){
 		this.cds = cds;
 		try{
-			background = ImageIO.read(getClass().getResourceAsStream("/backgrounds/Options.png"));
+			background = ImageIO.read(getClass().getResourceAsStream("/backgrounds/credits.png"));
 		}catch(Exception e){
 			e.printStackTrace();
-		}
+		}		
 	}
 	@Override
 	public void init() {
-				
 	}
 
 	@Override
 	public void update() {
-				
 	}
 
 	@Override
@@ -33,29 +31,25 @@ public class Opzioni extends SessioneDiGioco {
 
 	@Override
 	public void keyPressed(int k) throws InterruptedException {
-		if(KeyEvent.VK_ENTER == k){
+		if(k==KeyEvent.VK_ENTER){
 			this.cds.setState(ControllerDiSessione.MENU);
 		}
-		
 	}
 
 	@Override
-	public void keyReleased(int k) {
-				
+	public void keyReleased(int k) {		
 	}
 
 	@Override
-	public void mouseClicked(int x,int y) {
-				
+	public void mouseClicked(int x, int y) {		
 	}
 
 	@Override
-	public void mouseReleased() {
-				
+	public void mouseReleased() {		
 	}
+
 	@Override
-	public void setMouse(int x, int y) {
-				
+	public void setMouse(int x, int y) {		
 	}
 
 }

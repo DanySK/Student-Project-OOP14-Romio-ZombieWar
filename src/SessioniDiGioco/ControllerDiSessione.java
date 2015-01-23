@@ -6,17 +6,19 @@ import java.util.ArrayList;
 public class ControllerDiSessione {	
 	private ArrayList<SessioneDiGioco> sessioni;
 	private int sessioneCorrente;
-	public static final int MENU=0;
-	public static final int OPZIONI=1;
-	public static final int SELEZIONEPERSONAGGIO=2;
-	public static final int LIVELLO1=3;
-	public static final int GAMEPAUSE = 4;
+	public static final int MENU = 0;
+	public static final int OPZIONI = 1;
+	public static final int CREDITS = 2;
+	public static final int SELEZIONEPERSONAGGIO = 3;
+	public static final int LIVELLO1 = 4;
+	public static final int GAMEPAUSE = 5;
 
 	public ControllerDiSessione(){
 		sessioni = new ArrayList<SessioneDiGioco>();
 		sessioneCorrente= MENU;
 		sessioni.add(new MenuPrincipale(this));
 		sessioni.add(new Opzioni(this));
+		sessioni.add(new Credits(this));
 		//sessioni.add(new SelezionePersonaggio(this));
 		//sessioni.add(new LivelloUno(this));
 		//sessioni.add(new GamePause(this));

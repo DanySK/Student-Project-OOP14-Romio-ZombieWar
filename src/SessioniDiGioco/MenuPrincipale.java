@@ -14,6 +14,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 	private String[] scelta={
 			"Start",
 			"Options",
+			"Credits",
 			"Quit"
 	};
 	private int currentChoice = 0;
@@ -65,10 +66,9 @@ public class MenuPrincipale extends SessioneDiGioco{
 			this.cds.aggiungiSessione(new SelezionePersonaggio(cds));
 			this.cds.setState(ControllerDiSessione.SELEZIONEPERSONAGGIO);			
 			break;
-		case 1: 			
-			this.cds.setState(ControllerDiSessione.OPZIONI);
-			break;	
-		case 2: System.exit(0);break;
+		case 1: this.cds.setState(ControllerDiSessione.OPZIONI); break;
+		case 2: this.cds.setState(ControllerDiSessione.CREDITS); break;			
+		case 3: System.exit(0);break;
 		}
 	}
 	@Override
@@ -91,20 +91,16 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}	
 	@Override
 	public void keyReleased(int k){
-
 	}
 	@Override
 	public void mouseClicked(int x,int y) {	
-
 	}
 	@Override
 	public void mouseReleased() {
-		// TODO Auto-generated method stub
-
+		
 	}
 	@Override
 	public void setMouse(int x, int y) {
-		// TODO Auto-generated method stub
-		
+				
 	}
 }

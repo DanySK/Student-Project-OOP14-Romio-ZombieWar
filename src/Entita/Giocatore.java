@@ -134,10 +134,11 @@ public class Giocatore extends Modello2d {
 		this.setCamminata(player, width, height);
 	}
 	
-	public void colpito(double d){
-		this.hp -= d;
-		if(hp<=0){
+	public void colpito(double d){		
+		if(hp==0){
 			alive = false;
+		}else{
+			this.hp -= d;
 		}
 	}
 
@@ -152,6 +153,11 @@ public class Giocatore extends Modello2d {
 		}
 		this.calcolaRotazione(x,y);
 	}
+	
+	@Override
+	public void update() {
+		
+	}
 
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
@@ -165,16 +171,7 @@ public class Giocatore extends Modello2d {
 		gun.scale(0.8,0.8);
 		gun.translate(armacorrente.getX(),armacorrente.getY());
 		g.drawImage(armacorrente.getImage(),gun,null);
-		/*Disegna mirino*/
-		/*		
-		g.drawImage(crosshair,MouseInfo.getPointerInfo().getLocation().x,MouseInfo.getPointerInfo().getLocation().y,null);
-		*/
 	}
 
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 }
