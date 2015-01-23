@@ -2,10 +2,8 @@ package SessioniDiGioco;
 
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+
 import Armi.ArmaImpl;
 import Armi.Fucile;
 import Armi.Mitra;
@@ -74,7 +72,7 @@ public class LivelloUno extends SessioneDiGioco{
 		p = new Thread(pt);
 		p.start();
 		/*Inizializziamo l'HUD di gioco*/
-		h = new HUD();		
+		h = new HUD();
 	}
 	@Override
 	public void init(){

@@ -2,13 +2,15 @@ package Entita;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 public class HUD {
 	/*Entità da visualizzare nell'HUD*/
 	private int vitaBase;
 	private int vitaGiocatore;
-	private BufferedImage[] armi;
+	//private BufferedImage[] armi;
 	/*Grafica dell'HUD*/
 	private Color HUDColor;
 	private Font HUDFont;
@@ -17,7 +19,12 @@ public class HUD {
 		/*Import delle immagini*/
 		/*Modifica font e colore scritte dell'HUD*/
 		HUDColor = new Color(255,255,255);
-		HUDFont = new Font("True Lies",Font.PLAIN,16);
+		try {
+			HUDFont = Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")).deriveFont(12f);
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	public void update(Base b, Giocatore g){
 		vitaBase = b.getVita();

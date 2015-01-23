@@ -121,7 +121,11 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
-		cds.MouseMovement(e.getX(), e.getY());		
+		try{
+			cds.MouseMovement(e.getX(), e.getY());	
+		}catch(NullPointerException n){			
+		}
+		
 	}
 	
 	@Override

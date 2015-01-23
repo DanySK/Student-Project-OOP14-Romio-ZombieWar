@@ -13,6 +13,7 @@ public class Gioco {
 		gameFrame.pack();	
 		gameFrame.setVisible(true);
 		//Impostiamo un mirino al posto della freccia
-		gameFrame.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));		
+		gameFrame.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		
 	}
 }

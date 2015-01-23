@@ -2,9 +2,12 @@ package SessioniDiGioco;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics2D;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -21,6 +24,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 	private Font font;
 	private Color defaultColor;
 	private Color choiceColor;
+	private GraphicsEnvironment ge ;
 
 	public MenuPrincipale(ControllerDiSessione cds){
 		this.cds=cds;
@@ -31,7 +35,14 @@ public class MenuPrincipale extends SessioneDiGioco{
 			e.printStackTrace();
 		}
 		/*Seleziono il font della nostra finestra e i colori per stampare le stringhe*/
-		font= new Font("True Lies",Font.PLAIN,40);
+		try {
+			font = Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")).deriveFont(40f);
+			ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")));
+		} catch (FontFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		defaultColor=(Color.BLACK);
 		choiceColor=(Color.RED);	
 	}
@@ -97,7 +108,6 @@ public class MenuPrincipale extends SessioneDiGioco{
 	}
 	@Override
 	public void mouseReleased() {
-		
 	}
 	@Override
 	public void setMouse(int x, int y) {
