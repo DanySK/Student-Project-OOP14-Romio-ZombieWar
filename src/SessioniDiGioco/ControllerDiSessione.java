@@ -12,10 +12,12 @@ public class ControllerDiSessione {
 	public static final int SELEZIONEPERSONAGGIO = 3;
 	public static final int LIVELLO1 = 4;
 	public static final int GAMEPAUSE = 5;
+	public static final int SCONFITTA = 6;
 
 	public ControllerDiSessione(){
 		sessioni = new ArrayList<SessioneDiGioco>();
 		sessioneCorrente= MENU;
+
 		sessioni.add(new MenuPrincipale(this));
 		sessioni.add(new Opzioni(this));
 		sessioni.add(new Credits(this));
@@ -53,5 +55,11 @@ public class ControllerDiSessione {
 	}
 	public void MouseMovement(int x, int y){
 		sessioni.get(sessioneCorrente).setMouse(x,y);
+	}
+	public void reset(){		
+		sessioni.remove(SCONFITTA);
+		sessioni.remove(GAMEPAUSE);
+		sessioni.remove(LIVELLO1);
+		sessioni.remove(SELEZIONEPERSONAGGIO);
 	}
 }

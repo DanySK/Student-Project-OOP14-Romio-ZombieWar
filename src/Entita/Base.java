@@ -11,16 +11,19 @@ public class Base {
 	private int [] xPoint = {200,220,270,470,555,555}; 
 	private int [] yPoint = {0,80,120,120,80,0};
 	private int vita;
-	private boolean alive = true;
+	private boolean alive;
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
-		vita = 100;
 	}
 	public static Base getIstance(){
 		if(base == null){
 			base = new Base();
 		}
 		return base;
+	}
+	public void init(){
+		this.vita = 100;
+		this.alive = true;
 	}
 	public boolean intersect(Rectangle o){
 		return p.intersects(o);

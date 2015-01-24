@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.io.File;
 import java.io.IOException;
 public class HUD {
 	/*Entità da visualizzare nell'HUD*/
@@ -20,9 +19,8 @@ public class HUD {
 		/*Modifica font e colore scritte dell'HUD*/
 		HUDColor = new Color(255,255,255);
 		try {
-			HUDFont = Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")).deriveFont(12f);
+			HUDFont = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/TrueLies.ttf")).deriveFont(12f);
 		} catch (FontFormatException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

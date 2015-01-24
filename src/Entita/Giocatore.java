@@ -10,15 +10,11 @@ public class Giocatore extends Modello2d {
 	//Vogliamo che all'interno del gioco venga creata un'unica entit� player
 	private static Giocatore giocatore;
 	//Sprite del personaggio
-	BufferedImage player;
-	ArmaImpl[]arsenale;
-	ArmaImpl armacorrente;
+	private BufferedImage player;
+	private ArmaImpl[]arsenale;
+	private ArmaImpl armacorrente;
 	//Sparo
 	private boolean reloading;
-
-	private Giocatore(){
-		this.init();
-	}
 
 	public static Giocatore getIstance(){
 		if(giocatore==null){
@@ -32,7 +28,8 @@ public class Giocatore extends Modello2d {
 		xMap=yMap=50;
 		xScreen=yScreen=50;
 		/*Inizializziamo la vita del giocatore*/
-		this.hp = 25;
+		hp = 25;
+		alive = true;
 	}
 	/*Metodi per il movimento*/
 	public void setLeft(boolean value){

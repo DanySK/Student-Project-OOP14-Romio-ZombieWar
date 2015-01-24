@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -36,9 +35,9 @@ public class MenuPrincipale extends SessioneDiGioco{
 		}
 		/*Seleziono il font della nostra finestra e i colori per stampare le stringhe*/
 		try {
-			font = Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")).deriveFont(40f);
+			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/TrueLies.ttf")).deriveFont(40f);
 			ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Risorse/font/TrueLies.ttf")));
+			ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/TrueLies.ttf")).deriveFont(40f));
 		} catch (FontFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

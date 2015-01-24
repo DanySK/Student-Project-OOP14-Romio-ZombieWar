@@ -41,6 +41,7 @@ public class LivelloUno extends SessioneDiGioco{
 	private int xMouse;
 	private int yMouse;
 	
+	
 	public LivelloUno(ControllerDiSessione cds){
 		this.cds = cds;		
 		/*Test cpu*/
@@ -50,8 +51,10 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa = new Mappa("/backgrounds/map.png");
 		/*Inizializziamo la base*/
 		base = Base.getIstance();
+		base.init();
 		/*Inizializziamo il giocatore*/
 		giocatore = Giocatore.getIstance();
+		giocatore.init();
 		/*Inizializziamo le armi*/
 		weaponInit();
 		/*Inizializziamo uno zombie*/
@@ -90,6 +93,7 @@ public class LivelloUno extends SessioneDiGioco{
 		giocatore.setWeapons(armi);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void update(){	
 		/*Imponiamo l'update al giocatore*/
@@ -98,6 +102,14 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa.update(giocatore.getXMap(), giocatore.getYMap());
 		/*Update dell'HUD*/
 		h.update(base,giocatore);
+		/*Controlliamo se il giocatore o la base sono ancora vivi*/
+		if(!giocatore.isAlive() || !base.isAlive()){
+			/*Terminiamo i thread*/
+			p.stop();
+			t.stop();
+			this.cds.aggiungiSessione(new Sconfitta(cds));
+			this.cds.setState(ControllerDiSessione.SCONFITTA);
+		}
 	}
 	@Override
 	public void draw(Graphics2D grafica){		
