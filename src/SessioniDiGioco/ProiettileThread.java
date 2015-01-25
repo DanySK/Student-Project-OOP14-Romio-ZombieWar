@@ -2,15 +2,19 @@ package SessioniDiGioco;
 
 import java.util.Collections;
 import java.util.List;
+
 import Entita.MammaZombie;
 import Entita.Proiettile;
+import Entita.Sangue;
 
 public class ProiettileThread extends UpdateThread{
 	private List<Proiettile> p;
 	private List<MammaZombie> m;
-	public ProiettileThread(List<Proiettile> list,List<MammaZombie> list2){
+	private List<Sangue> s;
+	public ProiettileThread(List<Proiettile> list,List<MammaZombie> list2, List<Sangue> list3){
 		this.p = Collections.synchronizedList(list);
 		this.m = Collections.synchronizedList(list2);
+		this.s = Collections.synchronizedList(list3);
 	}
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
@@ -47,7 +51,9 @@ public class ProiettileThread extends UpdateThread{
 					/*Tempo di attesa tra un update e il successivo*/
 					Thread.sleep(20);
 				}catch(Exception e){
-					return;				
+					Thread.currentThread().interrupt();
+					/*Se il thread è interrotto terminiamo il ciclo*/
+					return;			
 				}
 			}
 		}
@@ -61,6 +67,7 @@ public class ProiettileThread extends UpdateThread{
 					{
 						alive.colpito(pr.getDanno());
 						p.remove(pr);
+						s.add(new Sangue(alive.getXMap(), alive.getYMap(),alive.getXScreen(),alive.getYScreen()));
 						return;
 					}
 				}

@@ -14,6 +14,7 @@ import Entita.Mappa;
 import Entita.Giocatore;
 import Entita.MammaZombie;
 import Entita.Proiettile;
+import Entita.Sangue;
 
 public class LivelloUno extends SessioneDiGioco{
 	/*Una mappa*/
@@ -21,8 +22,10 @@ public class LivelloUno extends SessioneDiGioco{
 	/*Vettore contenenti le armi*/
 	private ArmaImpl[] armi = new ArmaImpl [3];
 	/*Zombie*/
-	private List<MammaZombie> list = Collections.synchronizedList(new ArrayList<MammaZombie>());
+	private List<MammaZombie> zombies;
 	private static final int NUMZOMBIE = 50;
+	/*Sangue*/
+	private List<Sangue> sangue;
 	/*Base da difendere*/
 	private Base base;
 	/*Thread degli zombie*/
@@ -32,7 +35,7 @@ public class LivelloUno extends SessioneDiGioco{
 	private Thread p;
 	private ProiettileThread pt;
 	/*Proiettili*/
-	private List<Proiettile> proiettili= Collections.synchronizedList(new ArrayList<Proiettile>()) ;
+	private List<Proiettile> proiettili;
 	/*HUD di gioco*/
 	private HUD h;
 	private int nprocs;
@@ -46,34 +49,43 @@ public class LivelloUno extends SessioneDiGioco{
 		this.cds = cds;		
 		/*Test cpu*/
 		nprocs = Runtime.getRuntime().availableProcessors();
-		System.out.println(nprocs);
+		System.out.println(nprocs);		
 		/*Inizializziamo la mappa*/
-		mappa = new Mappa("/backgrounds/map.png");
+		mappa = new Mappa("/backgrounds/map.png");		
 		/*Inizializziamo la base*/
 		base = Base.getIstance();
-		base.init();
+		base.init();		
 		/*Inizializziamo il giocatore*/
 		giocatore = Giocatore.getIstance();
-		giocatore.init();
+		giocatore.init();		
 		/*Inizializziamo le armi*/
-		weaponInit();
+		weaponInit();		
+		/*Inizializziamo la lista degli zombie*/
+		zombies = Collections.synchronizedList(new ArrayList<MammaZombie>());		
+		/*Inizializziamo la lista dei proiettili*/
+		proiettili =  Collections.synchronizedList(new ArrayList<Proiettile>()) ;
+		/*Inizializziamo la lista delle chiazze di sangue*/
+		sangue = Collections.synchronizedList(new ArrayList<Sangue>());
 		/*Inizializziamo uno zombie*/
 		for(int i =0; i <NUMZOMBIE; i++){
 			Random rn = new Random();
 			int n = 800;
 			int j = (rn.nextInt() % n)+100;
-			synchronized (list) {
-				list.add(new MammaZombie(j,1000,giocatore,base));
+			synchronized (zombies) {
+				zombies.add(new MammaZombie(j,1000,giocatore,base));
 			}			
-		}		
+		}
+		
 		/*Inizializziamo il thread per lo zombie*/		
-		zt = new ZombieThread(list,30);
+		zt = new ZombieThread(zombies,30);
 		t = new Thread(zt);
 		t.start();
+		
 		/*Inizializziamo il thread per i proiettili*/
-		pt = new ProiettileThread(proiettili,list);
+		pt = new ProiettileThread(proiettili,zombies,sangue);
 		p = new Thread(pt);
 		p.start();
+		
 		/*Inizializziamo l'HUD di gioco*/
 		h = new HUD();
 	}
@@ -93,7 +105,6 @@ public class LivelloUno extends SessioneDiGioco{
 		giocatore.setWeapons(armi);
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void update(){	
 		/*Imponiamo l'update al giocatore*/
@@ -102,34 +113,56 @@ public class LivelloUno extends SessioneDiGioco{
 		mappa.update(giocatore.getXMap(), giocatore.getYMap());
 		/*Update dell'HUD*/
 		h.update(base,giocatore);
-		/*Controlliamo se il giocatore o la base sono ancora vivi*/
-		if(!giocatore.isAlive() || !base.isAlive()){
-			/*Terminiamo i thread*/
-			p.stop();
-			t.stop();
-			this.cds.aggiungiSessione(new Sconfitta(cds));
-			this.cds.setState(ControllerDiSessione.SCONFITTA);
+		/*al massimo 50 schizzi di sangue*/
+		if(sangue.size()>50){
+			synchronized (sangue) {
+				sangue.remove(0);
+			}
 		}
+		
 	}
 	@Override
 	public void draw(Graphics2D grafica){		
 		/*Disegniamo la mappa*/
 		mappa.draw(grafica);
-		/*Disegniamo l'HUD di gioco*/
-		h.draw(grafica);
+		/*Disegniamo il sangue*/
+		for(int x =0;x<sangue.size();x++){
+			synchronized (sangue) {
+				sangue.get(x).draw(grafica);
+			}
+		}
 		/*Disegniamo il giocatore*/
 		giocatore.draw(grafica);		
 		/*Disegniamo gli zombie*/
-		for(int j =0;j<list.size();j++){
-			synchronized (list) {
-				list.get(j).draw(grafica);
+		for(int x=0;x<zombies.size();x++){
+			synchronized (zombies) {
+				zombies.get(x).draw(grafica);
 			}
 		}
 		/*Disegniamo i proiettili*/		
 		synchronized (proiettili) {
-			for(int i =0; i<proiettili.size();i++){
-				proiettili.get(i).draw(grafica);	
+			for(int x =0; x<proiettili.size();x++){
+				proiettili.get(x).draw(grafica);	
 			}			
+		}
+		
+		/*Disegniamo l'HUD di gioco*/
+		h.draw(grafica);
+		
+		/*Controlliamo se il giocatore o la base sono ancora vivi*/
+		if(!giocatore.isAlive() || !base.isAlive()){
+			/*Terminiamo i thread*/
+			t.interrupt();
+			p.interrupt();
+			this.cds.aggiungiSessione(new Sconfitta(cds));
+			this.cds.setState(ControllerDiSessione.SCONFITTA);
+		}
+		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
+		if(zombies.size()==0){
+			t.interrupt();
+			p.interrupt();
+			this.cds.aggiungiSessione(new Vittoria(cds));
+			this.cds.setState(ControllerDiSessione.VITTORIA);
 		}
 	}
 	@Override

@@ -123,7 +123,9 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	public void mouseMoved(MouseEvent e) {
 		try{
 			cds.MouseMovement(e.getX(), e.getY());	
-		}catch(NullPointerException n){			
+		}catch(NullPointerException n){
+			/*Se il mouse non è nella finestra*/
+			n.printStackTrace();
 		}
 		
 	}

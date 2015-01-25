@@ -14,7 +14,7 @@ public class Mappa{
 	/*Coordinate per calcolare la traiettoria del personaggio*/
 	private double previous_Yposition=0;
 	private double previous_Xposition=0;
-
+	/*Vettore contenente gli spruzzi di sangue*/
 	public Mappa(String path){
 		try {
 			mappa = ImageIO.read(getClass().getResourceAsStream(path));

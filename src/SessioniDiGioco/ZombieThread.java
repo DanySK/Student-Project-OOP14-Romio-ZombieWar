@@ -46,7 +46,9 @@ public class ZombieThread extends UpdateThread{
 				try {
 					Thread.sleep(waiting);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					Thread.currentThread().interrupt();
+					/*Se il thread è interrotto terminiamo il ciclo*/
+					return;
 				}
 			}
 
@@ -54,7 +56,6 @@ public class ZombieThread extends UpdateThread{
 	}
 	private void checkCollision(MammaZombie m){
 		m.attack();
-	}
-	
+	}	
 
 }
