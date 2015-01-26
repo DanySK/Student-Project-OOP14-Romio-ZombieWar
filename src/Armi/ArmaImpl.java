@@ -14,15 +14,15 @@ public abstract class ArmaImpl implements Arma {
 	protected int colpi;
 	protected int caricatore;
 	protected BufferedImage sprite;
-	/*Timer del caricatore*/
+	/** Timer del caricatore */
 	protected boolean reloading;
 	protected int realoadTime;
 	protected long start;
 	protected long end;
-	/*Coordinate per il draw*/
+	/** Coordinate per il draw */
 	protected int x;
 	protected int y;
-	/*Lista contenente tutti i colpi attualmente in esecuzione*/
+	/** Lista contenente tutti i colpi attualmente in esecuzione */
 	protected List<Proiettile> list;
 
 	@Override
@@ -34,7 +34,7 @@ public abstract class ArmaImpl implements Arma {
 		if(reloading){
 			if((end=System.currentTimeMillis())>(start+1500))
 			{
-				//ha finito di caricare
+				/** Ha finito di caricare */
 				this.colpi=caricatore;
 				reloading = false;
 			}

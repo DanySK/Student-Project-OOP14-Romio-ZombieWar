@@ -18,23 +18,23 @@ public class ProiettileThread extends UpdateThread{
 	}
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			/*Se la variabile pausa è true allora mettiamo in wait il nostro thread*/
+			/** Se la variabile pausa è true allora mettiamo in wait il nostro thread */
 			if (pauseFlag.get()) {
 				synchronized (pauseFlag) {
 					while (pauseFlag.get()) {
 						try {
-							/*Thread in wait*/
+							/** Thread in wait */
 							pauseFlag.wait();
 						} catch (InterruptedException e) {
 							Thread.currentThread().interrupt();
-							/*Se il thread è interrotto terminiamo il ciclo*/
+							/** Se il thread è interrotto terminiamo il ciclo */
 							return;
 						}
 					}
 				}
 			}
 			else{
-				/*Update per i proiettili*/
+				/** Update per i proiettili */
 				try{
 					synchronized (p) {
 						for(int i = 0; i<p.size(); i++){
@@ -42,37 +42,41 @@ public class ProiettileThread extends UpdateThread{
 								p.remove(i);							
 							}
 							else{
-								/*Dopo ciascun update controlliamo se il proiettile ha colpito un zombie*/
+								/** Dopo ciascun update controlliamo se il proiettile 
+								 * ha colpito un zombie
+								 */
 								p.get(i).update();
 								this.checkCollision(p.get(i));
 							}
 						}
 					}
-					/*Tempo di attesa tra un update e il successivo*/
+					/** Tempo di attesa tra un update e il successivo */
 					Thread.sleep(20);
 				}catch(Exception e){
-					Thread.currentThread().interrupt();
-					/*Se il thread è interrotto terminiamo il ciclo*/
+					e.printStackTrace();
+					/** Se il thread è interrotto terminiamo il ciclo */
 					return;			
 				}
 			}
 		}
 
 	}
-	public void checkCollision(Proiettile pr){		
-		for(MammaZombie alive:m){
+	public void checkCollision(Proiettile pr){	
+		synchronized (p) {
 			synchronized (m) {
-				synchronized (p) {
-					if(alive.getRectangle().contains(pr.getPosition()))			
+				for(int i = 0; i <m.size(); i++){
+					if(m.get(i).getRectangle().contains(pr.getPosition()))			
 					{
-						alive.colpito(pr.getDanno());
+						m.get(i).colpito(pr.getDanno());
 						p.remove(pr);
-						s.add(new Sangue(alive.getXMap(), alive.getYMap(),alive.getXScreen(),alive.getYScreen()));
+						s.add(new Sangue(m.get(i).getXMap(), m.get(i).getYMap(),m.get(i).getXScreen(),m.get(i).getYScreen()));
 						return;
 					}
 				}
 			}
 		}
 	}
+
 }
+
 

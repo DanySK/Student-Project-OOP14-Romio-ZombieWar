@@ -25,7 +25,7 @@ public class Proiettile extends Modello2d {
 	}
 	
 	public void calcolaPosizione(){
-		/*Calcoliamo la taiettoria del proiettile*/
+		/** Calcoliamo la taiettoria del proiettile */
 		this.xScreen += 10*Math.cos(rapporto);
 		this.yScreen += 10*Math.sin(rapporto);
 		this.xMap += 10*Math.cos(rapporto);

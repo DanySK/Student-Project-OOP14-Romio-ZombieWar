@@ -7,29 +7,29 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class Modello2d {
-	//Coordinate nella finestra
+	/**Coordinate nella finestra*/
 	protected double xScreen,yScreen;
-	//Coordinate nella mappa
+	/**Coordinate nella mappa*/
 	protected double xMap,yMap;
-	//Dimensioni immagine
+	/**Dimensioni immagine*/
 	protected int width,height;
-	//Rotazone dell'immagine
+	/**Rotazone dell'immagine*/
 	protected double rotazione;
-	//Immagine
+	/**Immagine*/
 	protected BufferedImage sprite;	
-	//Ciascuno personaggio del nostro gioco ha un'animazione per la camminata
+	/**Ciascuno personaggio del nostro gioco ha un'animazione per la camminata*/
 	protected Animazione camminata;
-	//Movimenti
+	/**Movimenti*/
 	protected boolean left;
 	protected boolean right;
 	protected boolean up;
 	protected boolean down;
-	//Angoli della mappa nella quale si muove il personaggio
+	/**Angoli della mappa nella quale si muove il personaggio*/
 	protected static final int leftx=0;
 	protected static final int rightx=720;
 	protected static final int topy=0;
 	protected static final int bottomy=1054;
-	//Campi del personaggio
+	/**Campi del personaggio*/
 	protected double hp;
 	protected boolean alive=true;
 
@@ -43,13 +43,13 @@ public abstract class Modello2d {
 	}
 
 	public void setCamminata(BufferedImage sprite, int width, int height){
-		/*Ritaglio i frame dallo sprite*/
+		/**Ritaglio i frame dallo sprite*/
 		BufferedImage[] tmp = new BufferedImage[sprite.getWidth()/height];
 		for(int i=0; i<tmp.length; i++){
-			/*Ritagliamo gli sprite dal file png di origine uno alla volta*/
+			/**Ritagliamo gli sprite dal file png di origine uno alla volta*/
 			tmp[i] = sprite.getSubimage(i*width,0, width, height);
 		}
-		/*Imposto l'animazione della camminata*/
+		/**Imposto l'animazione della camminata*/
 		camminata= new Animazione(tmp);
 		camminata.calculateDefaultDelay();
 	}

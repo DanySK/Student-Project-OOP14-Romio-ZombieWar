@@ -21,12 +21,12 @@ public class Mitra extends ArmaImpl{
 			this.reloading=false;
 			/*Aggiungiamo i tre proiettili*/
 			this.colpi-=3;
-			/*
+			/**
 			 * Per Ottenere gli altri due colpi:
 			 * Trasliamo il cursore all'origine
 			 * Ruotiamo attorno all'origine dell'angolo ricercato
 			 * Trasliamo nuovamente nella posizione originale
-			 * */
+			 */
 			l.add(new Proiettile(g,xMouse,yMouse,8));
 			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(0.5) - (yMouse-g.getYScreen())*Math.sin(0.5);
 			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(0.5) + (yMouse-g.getYScreen())*Math.cos(0.5);

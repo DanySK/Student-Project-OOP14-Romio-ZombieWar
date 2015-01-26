@@ -19,7 +19,7 @@ public class Fucile extends ArmaImpl {
 	public int shoot(Giocatore g,double xMouse,double yMouse,List<Proiettile>l) {
 		if(this.colpi>0){
 			this.reloading=false;
-			/*Aggiungiamo un singolo proiettile*/
+			/** Aggiungiamo un singolo proiettile */
 			this.colpi--;
 			l.add(new Proiettile(g,xMouse,yMouse,danno));
 			System.out.println(""+this.colpi);

@@ -17,30 +17,30 @@ import Entita.Proiettile;
 import Entita.Sangue;
 
 public class LivelloUno extends SessioneDiGioco{
-	/*Una mappa*/
+	/** Una mappa */
 	private Mappa mappa;
-	/*Vettore contenenti le armi*/
+	/** Vettore contenenti le armi */
 	private ArmaImpl[] armi = new ArmaImpl [3];
-	/*Zombie*/
+	/** Zombie */
 	private List<MammaZombie> zombies;
 	private static final int NUMZOMBIE = 50;
-	/*Sangue*/
+	/** Sangue */
 	private List<Sangue> sangue;
-	/*Base da difendere*/
+	/** Base da difendere */
 	private Base base;
-	/*Thread degli zombie*/
+	/** Thread degli zombie */
 	private Thread t;
 	private ZombieThread zt;
-	/*Thread proiettili*/
+	/** Thread proiettili */
 	private Thread p;
 	private ProiettileThread pt;
-	/*Proiettili*/
+	/** Proiettili */
 	private List<Proiettile> proiettili;
-	/*HUD di gioco*/
+	/** HUD di gioco */
 	private HUD h;
 	private int nprocs;
 	private boolean pause = false;
-	/*Posizione del mouse*/
+	/** Posizione del mouse */
 	private int xMouse;
 	private int yMouse;
 	
@@ -114,8 +114,8 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Update dell'HUD*/
 		h.update(base,giocatore);
 		/*al massimo 50 schizzi di sangue*/
-		if(sangue.size()>50){
-			synchronized (sangue) {
+		synchronized (sangue) {
+			if(sangue.size()>50){			
 				sangue.remove(0);
 			}
 		}
@@ -126,16 +126,16 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Disegniamo la mappa*/
 		mappa.draw(grafica);
 		/*Disegniamo il sangue*/
-		for(int x =0;x<sangue.size();x++){
-			synchronized (sangue) {
+		synchronized (sangue) {
+			for(int x =0;x<sangue.size();x++){
 				sangue.get(x).draw(grafica);
 			}
 		}
 		/*Disegniamo il giocatore*/
 		giocatore.draw(grafica);		
 		/*Disegniamo gli zombie*/
-		for(int x=0;x<zombies.size();x++){
-			synchronized (zombies) {
+		synchronized (zombies) {
+			for(int x=0;x<zombies.size();x++){
 				zombies.get(x).draw(grafica);
 			}
 		}
@@ -154,16 +154,26 @@ public class LivelloUno extends SessioneDiGioco{
 			/*Terminiamo i thread*/
 			t.interrupt();
 			p.interrupt();
+			giocatore.setLeft(false);
+			giocatore.setRight(false);
+			giocatore.setUp(false);
+			giocatore.setDown(false);
 			this.cds.aggiungiSessione(new Sconfitta(cds));
 			this.cds.setState(ControllerDiSessione.SCONFITTA);
 		}
 		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
-		if(zombies.size()==0){
-			t.interrupt();
-			p.interrupt();
-			this.cds.aggiungiSessione(new Vittoria(cds));
-			this.cds.setState(ControllerDiSessione.VITTORIA);
-		}
+		synchronized (zombies) {
+			if(zombies.size()==0){
+				t.interrupt();
+				p.interrupt();
+				giocatore.setLeft(false);
+				giocatore.setRight(false);
+				giocatore.setUp(false);
+				giocatore.setDown(false);
+				this.cds.aggiungiSessione(new Vittoria(cds));
+				this.cds.setState(ControllerDiSessione.VITTORIA);
+			}
+		}		
 	}
 	@Override
 	public void keyPressed(int k) throws InterruptedException{
@@ -207,7 +217,7 @@ public class LivelloUno extends SessioneDiGioco{
 			double xMOUSE=x+15*Math.random();
 			double yMOUSE=y+15*Math.random();
 			synchronized (proiettili) {
-				giocatore.shoot(xMOUSE, yMOUSE,proiettili);		
+				giocatore.shoot(xMOUSE, yMOUSE,proiettili);
 			}
 	}
 	@Override

@@ -5,13 +5,13 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 public class MammaZombie extends Modello2d{
-	/*Varibile che controlla se il player � nel range dello zombie*/
+	/** Varibile che controlla se il player � nel range dello zombie */
 	private int range;
-	//player
+	/** Giocatore */
 	private Giocatore giocatore;	
-	//Base
+	/** Base */
 	private Base base;
-	/*Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
+	/** Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	private double danno;
 	private boolean attaccandoGiocatore;
 	private boolean attaccandoBase;
@@ -20,7 +20,7 @@ public class MammaZombie extends Modello2d{
 	private long tempoPerColpire;
 	private Rectangle vision;
 	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
-		/*Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato*/
+		/** Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato */
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
 		this.giocatore = player;
@@ -32,20 +32,19 @@ public class MammaZombie extends Modello2d{
 		this.init();
 	}
 	public void init(){
-		/*Carichiamo l'immagine dello zombie*/
+		/** Carichiamo l'immagine dello zombie */
 		this.sprite = setSprite("/sprites/zombieMom.png");
-		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
+		/** Il nostro file png contiene 5 diversi sprite che compono la camminata */
 		this.width = sprite.getWidth()/4;
 		this.height = sprite.getHeight();
-		/*Creiamo l'animazione per il nostro personaggio*/
+		/** Creiamo l'animazione per il nostro personaggio */
 		this.setCamminata(sprite, width, height);
-		/*Inizializziamo la vita dello zombie*/
+		/** Inizializziamo la vita dello zombie */
 		this.hp = 25;	
 		this.danno = 1;
 	}
-	/*Controlla se il giocatore � nel raggio di visione del giocatore*/
+	/** Controlla se il giocatore � nel raggio di visione del giocatore */
 	public boolean visionRange() {
-		/*TODOOO FARLO PARAMETRICO CON IL CAMPO RANGE*/
 		vision = new Rectangle((int)xMap - (range/2), (int)yMap - (range/2), range + width, range + height);
 		if(vision.intersects(giocatore.getRectangle())){
 			return true;
@@ -55,23 +54,23 @@ public class MammaZombie extends Modello2d{
 
 	}
 	public void calcolaPosizione(){
-		/*Calcoliamo la distanza tra zombie e giocare e zombie base*/
-		/*Ipotizziamo che la base sia nel punto (310,0)*/
+		/** Calcoliamo la distanza tra zombie e giocare e zombie base
+			Ipotizziamo che la base sia nel punto (310,0) */
 		if(visionRange()){
 			double rapporto = Math.atan2((giocatore.getYMap() - yMap),(giocatore.getXMap() - xMap));
 			/*Obbiettivo: caccia giocatore*/
 			xMap += Math.cos(rapporto);
 			yMap += Math.sin(rapporto);
-			/*Aggiorniamo le coordinate nella finestra*/
+			/** Aggiorniamo le coordinate nella finestra */
 			xScreen += Math.cos(rapporto);
 			yScreen += Math.sin(rapporto);
 		}else{
-			/*Obbiettivo attacca la base*/
+			/** Obbiettivo attacca la base */
 			if(!base.intersect(this.getRectangle())){
 				double rapporto = Math.atan2((0 - yMap),(310 - xMap));
 				xMap += Math.cos(rapporto);
 				yMap += Math.sin(rapporto);
-				/*Aggiorniamo le coordinate nella finestra*/
+				/** Aggiorniamo le coordinate nella finestra */
 				xScreen += Math.cos(rapporto);
 				yScreen += Math.sin(rapporto);
 			}else{
@@ -106,25 +105,25 @@ public class MammaZombie extends Modello2d{
 		}
 		at.translate(xScreen, yScreen);
 		if(visionRange()){
-			/*Girato verso il giocatore*/
+			/** Girato verso il giocatore */
 			at.rotate(Math.atan2(giocatore.getYScreen() - yScreen,giocatore.getXScreen() - xScreen) + 1.5, 14.5, 17);
 		}else{
-			/*Girato verso la base*/
+			/** Girato verso la base */
 			at.rotate(Math.atan2(0-yMap,310-xMap)+1.5,14.5,17);
 		}
 		try{
 			g.drawImage(camminata.getImage(), at, null);
 		}
 		catch(IndexOutOfBoundsException e){
-			/*Se l'animazione da un index out of bound perdiamo solamente un frame non è un problema*/
+			/** Se l'animazione da un index out of bound perdiamo solamente un frame */
 			return;
 		}
 		
 	}
 	public void attack(){
-		/*Utilizziamo un timer per fare in modo tale che lo zombie impieghi x tempo per attaccare
+		/** Utilizziamo un timer per fare in modo tale che lo zombie impieghi x tempo per attaccare
 		 *altrimenti la difficoltà del gioco varierebbe dalla potenza del computer
-		 * */
+		 */
 		if(this.getRectangle().intersects(giocatore.getRectangle())){
 			if(attaccandoGiocatore == false){
 				tentaAttaccoGiocatore = System.currentTimeMillis();

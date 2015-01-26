@@ -99,15 +99,15 @@ public class Giocatore extends Modello2d {
 	}
 	
 	public boolean shoot(double xMouse,double yMouse,List<Proiettile>l){
-		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
-			reloading=false;
-			return true;
+			if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
+				reloading=false;
+				return true;
+			}
+			else{	
+				this.reload();
+				return false;
+			}
 		}
-		else{	
-			this.reload();
-			return false;
-		}
-	}
 	
 	private void reload(){
 		this.reloading = true;

@@ -1,6 +1,5 @@
 package SessioniDiGioco;
 import java.awt.Graphics2D;
-
 import Entita.Giocatore;
 
 public abstract class SessioneDiGioco {

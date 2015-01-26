@@ -16,37 +16,36 @@ import SessioniDiGioco.ControllerDiSessione;
 
 @SuppressWarnings("serial")
 public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,MouseListener,MouseMotionListener {
-	//Dimensioni
+	/**Dimensioni*/
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
-	//Componenti per stampare gli sprite
+	/**Componenti per stampare gli sprite */
 	private Graphics2D g;
 	private BufferedImage image;
-	//GameThread
+	/**GameThread*/
 	private Thread gameThread;
 	private boolean running;	
 	private int FPS = 60;
-	/*Quanto tempo deve passare tra una draw() e l'altra*/
+	/**Quanto tempo deve passare tra una draw() e l'altra */
 	private long targetTime = 1000/FPS;
-	/*Controller di Sessione*/
+	/**Controller di Sessione*/
 	private ControllerDiSessione cds;
 	private static PannelloDiGioco p;
 	private PannelloDiGioco(){
 		super();
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		/*Per utilizzare il keyListener dobbiamo imporre il requestFocus al nostro JPanel*/
+		/**Per utilizzare il keyListener dobbiamo imporre il requestFocus al nostro JPanel */
 		setFocusable(true);
 		requestFocus();
-		/*Inizializziamo il gameThread*/		
+		/**Inizializziamo il gameThread */		
 		if(gameThread== null){
 			gameThread= new Thread(this);
-			/*Aggiungiamo i controlli per le periferiche*/	
+			/**Aggiungiamo i controlli per le periferiche */	
 			addKeyListener(this);
 			addMouseListener(this);
 			addMouseMotionListener(this);
 			gameThread.start();
-		}	
-
+		}
 	}
 
 	public static PannelloDiGioco getIstanceof(){
@@ -57,21 +56,20 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	}
 
 	private void init(){
-		/*Inizializziamo l'immagine di default e il componente g che permettono di stampare
+		/** Inizializziamo l'immagine di default e il componente g che permettono di stampare
 		i vari sprites nel gioco nel nostro schermo */
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g= (Graphics2D) image.getGraphics();
-		/*Inizializiamo la variabile per avviare il gameThread*/
+		/** Inizializiamo la variabile per avviare il gameThread*/
 		running = true;
-		/* Creiamo un'istanza di cds che permette di effettuare lo switch tra le varie sessioni
+		/** Creiamo un'istanza di cds che permette di effettuare lo switch tra le varie sessioni
 		di gioco */
 		cds = new ControllerDiSessione();
-
 	}	
 
 	private void update(){
-		/*Il gamePanel richiama il metodo update del controllerDiSessione che a sua volta ritrasmette
-		tale compito alla Sessione di Gioco interessata*/
+		/** Il gamePanel richiama il metodo update del controllerDiSessione che a sua volta ritrasmette
+		tale compito alla Sessione di Gioco interessata */
 		cds.update();
 	}
 	private void draw(){
@@ -98,7 +96,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			draw();
 			drawToScreen();
 			elapsed = System.nanoTime() - start;
-			/*Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni*/
+			/** Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni */
 			wait = targetTime - elapsed/1000000;
 			if(wait < 0) wait =0;
 			try {
@@ -108,7 +106,7 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			}
 		}			
 	}
-	/*MOUSE*/
+	/** MOUSE */
 	@Override
 	public void mousePressed(MouseEvent e) {
 		cds.mouseClicked(e.getX(),e.getY());
@@ -124,8 +122,8 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		try{
 			cds.MouseMovement(e.getX(), e.getY());	
 		}catch(NullPointerException n){
-			/*Se il mouse non è nella finestra*/
-			n.printStackTrace();
+			/** Se il mouse non è nella finestra */
+			return;
 		}
 		
 	}
@@ -149,13 +147,12 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 	public void mouseExited(MouseEvent e) {
 
 	}	
-	/*KEYBOARD*/
+	/** KEYBOARD */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		try {
 			cds.keyPressed(e.getKeyCode());
 		} catch (InterruptedException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
@@ -167,7 +164,6 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 }
