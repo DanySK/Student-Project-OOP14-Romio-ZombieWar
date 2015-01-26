@@ -1,6 +1,7 @@
 package SessioniDiGioco;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 
 public class Vittoria extends SessioneDiGioco {
 	
@@ -23,8 +24,12 @@ public class Vittoria extends SessioneDiGioco {
 
 	
 	public void keyPressed(int k) throws InterruptedException {
-		this.cds.reset();
-		this.cds.setState(ControllerDiSessione.MENU);		
+		if(k == KeyEvent.VK_ENTER){
+			/*Reinizializzo il gioco*/
+			this.cds.reset();
+			/*Ritorno al menu*/
+			this.cds.setState(ControllerDiSessione.MENU);		
+		}		
 	}
 
 	

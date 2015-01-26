@@ -12,11 +12,12 @@ public class HUD {
 	 * 
 	 *  @autor Giovanni Romio
 	 */	
-	
+
+	private Giocatore giocatore;
+	private Base base;
 	/*Entità da visualizzare nell'HUD*/
 	private int vitaBase;
 	private int vitaGiocatore;
-	//private BufferedImage[] armi;
 	/*Grafica dell'HUD*/
 	private Color HUDColor;
 	private Font HUDFont;
@@ -30,21 +31,27 @@ public class HUD {
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
+		this.giocatore = Giocatore.getIstance();
+		this.base = Base.getIstance();
+				
 	}
-	public void update(Base b, Giocatore g){
+	public void update(){
 		
-		vitaBase = b.getVita();
-		vitaGiocatore = (int)g.getHp();
+		vitaBase = base.getVita();
+		vitaGiocatore = (int)giocatore.getHp();
 	}
 	public void draw(Graphics2D g){
 		
 		g.setColor(HUDColor);
 		g.setFont(HUDFont);
 		//DISEGNARE NOME ARMA
-		g.drawString("Test", 5, 20);
+		g.drawString(giocatore.getWeapon().getWeaponName(), 5, 20);
 		// DISEGNARE ARMA
+		g.drawImage(giocatore.getWeapon().getHUDImage(), 5, 25,null);
 		// DISEGNARE COLPI
-		
+		if(!giocatore.isRealoading())
+			g.drawString("X "+ giocatore.getWeapon().getColpi(), 150,80);
+		else g.drawString("Reloading", 150, 80);
 		//DISEGNARE PUNTI VITA
 		g.drawString("HP: "+vitaGiocatore, 5, 110);
 		g.drawString("BASE: "+vitaBase, 5, 140);

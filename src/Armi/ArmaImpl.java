@@ -1,11 +1,7 @@
 package Armi;
 
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.util.List;
-
-import javax.imageio.ImageIO;
-
 import Entita.Proiettile;
 
 public abstract class ArmaImpl implements Arma {
@@ -15,10 +11,12 @@ public abstract class ArmaImpl implements Arma {
 	 * 
 	 * @author Giovanni Romio
 	 */
+	protected String nome;
 	protected int danno;
 	protected int colpi;
 	protected int caricatore;
 	protected BufferedImage sprite;
+	protected BufferedImage HUDsprite;
 	/* Timer del caricatore */
 	protected boolean reloading;
 	protected int realoadTime;
@@ -51,23 +49,15 @@ public abstract class ArmaImpl implements Arma {
 	}
 
 	/**
-	 * Method for load the image from the src folder
-	 * @param path rappresent the path to get the image
-	 */
-	public void setImage(String path) {
-		try {
-			this.sprite = ImageIO.read(getClass().getResourceAsStream(path));
-		} catch (IOException e) { 
-			e.printStackTrace();
-		}
-
-	}
-
-	/**
 	 * @return sprite image of the weapon.
 	 */
+	
 	public BufferedImage getImage() {
 		return sprite;
+	}
+	
+	public BufferedImage getHUDImage(){
+		return HUDsprite;
 	}
 	
 	public int getX(){
@@ -80,6 +70,14 @@ public abstract class ArmaImpl implements Arma {
 
 	public int getDamage() {
 		return danno;
+	}
+	
+	public String getWeaponName(){
+		return nome;
+	}
+	
+	public int getColpi(){
+		return this.colpi;
 	}
 
 }

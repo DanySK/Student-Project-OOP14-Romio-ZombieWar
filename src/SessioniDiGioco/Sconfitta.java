@@ -1,6 +1,7 @@
 package SessioniDiGioco;
 
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
@@ -34,11 +35,12 @@ public class Sconfitta extends SessioneDiGioco{
 
 	
 	public void keyPressed(int k) throws InterruptedException {
-		/*Termino i thread*/
-		/*Reinizializzo il gioco*/
-		this.cds.reset();
-		/*Ritorno al menu*/
-		this.cds.setState(ControllerDiSessione.MENU);		
+		if(k == KeyEvent.VK_ENTER){
+			/*Reinizializzo il gioco*/
+			this.cds.reset();
+			/*Ritorno al menu*/
+			this.cds.setState(ControllerDiSessione.MENU);		
+		}		
 	}
 
 	

@@ -1,6 +1,8 @@
 package Armi;
 import java.util.List;
 
+import javax.imageio.ImageIO;
+
 import Entita.Giocatore;
 import Entita.Proiettile;
 
@@ -17,12 +19,18 @@ public class Mitra extends ArmaImpl{
 	 * Define the gun properties, could implements more dettails as accuracy and realoadTime
 	 */
 	public Mitra(){
+		this.nome = "MINIGUN";
 		this.danno = 8;
 		this.caricatore = 60;
 		this.colpi = 60;
 		this.x = 7;
 		this.y = 17;
-		this.setImage("/sprites/minigun.png");
+		try{
+			sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/minigun.png"));
+			HUDsprite =  ImageIO.read(getClass().getResourceAsStream("/sprites/weaponsHUD/minigun.png"));
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 	/**
 	 * This metod let the player to shoot adding bullets to the current gameSession.
@@ -50,8 +58,6 @@ public class Mitra extends ArmaImpl{
 			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(-0.5) - (yMouse-g.getYScreen())*Math.sin(-0.5);
 			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.5) + (yMouse-g.getYScreen())*Math.cos(-0.5);
 			l.add(new Proiettile(g,newX,newY,danno));
-			System.out.println(""+this.colpi);
-			System.out.println(""+l.size());
 		}
 		return this.colpi;
 	}

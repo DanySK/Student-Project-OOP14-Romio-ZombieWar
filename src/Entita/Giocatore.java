@@ -173,9 +173,8 @@ public class Giocatore extends Modello2d {
 		armacorrente = this.arsenale[i];		
 	}
 	
-	public int getWeaponDamage() {		
-		
-		return armacorrente.getDamage();		
+	public ArmaImpl getWeapon(){
+		return armacorrente;
 	}
 	
 	/**
@@ -202,6 +201,8 @@ public class Giocatore extends Modello2d {
 			this.hp -= d;
 		}		
 	}
+	
+	
 	
 	/**
 	 *  Update is called from called from the Contoller di Sessione wich is called form the main
@@ -250,6 +251,9 @@ public class Giocatore extends Modello2d {
 		gun.translate(armacorrente.getX(),armacorrente.getY());
 		g.drawImage(armacorrente.getImage(),gun,null);		
 	}
-
+	
+	public boolean isRealoading(){
+		return this.reloading;
+	}
 	
 }

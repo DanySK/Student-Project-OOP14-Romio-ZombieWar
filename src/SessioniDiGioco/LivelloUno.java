@@ -119,7 +119,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Spostiamo la posizione della mappa*/
 		mappa.update(giocatore.getXMap(), giocatore.getYMap());
 		/*Update dell'HUD*/
-		h.update(base,giocatore);
+		h.update();
 		/*al massimo 50 schizzi di sangue*/
 		synchronized (sangue) {
 			if(sangue.size()>50){			
