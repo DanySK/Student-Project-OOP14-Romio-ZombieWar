@@ -6,6 +6,13 @@ import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.io.IOException;
 public class HUD {
+	/**
+	 * This class is used to display the player status, current weapon and the status of the Base.
+	 * It is still incompled, must replace Weapon Name and bullet numbers
+	 * 
+	 *  @autor Giovanni Romio
+	 */	
+	
 	/*Entità da visualizzare nell'HUD*/
 	private int vitaBase;
 	private int vitaGiocatore;
@@ -25,10 +32,12 @@ public class HUD {
 		}
 	}
 	public void update(Base b, Giocatore g){
+		
 		vitaBase = b.getVita();
 		vitaGiocatore = (int)g.getHp();
 	}
 	public void draw(Graphics2D g){
+		
 		g.setColor(HUDColor);
 		g.setFont(HUDFont);
 		//DISEGNARE NOME ARMA

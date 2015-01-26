@@ -17,22 +17,22 @@ public class Sconfitta extends SessioneDiGioco{
 			e.printStackTrace();
 		}
 	}
-	@Override
+	
 	public void init() {
 	}
 
-	@Override
+	
 	public void update() {
 	}
 
-	@Override
+	
 	public void draw(Graphics2D g) {
 		g.setFont(g.getFont().deriveFont(40f));
 		g.drawImage(background, 0, 0, null);
 		g.drawString("DEFEAT", 280, 240);
 	}
 
-	@Override
+	
 	public void keyPressed(int k) throws InterruptedException {
 		/*Termino i thread*/
 		/*Reinizializzo il gioco*/
@@ -41,19 +41,19 @@ public class Sconfitta extends SessioneDiGioco{
 		this.cds.setState(ControllerDiSessione.MENU);		
 	}
 
-	@Override
+	
 	public void keyReleased(int k) {
 	}
 
-	@Override
+	
 	public void mouseClicked(int x, int y) {
 	}
 
-	@Override
+	
 	public void mouseReleased() {
 	}
 
-	@Override
+	
 	public void setMouse(int x, int y) {
 	}
 

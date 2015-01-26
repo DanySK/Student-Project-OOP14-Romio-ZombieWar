@@ -3,14 +3,20 @@ package Entita;
 import java.awt.image.BufferedImage;
 
 public class Animazione {
-
+	/**
+	 * This class define all the basics animations of the sprites moving in our game.
+	 * Ex. Given all the frames about the walk animation of the player, it
+	 * return single frame one by one.
+	 * 
+	 * @author Giovanni Romio
+	 */
 	private BufferedImage[] frames;
 	private int currentFrame;	
 	private long startTime;
 	private long delay;
 
 	public Animazione(BufferedImage[] frames){
-		/*Carica i frame per l'animazione*/
+		/*Load all the frames for the animation*/
 		this.frames= frames;
 		currentFrame = 0;
 		startTime = System.nanoTime();
@@ -22,15 +28,18 @@ public class Animazione {
 		currentFrame = i;
 	}
 	public void calculateDefaultDelay(){
-		/*delay ottimale per la camminata in 5 frame*/
+		/*Optimal delay for the walk animation in 5 frame*/
 		delay= 100;
 	}
+	/**
+	 * This method allow programmer to set a different framerate for the animation 
+	 * @param delay rapresent how fast will the frame be switched
+	 */
 	public void setDelay(int delay){
-		/*Possibilit� di impostare il framerate per la nostra animazione a piacere*/
 		this.delay=delay;
 	}
 	public void update() {
-		/*Se il delay non � stato impostato*/
+		/*Se il delay non e stato impostato*/
 		if(delay == -1) return;	
 		long elapsed = (System.nanoTime() - startTime) / 1000000;
 		if (elapsed > delay) {
@@ -44,6 +53,9 @@ public class Animazione {
 		}		
 
 	}
+	/**
+	 * @return the frame to display on the screen 
+	 */
 	public int getFrame () {
 		return currentFrame;
 	}

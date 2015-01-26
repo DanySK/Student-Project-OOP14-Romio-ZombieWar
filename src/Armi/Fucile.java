@@ -15,11 +15,17 @@ public class Fucile extends ArmaImpl {
 			this.y = 17;
 			this.setImage("/sprites/ak47.png");
 	}
-	@Override
+	/**
+	 * This metod let the player to shoot adding bullets to the current gameSession.
+	 * @param g rapresent the player
+	 * @param xMouse Xcoordinate of the Mouse relative to the JFrame
+	 * @param yMouse Ycoordinate of the Mouse relative to the JFrame
+	 * @param l rapresent the List wich contains all the bullets that are current displayed 
+	 */
 	public int shoot(Giocatore g,double xMouse,double yMouse,List<Proiettile>l) {
 		if(this.colpi>0){
 			this.reloading=false;
-			/** Aggiungiamo un singolo proiettile */
+			/* Add one single bullet */
 			this.colpi--;
 			l.add(new Proiettile(g,xMouse,yMouse,danno));
 			System.out.println(""+this.colpi);

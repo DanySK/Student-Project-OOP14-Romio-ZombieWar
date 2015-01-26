@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import Entita.Giocatore;
 
 public abstract class SessioneDiGioco {
+	
 	protected ControllerDiSessione cds;
 	protected Giocatore giocatore;
 	public abstract void init();

@@ -7,6 +7,13 @@ import Entita.Proiettile;
 
 
 public interface Arma {
+	/**
+	 * This is the interface for each Weapon in our game, it implements methods for
+	 * set up the image of the gun and other stuff as reload and shoot.
+	 * 
+	 * @author Giovanni Romio
+	 * 
+	 */
 	public void reload();
 	public void setImage(String path);
 	public BufferedImage getImage();

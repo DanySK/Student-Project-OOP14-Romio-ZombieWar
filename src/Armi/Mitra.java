@@ -5,8 +5,17 @@ import Entita.Giocatore;
 import Entita.Proiettile;
 
 public class Mitra extends ArmaImpl{
+	/**
+	 * This class rapresent the machinegun, it's a weapon that shoot 3 bullet at same time
+	 * 
+	 *  @author Giovanni Romio
+	 */
+	
 	private double newX;
 	private double newY;
+	/**
+	 * Define the gun properties, could implements more dettails as accuracy and realoadTime
+	 */
 	public Mitra(){
 		this.danno = 8;
 		this.caricatore = 60;
@@ -15,13 +24,20 @@ public class Mitra extends ArmaImpl{
 		this.y = 17;
 		this.setImage("/sprites/minigun.png");
 	}
-	@Override
+	/**
+	 * This metod let the player to shoot adding bullets to the current gameSession.
+	 * This gun can shoot up to 3 bullets at the same time.
+	 * @param g rapresent the player
+	 * @param xMouse Xcoordinate of the Mouse relative to the JFrame
+	 * @param yMouse Ycoordinate of the Mouse relative to the JFrame
+	 * @param l rapresent the List wich contains all the bullets that are current displayed
+	 */
 	public int shoot(Giocatore g,double xMouse,double yMouse,List<Proiettile>l) {
 		if(this.colpi>0){
 			this.reloading=false;
-			/*Aggiungiamo i tre proiettili*/
+			/*Add 3 bullets*/
 			this.colpi-=3;
-			/**
+			/*
 			 * Per Ottenere gli altri due colpi:
 			 * Trasliamo il cursore all'origine
 			 * Ruotiamo attorno all'origine dell'angolo ricercato

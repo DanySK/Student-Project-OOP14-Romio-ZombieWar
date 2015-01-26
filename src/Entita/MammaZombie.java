@@ -5,7 +5,22 @@ import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
 public class MammaZombie extends Modello2d{
-	/** Varibile che controlla se il player � nel range dello zombie */
+
+	/**
+	 * This class implements a type of Zombie, the correct gerarchy for zombies should be
+	 * Zombie >> MammaZombie
+	 * Zombie >> Zombie2
+	 * The game implement only 1 type of Zombie so there is no interface Zombie
+	 * 
+	 * By making the player Singleton, we can update all single Zombie from a different thread
+	 * wich control the player. In this way we can access the player coordinated in the map
+	 * and go hunt for him without passing the updated position everytime to the ZombieUpdate thread. 
+	 * 
+	 * @author Giovanni Romio
+	 */
+
+
+	/** Varibile che controlla se il player è nel range dello zombie */
 	private int range;
 	/** Giocatore */
 	private Giocatore giocatore;	
@@ -19,12 +34,18 @@ public class MammaZombie extends Modello2d{
 	private long tentaAttaccoBase;
 	private long tempoPerColpire;
 	private Rectangle vision;
-	public MammaZombie(int xSpawn, int ySpawn,Giocatore player,Base base) {
+
+	/**
+	 * Constructor for the Zombie
+	 * @param xSpawn rapresent the position on the map where the Zombie will be put
+	 * @param ySpawn rapresent the position on the map where the Zombie will be put
+	 */
+	public MammaZombie(int xSpawn, int ySpawn) {
 		/** Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato */
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
-		this.giocatore = player;
-		this.base = base;
+		this.giocatore = Giocatore.getIstance();
+		this.base = Base.getIstance();
 		this.attaccandoBase = false;
 		this.attaccandoGiocatore = false;
 		this.tempoPerColpire = 1000;
@@ -53,6 +74,11 @@ public class MammaZombie extends Modello2d{
 		}
 
 	}
+
+	/**
+	 * Calculate the position where the zombie will move forward 
+	 */
+
 	public void calcolaPosizione(){
 		/** Calcoliamo la distanza tra zombie e giocare e zombie base
 			Ipotizziamo che la base sia nel punto (310,0) */
@@ -79,19 +105,39 @@ public class MammaZombie extends Modello2d{
 		}
 
 	}
+
+	/**
+	 * If one bullet hit the zombie, we decrease the zombie life
+	 * @param danno rapresent the damage of the bullet wich hit the zombie
+	 */
+
 	public void colpito(int danno){
+
 		this.hp -= danno;
 		if(hp <= 0){
 			alive = false;
 		}
 	}
+
 	public double getDanno(){
+
 		return this.danno;
 	}
+
+	/**
+	 * This is the method wich constatly move the zombie forwar tha player or the base
+	 */
 	public void update(){
+
 		camminata.update();
 		this.calcolaPosizione();		
 	}
+
+	/**
+	 * Draw is called from the Contoller di Sessione draw() wich is called from the main thread.
+	 * @param g rapresent the graphic component to display and draw sprites.
+	 */
+
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
 		/**
@@ -118,12 +164,15 @@ public class MammaZombie extends Modello2d{
 			/** Se l'animazione da un index out of bound perdiamo solamente un frame */
 			return;
 		}
-		
+
 	}
+
+	/** 
+	 * This method use a Timer to subdivide the zombies attacks in different actions.
+	 * By doing this we avoid the speed of the game influence the gameplay.
+	 */
 	public void attack(){
-		/** Utilizziamo un timer per fare in modo tale che lo zombie impieghi x tempo per attaccare
-		 *altrimenti la difficoltà del gioco varierebbe dalla potenza del computer
-		 */
+
 		if(this.getRectangle().intersects(giocatore.getRectangle())){
 			if(attaccandoGiocatore == false){
 				tentaAttaccoGiocatore = System.currentTimeMillis();
@@ -145,6 +194,6 @@ public class MammaZombie extends Modello2d{
 			}
 		}
 	}
-	
-	
+
+
 }

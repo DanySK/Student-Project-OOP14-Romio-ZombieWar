@@ -8,6 +8,7 @@ import Entita.Proiettile;
 import Entita.Sangue;
 
 public class ProiettileThread extends UpdateThread{
+	
 	private List<Proiettile> p;
 	private List<MammaZombie> m;
 	private List<Sangue> s;

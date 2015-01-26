@@ -45,15 +45,15 @@ public class MenuPrincipale extends SessioneDiGioco{
 		defaultColor=(Color.BLACK);
 		choiceColor=(Color.RED);	
 	}
-	@Override
+	
 	public void init(){
 		currentChoice = 0;
 	}
-	@Override
+	
 	public void update(){
 
 	}
-	@Override
+	
 	public void draw(Graphics2D g){
 		/*Disegno l'immagine di sfondo*/
 		g.drawImage(background,0,0,null);
@@ -70,6 +70,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 		}
 
 	}
+	
 	private void select(){
 		switch(currentChoice){
 		case 0:
@@ -81,7 +82,7 @@ public class MenuPrincipale extends SessioneDiGioco{
 		case 3: System.exit(0);break;
 		}
 	}
-	@Override
+	
 	public void keyPressed(int k){
 		if(k== KeyEvent.VK_ENTER){
 			select();
@@ -99,16 +100,16 @@ public class MenuPrincipale extends SessioneDiGioco{
 			}
 		}
 	}	
-	@Override
+	
 	public void keyReleased(int k){
 	}
-	@Override
+	
 	public void mouseClicked(int x,int y) {	
 	}
-	@Override
+	
 	public void mouseReleased() {
 	}
-	@Override
+	
 	public void setMouse(int x, int y) {
 				
 	}

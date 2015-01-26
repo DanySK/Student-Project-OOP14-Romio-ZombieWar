@@ -5,6 +5,15 @@ import java.awt.Polygon;
 import java.awt.Rectangle;
 
 public class Base {
+	/**
+	 * This is the Base, the player must defende his base while trying to stay alive.
+	 * The base is defined by a polygon and other stuff is to describe the position on the
+	 * map and if it's alive or not.
+	 * 
+	 * This class use the SingleTon pattern: there is only one istance of this class.
+	 * 
+	 *  @author GiovanniRomio
+	 */
 	private static Base base;
 	private Polygon p;
 	/*Coordinate della base*/
@@ -12,6 +21,7 @@ public class Base {
 	private int [] yPoint = {0,80,120,120,80,0};
 	private int vita;
 	private boolean alive;
+	
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
 	}
@@ -25,6 +35,9 @@ public class Base {
 		this.vita = 100;
 		this.alive = true;
 	}
+	/**
+	 * @param o rapresent the collision box of the zombies
+	 * */
 	public boolean intersect(Rectangle o){
 		return p.intersects(o);
 	}
@@ -34,6 +47,9 @@ public class Base {
 	public int getVita(){
 		return this.vita;
 	}
+	/**
+	 *  @return the position of the Base in the Map
+	 */
 	public Polygon getCollisionPolygon(){
 		return p;
 	}

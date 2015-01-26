@@ -17,6 +17,12 @@ import Entita.Proiettile;
 import Entita.Sangue;
 
 public class LivelloUno extends SessioneDiGioco{
+	
+	/**
+	 * 
+	 */
+	
+	
 	/** Una mappa */
 	private Mappa mappa;
 	/** Vettore contenenti le armi */
@@ -72,7 +78,7 @@ public class LivelloUno extends SessioneDiGioco{
 			int n = 800;
 			int j = (rn.nextInt() % n)+100;
 			synchronized (zombies) {
-				zombies.add(new MammaZombie(j,1000,giocatore,base));
+				zombies.add(new MammaZombie(j,1000));
 			}			
 		}
 		
@@ -89,7 +95,7 @@ public class LivelloUno extends SessioneDiGioco{
 		/*Inizializziamo l'HUD di gioco*/
 		h = new HUD();
 	}
-	@Override
+	
 	public void init(){
 		if(this.pause == true){
 			/*togliamo la pause*/
@@ -97,6 +103,7 @@ public class LivelloUno extends SessioneDiGioco{
 			pt.setPausa(false);
 		}
 	}
+	
 	private void weaponInit(){
 		/*TODO!!!!! Inizializzazione dell'arsenale in base al livello*/
 		armi[0] = new Pistola();
@@ -105,7 +112,7 @@ public class LivelloUno extends SessioneDiGioco{
 		giocatore.setWeapons(armi);
 	}
 	
-	@Override
+	
 	public void update(){	
 		/*Imponiamo l'update al giocatore*/
 		giocatore.update(xMouse,yMouse);		
@@ -121,7 +128,7 @@ public class LivelloUno extends SessioneDiGioco{
 		}
 		
 	}
-	@Override
+	
 	public void draw(Graphics2D grafica){		
 		/*Disegniamo la mappa*/
 		mappa.draw(grafica);
@@ -175,7 +182,7 @@ public class LivelloUno extends SessioneDiGioco{
 			}
 		}		
 	}
-	@Override
+	
 	public void keyPressed(int k) throws InterruptedException{
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
@@ -202,7 +209,7 @@ public class LivelloUno extends SessioneDiGioco{
 		
 	}
 	
-	@Override
+	
 	public void keyReleased(int k){
 		/*Imponiamo al personaggio di stare fermo*/
 		switch(k){
@@ -212,7 +219,7 @@ public class LivelloUno extends SessioneDiGioco{
 		case(KeyEvent.VK_S): giocatore.setDown(false);break;		
 		}
 	}
-	@Override
+	
 	public void mouseClicked(int x,int y){
 			double xMOUSE=x+15*Math.random();
 			double yMOUSE=y+15*Math.random();
@@ -220,11 +227,11 @@ public class LivelloUno extends SessioneDiGioco{
 				giocatore.shoot(xMOUSE, yMOUSE,proiettili);
 			}
 	}
-	@Override
+	
 	public void mouseReleased() {
 		System.out.println("released");		
 	}
-	@Override
+	
 	public void setMouse(int x, int y) {
 		this.xMouse = x;
 		this.yMouse = y;		

@@ -1,12 +1,19 @@
 package Entita;
 
 import java.awt.Graphics2D;
+
+/**
+ * Map of the Game
+ * 
+ * @author Giovanni Romio
+ */
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
 public class Mappa{
+	
 	/*Immagine della mappa*/
 	private BufferedImage mappa;
 	/*Coordinate del personaggio*/
@@ -16,6 +23,7 @@ public class Mappa{
 	private double previous_Xposition=0;
 	/*Vettore contenente gli spruzzi di sangue*/
 	public Mappa(String path){
+		
 		try {
 			mappa = ImageIO.read(getClass().getResourceAsStream(path));
 		} catch (IOException e) {
@@ -48,6 +56,7 @@ public class Mappa{
 	}
 
 	public void draw(Graphics2D g){
+		
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}
 

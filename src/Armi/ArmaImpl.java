@@ -9,23 +9,31 @@ import javax.imageio.ImageIO;
 import Entita.Proiettile;
 
 public abstract class ArmaImpl implements Arma {
-	
+	/**
+	 * Abstarct class that implements Arma. This class let use the polimorfism construct.
+	 * ArmaImpl describe the common methods shared by all Weapons and the common variables.
+	 * 
+	 * @author Giovanni Romio
+	 */
 	protected int danno;
 	protected int colpi;
 	protected int caricatore;
 	protected BufferedImage sprite;
-	/** Timer del caricatore */
+	/* Timer del caricatore */
 	protected boolean reloading;
 	protected int realoadTime;
 	protected long start;
 	protected long end;
-	/** Coordinate per il draw */
+	/* Coordinate per il draw */
 	protected int x;
 	protected int y;
-	/** Lista contenente tutti i colpi attualmente in esecuzione */
+	/* Lista contenente tutti i colpi attualmente in esecuzione */
 	protected List<Proiettile> list;
 
-	@Override
+	/**
+	 * This method use a Timer to block and restart the gun.
+	 * While the gun is realoding it cannot shoot.
+	 */
 	public void reload() {
 		if(!reloading){
 			this.start= System.currentTimeMillis();
@@ -42,7 +50,10 @@ public abstract class ArmaImpl implements Arma {
 
 	}
 
-	@Override
+	/**
+	 * Method for load the image from the src folder
+	 * @param path rappresent the path to get the image
+	 */
 	public void setImage(String path) {
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream(path));
@@ -52,7 +63,9 @@ public abstract class ArmaImpl implements Arma {
 
 	}
 
-	@Override
+	/**
+	 * @return sprite image of the weapon.
+	 */
 	public BufferedImage getImage() {
 		return sprite;
 	}

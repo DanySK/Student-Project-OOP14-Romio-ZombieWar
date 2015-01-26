@@ -18,17 +18,16 @@ public class GamePause extends SessioneDiGioco{
 		defaultColor = Color.white;
 		choiceColor = Color.red;
 	}
-	@Override
+	
 	public void init() {
 		currentchoice = 0;		
 	}
 
-	@Override
-	public void update() {
 	
+	public void update() {	
 	}
 
-	@Override
+	
 	public void draw(Graphics2D g) {
 		for(int i = 0; i<pausa.length; i++){
 			if(i == currentchoice){
@@ -40,7 +39,7 @@ public class GamePause extends SessioneDiGioco{
 		}		
 	}
 
-	@Override
+	
 	public void keyPressed(int k) {
 		switch(k){
 		case KeyEvent.VK_P: this.cds.setState(ControllerDiSessione.LIVELLO1); break;
@@ -67,24 +66,20 @@ public class GamePause extends SessioneDiGioco{
 		}
 	}
 
-	@Override
-	public void keyReleased(int k) {
-				
+	
+	public void keyReleased(int k) {				
 	}
 
-	@Override
-	public void mouseClicked(int x,int y) {
-				
+	
+	public void mouseClicked(int x,int y) {				
 	}
 
-	@Override
-	public void mouseReleased() {
 	
+	public void mouseReleased() {	
 	}
 	
-	@Override
-	public void setMouse(int x, int y) {
-			
+	
+	public void setMouse(int x, int y) {			
 	}
 
 }

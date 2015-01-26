@@ -22,15 +22,15 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 			e.printStackTrace();
 		}
 	}
-	@Override
+	
 	public void init(){
 
 	}
-	@Override
+	
 	public void update(){
 
 	}
-	@Override
+	
 	public void draw(Graphics2D g){
 		g.clearRect(0, 0, 640, 480);
 		g.setBackground(Color.BLACK);
@@ -38,7 +38,7 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 			g.drawImage(ritratti[0],0,0,null);
 		else g.drawImage(ritratti[1],0,0,null);
 	}
-	@Override
+	
 	public void keyPressed(int k) {
 		if(k== KeyEvent.VK_D){
 			playerSelect=!playerSelect;
@@ -58,22 +58,22 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 		}
 	}
 
-	@Override
+	
 	public void keyReleased(int k) {
 
 	}
-	@Override
+	
 	public void mouseClicked(int x,int y) {
 
 	}
-	@Override
+	
 	public void mouseReleased() {
-		// TODO Auto-generated method stub
+		
 		
 	}
-	@Override
+	
 	public void setMouse(int x, int y) {
-		// TODO Auto-generated method stub
+	
 		
 	}
 }

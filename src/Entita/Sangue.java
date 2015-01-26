@@ -22,12 +22,10 @@ public class Sangue extends Modello2d{
 		}
 		giocatore = Giocatore.getIstance();
 	}
-	@Override
-	public void update() {
-		
+	
+	public void update() {		
 	}
-
-	@Override  
+	  
 	public void draw(Graphics2D g) {
 		AffineTransform at = new AffineTransform();;
 		/**
