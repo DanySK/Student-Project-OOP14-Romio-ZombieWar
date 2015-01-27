@@ -7,6 +7,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public abstract class Modello2d {
+	
+	/**
+	 * Absrtarct class define 2dModels as Player or Zombies
+	 * 
+	 * @author Giovanni Romio
+	 */
+	
+	
 	/**Coordinate nella finestra*/
 	protected double xScreen,yScreen;
 	/**Coordinate nella mappa*/
@@ -41,7 +49,16 @@ public abstract class Modello2d {
 		}
 		return sprite;
 	}
-
+	
+	/**
+	 * Subdivide one BufferedImage in more frames. Those frame showed on sequence will
+	 * make the walk animation
+	 * 
+	 *  @param sprite contain all the sprtes of the animation
+	 *  @width width of the single frame
+	 *  @height height of the single frame
+	 */
+	
 	public void setCamminata(BufferedImage sprite, int width, int height){
 		/**Ritaglio i frame dallo sprite*/
 		BufferedImage[] tmp = new BufferedImage[sprite.getWidth()/height];

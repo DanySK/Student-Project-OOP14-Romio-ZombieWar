@@ -24,11 +24,9 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 	}
 	
 	public void init(){
-
 	}
 	
 	public void update(){
-
 	}
 	
 	public void draw(Graphics2D g){
@@ -60,20 +58,16 @@ public class SelezionePersonaggio extends SessioneDiGioco{
 
 	
 	public void keyReleased(int k) {
-
 	}
 	
 	public void mouseClicked(int x,int y) {
-
 	}
 	
-	public void mouseReleased() {
-		
+	public void mouseReleased() {		
 		
 	}
 	
-	public void setMouse(int x, int y) {
-	
+	public void setMouse(int x, int y) {	
 		
 	}
 }

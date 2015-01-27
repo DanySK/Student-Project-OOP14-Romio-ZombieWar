@@ -5,6 +5,12 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
 public class GamePause extends SessioneDiGioco{
+	/**
+	 * Session when the game is Paused, allow to resume or quit the game.
+	 * 
+	 * @author Giovanni Romio
+	 * 
+	 */
 	private String[] pausa={
 			"PAUSE",
 			"QUIT"

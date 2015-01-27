@@ -19,43 +19,46 @@ import Entita.Sangue;
 public class LivelloUno extends SessioneDiGioco{
 	
 	/**
-	 * 
+	 *  Level one, this is the blueprint for each other levels.
+	 *  This level istance 2 different Thread:
+	 *  ZombieThread: call the update methods for each zombie
+	 *  ProiettileThread: call the update methods for each bullets in the Frame
+	 *  Printing object in the JPanel is still assigned to the main Thread.
+	 *  
+	 *  @author Giovanni Romio
 	 */
 	
 	
-	/** Una mappa */
+	/* Una mappa */
 	private Mappa mappa;
-	/** Vettore contenenti le armi */
+	/* Vettore contenenti le armi */
 	private ArmaImpl[] armi = new ArmaImpl [3];
-	/** Zombie */
+	/* Zombie */
 	private List<MammaZombie> zombies;
 	private static final int NUMZOMBIE = 50;
-	/** Sangue */
+	/* Sangue */
 	private List<Sangue> sangue;
-	/** Base da difendere */
+	/* Base da difendere */
 	private Base base;
-	/** Thread degli zombie */
+	/* Thread degli zombie */
 	private Thread t;
 	private ZombieThread zt;
-	/** Thread proiettili */
+	/* Thread proiettili */
 	private Thread p;
 	private ProiettileThread pt;
-	/** Proiettili */
+	/* Proiettili */
 	private List<Proiettile> proiettili;
-	/** HUD di gioco */
+	/* HUD di gioco */
 	private HUD h;
-	private int nprocs;
 	private boolean pause = false;
-	/** Posizione del mouse */
+	/* Posizione del mouse */
 	private int xMouse;
 	private int yMouse;
 	
 	
 	public LivelloUno(ControllerDiSessione cds){
-		this.cds = cds;		
-		/*Test cpu*/
-		nprocs = Runtime.getRuntime().availableProcessors();
-		System.out.println(nprocs);		
+		
+		this.cds = cds;			
 		/*Inizializziamo la mappa*/
 		mappa = new Mappa("/backgrounds/map.png");		
 		/*Inizializziamo la base*/
@@ -96,6 +99,11 @@ public class LivelloUno extends SessioneDiGioco{
 		h = new HUD();
 	}
 	
+	/**
+	 * Everytime we Pause/Unpause the game the threads stops to run thanks to a
+	 * flag variable. 
+	 */
+	
 	public void init(){
 		if(this.pause == true){
 			/*togliamo la pause*/
@@ -105,14 +113,19 @@ public class LivelloUno extends SessioneDiGioco{
 	}
 	
 	private void weaponInit(){
-		/*TODO!!!!! Inizializzazione dell'arsenale in base al livello*/
+		
 		armi[0] = new Pistola();
 		armi[1] = new Fucile();
 		armi[2] = new Mitra();
 		giocatore.setWeapons(armi);
 	}
 	
-	
+	/**
+	 * This method is called by the main thread.
+	 * It update the player, the map and the HUD.
+	 * Also check if we won or lost the game. 
+	 * 
+	 */
 	public void update(){	
 		/*Imponiamo l'update al giocatore*/
 		giocatore.update(xMouse,yMouse);		
@@ -183,6 +196,11 @@ public class LivelloUno extends SessioneDiGioco{
 		}		
 	}
 	
+	/**
+	 * KeyListener of the Keyboard.
+	 * Each key is assigned to an operation.
+	 */
+	
 	public void keyPressed(int k) throws InterruptedException{
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
@@ -228,8 +246,7 @@ public class LivelloUno extends SessioneDiGioco{
 			}
 	}
 	
-	public void mouseReleased() {
-		System.out.println("released");		
+	public void mouseReleased() {	
 	}
 	
 	public void setMouse(int x, int y) {

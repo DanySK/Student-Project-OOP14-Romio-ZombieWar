@@ -3,7 +3,14 @@ package SessioniDiGioco;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-public class ControllerDiSessione {	
+public class ControllerDiSessione {
+	
+	/**
+	 * This is the controller wich allow to switch by different Game Sessions
+	 * 
+	 * @author Giovanni Romio
+	 */
+	
 	private ArrayList<SessioneDiGioco> sessioni;
 	private int sessioneCorrente;
 	public static final int MENU = 0;
@@ -22,9 +29,6 @@ public class ControllerDiSessione {
 		sessioni.add(new MenuPrincipale(this));
 		sessioni.add(new Opzioni(this));
 		sessioni.add(new Credits(this));
-		//sessioni.add(new SelezionePersonaggio(this));
-		//sessioni.add(new LivelloUno(this));
-		//sessioni.add(new GamePause(this));
 	}
 	/*Aggiungiamo una nuova sessione di gioco dinamicamente*/
 	public void aggiungiSessione(SessioneDiGioco level){

@@ -110,7 +110,6 @@ public class MenuPrincipale extends SessioneDiGioco{
 	public void mouseReleased() {
 	}
 	
-	public void setMouse(int x, int y) {
-				
+	public void setMouse(int x, int y) {				
 	}
 }

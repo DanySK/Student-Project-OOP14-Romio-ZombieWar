@@ -7,6 +7,13 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Proiettile extends Modello2d {
+	
+	/**
+	 * This class rapreset a asingle bullet of the game
+	 * 
+	 * @author Giovanni Romio
+	 */
+	
 	private double rapporto;
 	private int danno;
 	
@@ -23,7 +30,11 @@ public class Proiettile extends Modello2d {
 		this.xMap = g.getXMap()+g.width/2;
 		this.yMap = g.getYMap()+g.height/2;
 	}
-	
+	/**
+	 * Calculate the position of the Bullet:
+	 * Start>> Player(X,Y)
+	 * Forward>> Crosshair(X,Y)
+	 */
 	public void calcolaPosizione(){
 		/** Calcoliamo la taiettoria del proiettile */
 		this.xScreen += 10*Math.cos(rapporto);

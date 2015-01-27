@@ -7,6 +7,11 @@ import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
 public class Sangue extends Modello2d{
+	/**
+	 * Blood of the zombie while hitten
+	 * 
+	 * @author Giovanni Romio
+	 */
 	private BufferedImage sangue;
 	private Giocatore giocatore;
 	public Sangue(double xMap, double yMap, double xScreen, double yScreen){

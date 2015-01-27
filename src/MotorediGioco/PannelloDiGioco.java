@@ -16,6 +16,14 @@ import SessioniDiGioco.ControllerDiSessione;
 
 @SuppressWarnings("serial")
 public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,MouseListener,MouseMotionListener {
+	
+	/**
+	 * Main Thread of the game, implements all the KeyLister and Mouse Listerner
+	 * of the Game Panel.
+	 * 
+	 * @author Giovanni Romio
+	 */	
+	
 	/**Dimensioni*/
 	private static final int WIDTH = 640;
 	private static final int HEIGHT = 480;
@@ -84,7 +92,12 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		return g;
 	}
 
-	@Override
+	/**
+	 * Main Thread of the Game, this thread will call the update method for:
+	 * player, map, HUD;
+	 * This thread will also call draw method for:
+	 * player, map, HUD, Zombies, Bullets 
+	 */
 	public void run() {
 		this.init();
 		long start;
@@ -106,18 +119,16 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			}
 		}			
 	}
+	
 	/** MOUSE */
-	@Override
 	public void mousePressed(MouseEvent e) {
 		cds.mouseClicked(e.getX(),e.getY());
 	}
 	
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		cds.mouseReleased();
 	}	
 
-	@Override
 	public void mouseMoved(MouseEvent e) {
 		try{
 			cds.MouseMovement(e.getX(), e.getY());	
@@ -128,27 +139,19 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		
 	}
 	
-	@Override
 	public void mouseDragged(MouseEvent e) {
-
 	}
 	
-	@Override
 	public void mouseClicked(MouseEvent e) {
-
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent e) {
-
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
-
 	}	
+	
 	/** KEYBOARD */
-	@Override
 	public void keyPressed(KeyEvent e) {
 		try {
 			cds.keyPressed(e.getKeyCode());
@@ -157,12 +160,10 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		}
 	}
 
-	@Override
 	public void keyReleased(KeyEvent e) {
 		cds.keyReleased(e.getKeyCode());
 	}
 
-	@Override
 	public void keyTyped(KeyEvent e) {
 	}
 

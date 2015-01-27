@@ -32,8 +32,8 @@ public class Base {
 		return base;
 	}
 	public void init(){
-		this.vita = 100;
-		this.alive = true;
+		vita = 100;
+		alive = true;
 	}
 	/**
 	 * @param o rapresent the collision box of the zombies
@@ -45,7 +45,7 @@ public class Base {
 		g.draw(p);
 	}
 	public int getVita(){
-		return this.vita;
+		return vita;
 	}
 	/**
 	 *  @return the position of the Base in the Map
@@ -55,12 +55,15 @@ public class Base {
 	}
 	public void colpito(double d){
 		if(vita == 0 ){
-			this.alive = false;
+			alive = false;
 		}else{
-			this.vita -= d;
+			vita -= d;
 		}		
 	}
+	/**
+	 *  @return true if the base has any health point left otherwise return false
+	 */
 	public boolean isAlive(){
-		return this.alive;
+		return alive;
 	}
 }

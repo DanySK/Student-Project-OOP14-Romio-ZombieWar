@@ -19,23 +19,23 @@ public class ProiettileThread extends UpdateThread{
 	}
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			/** Se la variabile pausa è true allora mettiamo in wait il nostro thread */
+			/* Se la variabile pausa è true allora mettiamo in wait il nostro thread */
 			if (pauseFlag.get()) {
 				synchronized (pauseFlag) {
 					while (pauseFlag.get()) {
 						try {
-							/** Thread in wait */
+							/* Thread in wait */
 							pauseFlag.wait();
 						} catch (InterruptedException e) {
 							Thread.currentThread().interrupt();
-							/** Se il thread è interrotto terminiamo il ciclo */
+							/* Se il thread è interrotto terminiamo il ciclo */
 							return;
 						}
 					}
 				}
 			}
 			else{
-				/** Update per i proiettili */
+				/* Update per i proiettili */
 				try{
 					synchronized (p) {
 						for(int i = 0; i<p.size(); i++){
@@ -43,7 +43,7 @@ public class ProiettileThread extends UpdateThread{
 								p.remove(i);							
 							}
 							else{
-								/** Dopo ciascun update controlliamo se il proiettile 
+								/* Dopo ciascun update controlliamo se il proiettile 
 								 * ha colpito un zombie
 								 */
 								p.get(i).update();
@@ -51,11 +51,10 @@ public class ProiettileThread extends UpdateThread{
 							}
 						}
 					}
-					/** Tempo di attesa tra un update e il successivo */
+					/* Tempo di attesa tra un update e il successivo */
 					Thread.sleep(20);
 				}catch(Exception e){
-					e.printStackTrace();
-					/** Se il thread è interrotto terminiamo il ciclo */
+					/* Se il thread è interrotto terminiamo il ciclo */
 					return;			
 				}
 			}

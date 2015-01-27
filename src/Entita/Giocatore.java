@@ -1,9 +1,11 @@
+
 package Entita;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
+
 import Armi.ArmaImpl;
 
 public class Giocatore extends Modello2d {
@@ -16,6 +18,8 @@ public class Giocatore extends Modello2d {
 	
 	//Vogliamo che all'interno del gioco venga creata un'unica entita player
 	private static Giocatore giocatore;
+	//Base del gioco, utile per impostare i limiti di percorso
+	private Base base;
 	//Sprite del personaggio
 	private BufferedImage player;
 	private ArmaImpl [] arsenale;
@@ -38,7 +42,8 @@ public class Giocatore extends Modello2d {
 		xMap = yMap = 50;
 		xScreen = yScreen = 50;
 		hp = 25;
-		alive = true;		
+		alive = true;
+		base = Base.getIstance();
 	}
 	/*
 	 * Those methods allow the player move in the Jframe
@@ -71,13 +76,18 @@ public class Giocatore extends Modello2d {
 
 	public void calcolaPosizione(){
 		//MOVIMENTI
-		if (left){ 
+		if (left){
 			if(xMap < (640 / 2) || xMap > 730 - 320 ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				xScreen -= 2;
-				xMap -= 2;			
+				xMap -= 2;
+				if(base.intersect(this.getRectangle())){
+					xScreen += 2;
+					xMap +=2;
+				}
 				if( xMap < 0 ){
 					xMap = 0;
+					xScreen = 0;
 				}			
 			}
 			else {
@@ -89,8 +99,13 @@ public class Giocatore extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				xScreen += 2;
 				xMap += 2;
+				if(base.intersect(this.getRectangle())){
+					xScreen -= 2;
+					xMap -=2;
+				}
 				if(xMap > 730 - width){					
-					xMap = 730 - width;					
+					xMap = 730 - width;
+					xScreen = 640-width;
 				}			
 			}
 			else { xMap += 2; }
@@ -100,8 +115,13 @@ public class Giocatore extends Modello2d {
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
 				yScreen -= 2;
 				yMap -= 2;
+				if(base.intersect(this.getRectangle())){
+					yScreen += 2;
+					yMap +=2;
+				}
 				if(yMap<topy){
 					yMap = topy;
+					yScreen = topy;
 				}
 			}
 			else{ 
@@ -115,6 +135,7 @@ public class Giocatore extends Modello2d {
 				yMap +=2;
 				if(yMap>bottomy-width) {
 					yMap = bottomy - width; 
+					yScreen = 480 - width; 
 				}
 			}
 			else{
@@ -127,6 +148,7 @@ public class Giocatore extends Modello2d {
 	 * Change weapons
 	 * @param arsenale rapresent the weapon of the Player
 	 */
+	
 	public void setWeapons(ArmaImpl[]arsenale){	
 		
 		this.arsenale=arsenale;
@@ -143,7 +165,7 @@ public class Giocatore extends Modello2d {
 	}
 	
 	/**
-	 * If the player isn't realoding it call's the current wepaon method shoot wich
+	 * If the player isn't realoding it calls the current wepaon method shoot wich
 	 * will add a bullet into l
 	 * @return if the player shooted it return true otherwise it return false
 	 */

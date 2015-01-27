@@ -5,6 +5,12 @@ import javax.swing.JFrame;
 
 
 public class Gioco {
+	
+	/**
+	 * Main Class of the game, instance a Jframe and a Jpanel 
+	 * 
+	 */
+	
 	public static void main(String[] args){
 		//Creo il frame del gioco utilizzando
 		JFrame gameFrame = new JFrame("ProgettoOOP-ZombieWar");
