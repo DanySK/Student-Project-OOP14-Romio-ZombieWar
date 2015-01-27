@@ -16,5 +16,14 @@ public interface Arma {
 	 */
 	public void reload();
 	public BufferedImage getImage();
+	/**
+	 * Makes the gun fire
+	 * 
+	 * @param g is the Player
+	 * @param xMouse is the x location of the mouse in the Frame
+	 * @param yMouse is the y location of the mouse in the Frame
+	 * @param l is the list wich contains all bullets displayer
+	 * @return
+	 */
 	public int shoot(Giocatore g, double xMouse, double yMouse,List<Proiettile>l);
 }

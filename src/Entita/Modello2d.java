@@ -70,41 +70,72 @@ public abstract class Modello2d {
 		camminata= new Animazione(tmp);
 		camminata.calculateDefaultDelay();
 	}
-	
+	/**
+	 * 
+	 * @param o rapresent the model to analize
+	 * @return true if o intersect the current object
+	 */
 	public boolean intersects(Modello2d o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
 	}
-
+	/**
+	 * 
+	 * @return the Rectangle associated to this object
+	 */
 	public Rectangle getRectangle(){
 		return new Rectangle((int)xMap,(int)yMap,width,height);
 	}
-	
+	/**
+	 * 
+	 * @return xPosition on the screen
+	 */
 	public double getXScreen(){
 		return xScreen;
 	}
-	
+	/**
+	 * 
+	 * @return yPosition on the screen
+	 */
 	public double getYScreen(){
 		return yScreen;
 	}
-	
+	/**
+	 * 
+	 * @return xPosition on the Map
+	 */
 	public double getXMap(){
 		return xMap;
 	}
-	
+	/**
+	 * 
+	 * @return yPosition on the Map
+	 */
 	public double getYMap(){
 		return yMap;
 	}
-	
+	/**
+	 * 
+	 * @return if the Object is alive
+	 */
 	public boolean isAlive(){
 		return this.alive;
 	}
-	
+	/**
+	 * 
+	 * @return the Health point of the current object
+	 */
 	public double getHp(){
 		return this.hp;
 	}
-	
+	/**
+	 * Methos called in the main thread ruotine, it contains operation to calculate
+	 */
 	public abstract void update();
+	/**
+	 * 
+	 * @param g rapresent the graphic component of the Panel
+	 */
 	public abstract void draw(Graphics2D g);
 }

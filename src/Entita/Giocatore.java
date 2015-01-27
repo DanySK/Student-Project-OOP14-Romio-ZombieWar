@@ -26,9 +26,13 @@ public class Giocatore extends Modello2d {
 	private ArmaImpl armacorrente;
 	//Sparo
 	private boolean reloading;
-
+	
+	/**
+	 * 
+	 * @return singleTon istance
+	 */
 	public static Giocatore getIstance(){	
-		
+
 		if(giocatore == null){
 			giocatore = new Giocatore();
 		}
@@ -45,24 +49,34 @@ public class Giocatore extends Modello2d {
 		alive = true;
 		base = Base.getIstance();
 	}
-	/*
-	 * Those methods allow the player move in the Jframe
-	 * **/
+	/**
+	 * 
+	 * @param value allow player move left or stop move left
+	 */
 	public void setLeft(boolean value){		
 		
 		left = (value == true) ? true : false;		
 	}
-
+	/**
+	 * 
+	 * @param value allow player move right or stop move right
+	 */
 	public void setRight(boolean value){
 		
 		right = (value == true) ? true : false;		
 	}
-
+	/**
+	 * 
+	 * @param value allow player move up or stop move up
+	 */
 	public void setUp(boolean value){
 		
 		up = (value == true) ? true : false;		
 	}
-
+	/**
+	 * 
+	 * @param value allow player move down or stop move down
+	 */
 	public void setDown(boolean value){	
 		
 		down = (value == true) ? true : false;		
@@ -182,7 +196,11 @@ public class Giocatore extends Modello2d {
 		}
 
 	}
-
+	
+	/**
+	 * Set the gun to reload 
+	 */
+	
 	private void reload(){
 
 		this.reloading = true;
@@ -190,10 +208,20 @@ public class Giocatore extends Modello2d {
 
 	}
 	
+	/**
+	 * 
+	 * @param i value to change the current gun hold by the player
+	 */
+	
 	public void setGun(int i){	
 		
 		armacorrente = this.arsenale[i];		
 	}
+	
+	/**
+	 * 
+	 * @return the current weapon
+	 */
 	
 	public ArmaImpl getWeapon(){
 		return armacorrente;
@@ -214,7 +242,10 @@ public class Giocatore extends Modello2d {
 		this.setCamminata(player, width, height);
 		
 	}
-	
+	/**
+	 * 
+	 * @param d is the damage of the zombi
+	 */
 	public void colpito(double d){	
 		
 		if(hp==0){

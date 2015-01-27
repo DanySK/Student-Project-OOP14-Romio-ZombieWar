@@ -40,6 +40,7 @@ public class MammaZombie extends Modello2d{
 	 * @param xSpawn rapresent the position on the map where the Zombie will be put
 	 * @param ySpawn rapresent the position on the map where the Zombie will be put
 	 */
+
 	public MammaZombie(int xSpawn, int ySpawn) {
 		/** Quando creiamo lo zombie gli passiamo le coordinate dalle quali verra creato */
 		this.xMap=this.xScreen = xSpawn;
@@ -52,6 +53,11 @@ public class MammaZombie extends Modello2d{
 		this.range = 200;
 		this.init();
 	}
+
+	/**
+	 * Initialize zombie parameters
+	 */
+
 	public void init(){
 		/** Carichiamo l'immagine dello zombie */
 		this.sprite = setSprite("/sprites/zombieMom.png");
@@ -64,7 +70,12 @@ public class MammaZombie extends Modello2d{
 		this.hp = 25;	
 		this.danno = 1;
 	}
-	/** Controlla se il giocatore � nel raggio di visione del giocatore */
+
+	/** 
+	 * Check if player if on range vision of the zombie
+	 * @return true if player in in vision range of the zombie otherwise return false
+	 */
+
 	public boolean visionRange() {
 		vision = new Rectangle((int)xMap - (range/2), (int)yMap - (range/2), range + width, range + height);
 		if(vision.intersects(giocatore.getRectangle())){
@@ -112,15 +123,17 @@ public class MammaZombie extends Modello2d{
 	 */
 
 	public void colpito(int danno){
-
 		this.hp -= danno;
 		if(hp <= 0){
 			alive = false;
 		}
 	}
 
-	public double getDanno(){
+	/**
+	 * @return the damage of the zombie
+	 */
 
+	public double getDanno(){
 		return this.danno;
 	}
 
@@ -128,7 +141,6 @@ public class MammaZombie extends Modello2d{
 	 * This is the method wich constatly move the zombie forwar tha player or the base
 	 */
 	public void update(){
-
 		camminata.update();
 		this.calcolaPosizione();		
 	}

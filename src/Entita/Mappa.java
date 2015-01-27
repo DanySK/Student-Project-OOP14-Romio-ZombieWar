@@ -30,7 +30,11 @@ public class Mappa{
 			e.printStackTrace();
 		}
 	}
-
+	/**
+	 * 
+	 * @param d rapresent the xpostion of the player
+	 * @param e rapresent the yposition of the player
+	 */
 	public void update(double d,double e){
 		/*Dobbiamo seguire il personaggio con la nostra camera, noi muoviamo la mappa sotto*/
 		if(d>320 && d<410 && previous_Xposition<=this.camerax){
@@ -54,7 +58,10 @@ public class Mappa{
 			previous_Yposition=this.cameray;			
 		}
 	}
-
+	/**
+	 * 
+	 * @param g is the graphic component of the main Panel
+	 */
 	public void draw(Graphics2D g){
 		
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);

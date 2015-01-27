@@ -55,14 +55,19 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 			gameThread.start();
 		}
 	}
-
+	/**
+	 * 
+	 * @return the istance of the current Panel
+	 */
 	public static PannelloDiGioco getIstanceof(){
 		if(PannelloDiGioco.p == null){
 			p = new PannelloDiGioco();
 		}
 		return p;
 	}
-
+	/**
+	 * Initialize the graphic component
+	 */
 	private void init(){
 		/** Inizializziamo l'immagine di default e il componente g che permettono di stampare
 		i vari sprites nel gioco nel nostro schermo */
@@ -74,20 +79,32 @@ public class PannelloDiGioco extends JPanel implements Runnable,KeyListener,Mous
 		di gioco */
 		cds = new ControllerDiSessione();
 	}	
-
+	/**
+	 * Panel update >> cds update >> currentSession update
+	 */
 	private void update(){
 		/** Il gamePanel richiama il metodo update del controllerDiSessione che a sua volta ritrasmette
 		tale compito alla Sessione di Gioco interessata */
 		cds.update();
 	}
+	/**
+	 * Panel draw >> cds draw >> currentSession draw
+	 */
 	private void draw(){
 		cds.draw(this.g);
 	}
+	/**
+	 * Draw in the Panel the graphic componenet g
+	 */
 	private void drawToScreen(){
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,WIDTH,HEIGHT, null);
 		g2.dispose();
 	}
+	/**
+	 * 
+	 * @return the graphic componenet of the Panel
+	 */
 	public Graphics2D getgraphics(){
 		return g;
 	}

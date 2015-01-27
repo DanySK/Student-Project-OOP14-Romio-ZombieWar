@@ -61,6 +61,10 @@ public class ProiettileThread extends UpdateThread{
 		}
 
 	}
+	/**
+	 * 
+	 * @param pr is the bullet we check collision for
+	 */
 	public void checkCollision(Proiettile pr){	
 		synchronized (p) {
 			synchronized (m) {

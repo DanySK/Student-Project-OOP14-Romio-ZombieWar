@@ -30,13 +30,23 @@ public class ControllerDiSessione {
 		sessioni.add(new Opzioni(this));
 		sessioni.add(new Credits(this));
 	}
-	/*Aggiungiamo una nuova sessione di gioco dinamicamente*/
+	/**
+	 * 
+	 * @param level add the specific level to the current session list
+	 */
 	public void aggiungiSessione(SessioneDiGioco level){
 		sessioni.add(level);
 	}
+	/**
+	 * Update the current Session
+	 */
 	public void update(){
 		sessioni.get(sessioneCorrente).update();
 	}
+	/**
+	 * 
+	 * @param state rapresent the state we want to go for
+	 */
 	public void setState(int state){
 		sessioneCorrente=state;
 		sessioni.get(sessioneCorrente).init();
@@ -51,16 +61,28 @@ public class ControllerDiSessione {
 	public void keyReleased(int k){
 		sessioni.get(sessioneCorrente).keyReleased(k);
 	}
-	/*MOUSE*/
+	/**
+	 * 
+	 * @param x coordinatex of the Mouse
+	 * @param y coordiantey of the Mouse
+	 */
 	public void mouseClicked(int x, int y){
 		sessioni.get(sessioneCorrente).mouseClicked(x,y);
 	}
 	public void mouseReleased(){
 		sessioni.get(sessioneCorrente).mouseReleased();
 	}
+	/**
+	 * 
+	 * @param x Position of the mouse
+	 * @param y Position of the mouse
+	 */
 	public void MouseMovement(int x, int y){
 		sessioni.get(sessioneCorrente).setMouse(x,y);
 	}
+	/**
+	 * Reset all states add after performing action during the game
+	 */
 	public void reset(){		
 		sessioni.remove(VITTORIA);
 		sessioni.remove(GAMEPAUSE);

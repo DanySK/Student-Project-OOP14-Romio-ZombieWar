@@ -17,6 +17,13 @@ public class Proiettile extends Modello2d {
 	private double rapporto;
 	private int danno;
 	
+	/**
+	 * 
+	 * @param g rapresent the Player
+	 * @param xCursore rapresent xMouse coordinate
+	 * @param yCursore rapresent yMouse coordinate
+	 * @param danno rapresent damage of the current weapon
+	 */
 	public Proiettile(Giocatore g,double xCursore,double yCursore,int danno){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
@@ -50,11 +57,17 @@ public class Proiettile extends Modello2d {
 	public void draw(Graphics2D g){
 		g.drawImage(sprite,(int)xScreen,(int)yScreen,null);
 	}
-	
+	/**
+	 * 
+	 * @return the position of the bullet in the Map
+	 */
 	public Point getPosition(){
 		return new Point((int)xMap,(int)yMap);
 	}
-	
+	/**
+	 * 
+	 * @return the damage associated to this bullet
+	 */
 	public int getDanno(){
 		return this.danno;
 	}

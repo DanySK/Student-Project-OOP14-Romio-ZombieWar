@@ -33,23 +33,19 @@ public class Vittoria extends SessioneDiGioco {
 	}
 
 	
-	public void keyReleased(int k) {
-		
+	public void keyReleased(int k) {		
 	}
 
 	
-	public void mouseClicked(int x, int y) {
-		
+	public void mouseClicked(int x, int y) {		
 	}
 
 	
-	public void mouseReleased() {
-		
+	public void mouseReleased() {		
 	}
 
 	
-	public void setMouse(int x, int y) {
-		
+	public void setMouse(int x, int y) {		
 	}
 
 }

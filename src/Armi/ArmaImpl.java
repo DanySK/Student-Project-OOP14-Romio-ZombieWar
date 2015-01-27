@@ -55,27 +55,45 @@ public abstract class ArmaImpl implements Arma {
 	public BufferedImage getImage() {
 		return sprite;
 	}
-	
+	/**
+	 * 
+	 * @return gives the sprite to display in HUD
+	 */
 	public BufferedImage getHUDImage(){
 		return HUDsprite;
 	}
-	
+	/**
+	 * 
+	 * @return return the position of the weapon
+	 */
 	public int getX(){
 		return this.x;
 	}
-	
+	/**
+	 * 
+	 * @return the position of the weapon
+	 */
 	public int getY(){
 		return this.y;
 	}
-
+	/**
+	 * 
+	 * @return the damage of the weapon
+	 */
 	public int getDamage() {
 		return danno;
 	}
-	
+	/**
+	 * 
+	 * @return the name of the weapon
+	 */
 	public String getWeaponName(){
 		return nome;
 	}
-	
+	/**
+	 * 
+	 * @return how many bullets left
+	 */
 	public int getColpi(){
 		return this.colpi;
 	}

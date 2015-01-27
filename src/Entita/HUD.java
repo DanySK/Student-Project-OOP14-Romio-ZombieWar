@@ -35,11 +35,18 @@ public class HUD {
 		this.base = Base.getIstance();
 				
 	}
+	/**
+	 * This method is called by the main thread
+	 */
 	public void update(){
 		
 		vitaBase = base.getVita();
 		vitaGiocatore = (int)giocatore.getHp();
 	}
+	/**
+	 * 
+	 * @param g is the grapich componenet of the main Jframe
+	 */
 	public void draw(Graphics2D g){
 		
 		g.setColor(HUDColor);

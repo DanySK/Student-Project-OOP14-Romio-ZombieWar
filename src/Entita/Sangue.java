@@ -14,6 +14,14 @@ public class Sangue extends Modello2d{
 	 */
 	private BufferedImage sangue;
 	private Giocatore giocatore;
+	/**
+	 * 
+	 * @param xMap x Coordinate of the blood in the Map
+	 * @param yMap y Coordinate of the blood in the Map
+	 * @param xScreen  x Coordinate of the blood in the Screen
+	 * @param yScreen  y Coordinate of the blood in the Screen
+	 * 
+	 */
 	public Sangue(double xMap, double yMap, double xScreen, double yScreen){
 		this.xMap = xMap;
 		this.xScreen = xScreen;

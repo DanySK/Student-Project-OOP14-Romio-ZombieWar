@@ -14,16 +14,29 @@ public class Animazione {
 	private int currentFrame;	
 	private long startTime;
 	private long delay;
+	
+	/**
+	 * 
+	 * @param frames contains all the sprite necessary to make the animation
+	 */
 
 	public Animazione(BufferedImage[] frames){
 		/*Load all the frames for the animation*/
 		this.frames= frames;
 		currentFrame = 0;
 		startTime = System.nanoTime();
-	}		
+	}
+	/**
+	 * 
+	 * @param d is the delay, rapresent how fast will the sprite be changed
+	 */
 	public void setDelay(long d) {
 		delay = d;
 	}
+	/**
+	 * 
+	 * @param i set the currentFrame to a specific value
+	 */
 	public void setFrame(int i) { 
 		currentFrame = i;
 	}
@@ -38,6 +51,7 @@ public class Animazione {
 	public void setDelay(int delay){
 		this.delay=delay;
 	}
+	
 	public void update() {
 		/*Se il delay non e stato impostato*/
 		if(delay == -1) return;	
@@ -59,6 +73,11 @@ public class Animazione {
 	public int getFrame () {
 		return currentFrame;
 	}
+	/**
+	 * 
+	 * @return the current frame to diplay in the screen
+	 * @throws IndexOutOfBoundsException
+	 */
 	public BufferedImage getImage() throws IndexOutOfBoundsException { 
 		return frames[currentFrame]; 
 	}

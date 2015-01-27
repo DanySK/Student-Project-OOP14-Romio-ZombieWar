@@ -25,12 +25,19 @@ public class Base {
 	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
 	}
+	/**
+	 * 
+	 * @return SingleTon istance
+	 */
 	public static Base getIstance(){
 		if(base == null){
 			base = new Base();
 		}
 		return base;
 	}
+	/**
+	 * Initialize the base
+	 */
 	public void init(){
 		vita = 100;
 		alive = true;
@@ -41,9 +48,17 @@ public class Base {
 	public boolean intersect(Rectangle o){
 		return p.intersects(o);
 	}
+	/**
+	 * 
+	 * @param g rapresent the graphic component of the JFrame
+	 */
 	public void draw(Graphics2D g){
 		g.draw(p);
 	}
+	/**
+	 * 
+	 * @return the helt poin of the base
+	 */
 	public int getVita(){
 		return vita;
 	}
@@ -53,6 +68,10 @@ public class Base {
 	public Polygon getCollisionPolygon(){
 		return p;
 	}
+	/**
+	 * 
+	 * @param d is the damage of the zombie, different zombie make different damage
+	 */
 	public void colpito(double d){
 		if(vita == 0 ){
 			alive = false;
