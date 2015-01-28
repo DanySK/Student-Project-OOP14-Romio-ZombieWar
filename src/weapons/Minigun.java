@@ -55,11 +55,11 @@ public class Minigun extends WeaponImpl{
 			 * translate again in original position.
 			 */
 			l.add(new Bullet(g,xMouse,yMouse,8));
-			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(0.5) - (yMouse-g.getYScreen())*Math.sin(0.5);
-			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(0.5) + (yMouse-g.getYScreen())*Math.cos(0.5);
+			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(0.2) - (yMouse-g.getYScreen())*Math.sin(0.2);
+			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(0.2) + (yMouse-g.getYScreen())*Math.cos(0.2);
 			l.add(new Bullet(g,newX,newY,damage));
-			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(-0.5) - (yMouse-g.getYScreen())*Math.sin(-0.5);
-			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.5) + (yMouse-g.getYScreen())*Math.cos(-0.5);
+			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(-0.2) - (yMouse-g.getYScreen())*Math.sin(-0.2);
+			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.2) + (yMouse-g.getYScreen())*Math.cos(-0.2);
 			l.add(new Bullet(g,newX,newY,damage));
 		}
 		return this.bullets;

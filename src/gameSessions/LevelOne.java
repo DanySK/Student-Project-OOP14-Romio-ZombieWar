@@ -39,7 +39,7 @@ public class LevelOne extends GameSession{
 	private WeaponImpl[] armi = new WeaponImpl [3];
 	/* Zombie */
 	private List<Zombie> zombies;
-	private static final int NUMZOMBIE = 30;
+	private static final int NUMZOMBIE = 300;
 	private int zombieCreated = 0;
 	/* Sangue */
 	private List<Blood> sangue;
@@ -59,6 +59,9 @@ public class LevelOne extends GameSession{
 	/* Posizione del mouse */
 	private int xMouse;
 	private int yMouse;
+	/*Timer per la creazione di zombie */
+	private long start;
+	private long delay = 500;
 	/**
 	 * 
 	 * @param cds is thse SessionController wich allow to switch between session
@@ -93,6 +96,8 @@ public class LevelOne extends GameSession{
 		p.start();		
 		/*Inizializziamo l'HUD di gioco*/
 		h = new HUD();
+		/* I nizializziamo il timer*/
+		start = System.currentTimeMillis();
 	}
 	
 	/**
@@ -150,9 +155,9 @@ public class LevelOne extends GameSession{
 		int j = (rn.nextInt() % n)+100;
 		synchronized (zombies) {
 			if(j % 2 != 0){
-				zombies.add(new ZombieMom(1300,j));
+				zombies.add(new ZombieMom(1300,Math.abs(j)));
 			}else{
-				zombies.add(new EnrageZombie(1300,j));
+				zombies.add(new EnrageZombie(1300,Math.abs(j)));
 			}
 
 		}
@@ -165,9 +170,9 @@ public class LevelOne extends GameSession{
 		/* Must add other zombies to the level */
 		/* Random position */
 		switch(choice){
-		case 1: zombieLeftSpawn();
-		case 2: zombieBottomSpawn();
-		case 3: zombieRightSpawn();
+		case 1: zombieLeftSpawn(); break;
+		case 2: zombieBottomSpawn(); break;
+		case 3: zombieRightSpawn(); break;
 		}
 	}
 
@@ -178,12 +183,15 @@ public class LevelOne extends GameSession{
 	 * 
 	 */
 	
-	public void update(){
-		/* Add zombies to the game */
-		if(zombieCreated < NUMZOMBIE){
-			addZombies();
-			zombieCreated ++ ;
-		}		
+	public void update(){		
+		if(System.currentTimeMillis()> start + delay){
+			/* Add zombies to the game */
+			if(zombieCreated < NUMZOMBIE){
+				addZombies();
+				zombieCreated ++ ;
+			}
+			start = System.currentTimeMillis();
+		}			
 		/* Imponiamo l'update al giocatore*/
 		giocatore.update(xMouse,yMouse);		
 		/* Spostiamo la posizione della mappa*/
@@ -239,17 +247,19 @@ public class LevelOne extends GameSession{
 			this.cds.setState(SessionController.DEFEAT);
 		}
 		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
-		synchronized (zombies) {
-			if(zombies.size()==0){
-				t.interrupt();
-				p.interrupt();
-				giocatore.setLeft(false);
-				giocatore.setRight(false);
-				giocatore.setUp(false);
-				giocatore.setDown(false);
-				this.cds.aggiungiSessione(new Victory(cds));
-				this.cds.setState(SessionController.VICTORY);
-			}
+		if(zombieCreated == NUMZOMBIE){
+			synchronized (zombies) {
+				if(zombies.size()==0){
+					t.interrupt();
+					p.interrupt();
+					giocatore.setLeft(false);
+					giocatore.setRight(false);
+					giocatore.setUp(false);
+					giocatore.setDown(false);
+					this.cds.aggiungiSessione(new Victory(cds));
+					this.cds.setState(SessionController.VICTORY);
+				}
+			}		
 		}		
 	}
 	

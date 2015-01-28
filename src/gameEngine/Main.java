@@ -20,6 +20,8 @@ public class Main {
 		gameFrame.setVisible(true);
 		/* Setting crosshair cursor */
 		gameFrame.setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
+		/* Terminate all process of the game*/
+		gameFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 	}
 }

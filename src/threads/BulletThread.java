@@ -51,7 +51,7 @@ public class BulletThread extends UpdateThread{
 					}
 					/* Wait time between two updates */
 					Thread.sleep(20);
-				}catch(Exception e){
+				}catch(Exception e){					
 					/* If thread is interrupted we stop the iteration */
 					return;			
 				}
