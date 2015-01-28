@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
-import weapons.ArmaImpl;
+import weapons.WeaponImpl;
 
 public class Player extends Model2D {
 	/**
@@ -22,8 +22,8 @@ public class Player extends Model2D {
 	private Base base;
 	//Sprite del personaggio
 	private BufferedImage player;
-	private ArmaImpl [] arsenale;
-	private ArmaImpl armacorrente;
+	private WeaponImpl [] arsenale;
+	private WeaponImpl armacorrente;
 	//Sparo
 	private boolean reloading;
 	
@@ -48,6 +48,7 @@ public class Player extends Model2D {
 		hp = 25;
 		alive = true;
 		base = Base.getIstance();
+		speed = 2;
 	}
 	/**
 	 * 
@@ -93,11 +94,11 @@ public class Player extends Model2D {
 		if (left){
 			if(xMap < (640 / 2) || xMap > 730 - 320 ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
-				xScreen -= 2;
-				xMap -= 2;
+				xScreen -= speed;
+				xMap -= speed;
 				if(base.intersect(this.getRectangle())){
-					xScreen += 2;
-					xMap +=2;
+					xScreen += speed;
+					xMap += speed;
 				}
 				if( xMap < 0 ){
 					xMap = 0;
@@ -105,33 +106,33 @@ public class Player extends Model2D {
 				}			
 			}
 			else {
-				xMap -= 2 ;
+				xMap -= speed ;
 			}
 		}
 		if (right){ 
 			if(xMap < (640 / 2) || xMap > 730 - 320 ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
-				xScreen += 2;
-				xMap += 2;
+				xScreen += speed;
+				xMap += speed;
 				if(base.intersect(this.getRectangle())){
-					xScreen -= 2;
-					xMap -=2;
+					xScreen -= speed;
+					xMap -= speed;
 				}
 				if(xMap > 730 - width){					
 					xMap = 730 - width;
 					xScreen = 640-width;
 				}			
 			}
-			else { xMap += 2; }
+			else { xMap += speed; }
 		}				
 		if (up){
 			if(yMap<(480/2) || yMap > (1054-240) ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
-				yScreen -= 2;
-				yMap -= 2;
+				yScreen -= speed;
+				yMap -= speed;
 				if(base.intersect(this.getRectangle())){
-					yScreen += 2;
-					yMap +=2;
+					yScreen += speed;
+					yMap += speed;
 				}
 				if(yMap<topy){
 					yMap = topy;
@@ -139,21 +140,21 @@ public class Player extends Model2D {
 				}
 			}
 			else{ 
-				yMap -= 2;
+				yMap -= speed;
 			}
 		}	
 		if (down){
 			if(yMap<(480/2) || yMap > (814) ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
-				yScreen += 2;
-				yMap +=2;
+				yScreen += speed;
+				yMap += speed;
 				if(yMap>bottomy-width) {
 					yMap = bottomy - width; 
 					yScreen = 480 - width; 
 				}
 			}
 			else{
-				yMap += 2;	
+				yMap += speed;	
 			}
 		}
 	}
@@ -163,7 +164,7 @@ public class Player extends Model2D {
 	 * @param arsenale rapresent the weapon of the Player
 	 */
 	
-	public void setWeapons(ArmaImpl[]arsenale){	
+	public void setWeapons(WeaponImpl[]arsenale){	
 		
 		this.arsenale=arsenale;
 		armacorrente=this.arsenale[0];		
@@ -223,7 +224,7 @@ public class Player extends Model2D {
 	 * @return the current weapon
 	 */
 	
-	public ArmaImpl getWeapon(){
+	public WeaponImpl getWeapon(){
 		return armacorrente;
 	}
 	

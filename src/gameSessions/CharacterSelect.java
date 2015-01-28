@@ -21,6 +21,11 @@ public class CharacterSelect extends GameSession{
 	private boolean playerSelect = true;
 	private BufferedImage[] ritratti;
 	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
+	
 	public CharacterSelect(SessionController cds){
 		this.cds = cds;
 		giocatore = Player.getIstance();

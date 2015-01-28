@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
-public class ZombieMom extends Model2D{
+public abstract class Zombie extends Model2D{
 
 	/**
 	 * This class implements a type of Zombie, the correct gerarchy for zombies should be
@@ -20,20 +20,20 @@ public class ZombieMom extends Model2D{
 	 */
 
 
-	/** Check if player is in the range of the zombie */
-	private int range;
-	/** Player */
-	private Player player;	
-	/** Base */
-	private Base base;
-	/** Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
-	private double damage;
-	private boolean attackingPlayer;
-	private boolean attackingBase;
-	private long timerPlayerAttack;
-	private long timerBaseAttack;
-	private long hitDelay;
-	private Rectangle vision;
+	/* Check if player is in the range of the zombie */
+	protected int range;
+	/* Player */
+	protected Player player;	
+	/* Base */
+	protected Base base;
+	/* Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
+	protected double damage;
+	protected boolean attackingPlayer;
+	protected boolean attackingBase;
+	protected long timerPlayerAttack;
+	protected long timerBaseAttack;
+	protected long hitDelay;
+	protected Rectangle vision;
 
 	/**
 	 * Constructor for the Zombie
@@ -41,8 +41,8 @@ public class ZombieMom extends Model2D{
 	 * @param ySpawn rapresent the position on the map where the Zombie will be put
 	 */
 
-	public ZombieMom(int xSpawn, int ySpawn) {
-		/** When the new zombies is create we set the coordinate wich it will appear */
+	public Zombie(int xSpawn, int ySpawn) {
+		/* When the new zombies is create we set the coordinate wich it will appear */
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
 		this.player = Player.getIstance();
@@ -58,17 +58,7 @@ public class ZombieMom extends Model2D{
 	 * Initialize zombie parameters
 	 */
 
-	public void init(){
-		/** Load zombie image */
-		this.sprite = setSprite("/sprites/zombieMom.png");
-		/*The png file contain 5 different sprites wich make the walk animation*/
-		this.width = sprite.getWidth()/4;
-		this.height = sprite.getHeight();
-		/* Create the animation */
-		this.setCamminata(sprite, width, height);
-		this.hp = 25;	
-		this.damage = 1;
-	}
+	public abstract void init();	
 
 	/** 
 	 * Check if player if on range vision of the zombie
@@ -82,32 +72,31 @@ public class ZombieMom extends Model2D{
 		}else{
 			return false;
 		}
-
 	}
 
 	/**
 	 * Calculate the position where the zombie will move forward 
 	 */
 
-	public void calcutePosition(){
+	public void calculatePosition(){
 		/* Calculate distance between zombie and player, zombie base. */
 		if(visionRange()){
 			double rapporto = Math.atan2((player.getYMap() - yMap),(player.getXMap() - xMap));
-			/*Object: hunt player*/
-			xMap += Math.cos(rapporto);
-			yMap += Math.sin(rapporto);
+			/* Object: hunt player*/
+			xMap += speed * Math.cos(rapporto);
+			yMap += speed * Math.sin(rapporto);
 			/* Update Screen coordinates */
-			xScreen += Math.cos(rapporto);
-			yScreen += Math.sin(rapporto);
+			xScreen += speed * Math.cos(rapporto);
+			yScreen += speed * Math.sin(rapporto);
 		}else{
 			/* Object: hunt base */
 			if(!base.intersect(this.getRectangle())){
 				double rapporto = Math.atan2((0 - yMap),(310 - xMap));
-				xMap += Math.cos(rapporto);
-				yMap += Math.sin(rapporto);
+				xMap += speed * Math.cos(rapporto);
+				yMap += speed * Math.sin(rapporto);
 				/* Update Screen coordinates */
-				xScreen += Math.cos(rapporto);
-				yScreen += Math.sin(rapporto);
+				xScreen += speed * Math.cos(rapporto);
+				yScreen += speed * Math.sin(rapporto);
 			}else{
 				return;
 			}
@@ -120,8 +109,8 @@ public class ZombieMom extends Model2D{
 	 * @param danno rapresent the damage of the bullet wich hit the zombie
 	 */
 
-	public void hit(int danno){
-		this.hp -= danno;
+	public void hit(int damage){
+		this.hp -= damage;
 		if(hp <= 0){
 			alive = false;
 		}
@@ -140,7 +129,7 @@ public class ZombieMom extends Model2D{
 	 */
 	public void update(){
 		walk.update();
-		this.calcutePosition();		
+		this.calculatePosition();		
 	}
 
 	/**
@@ -204,6 +193,5 @@ public class ZombieMom extends Model2D{
 			}
 		}
 	}
-
 
 }

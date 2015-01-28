@@ -7,14 +7,18 @@ import java.util.*;
 import entities.Base;
 import entities.Blood;
 import entities.Bullet;
+import entities.EnrageZombie;
 import entities.HUD;
 import entities.Map;
 import entities.Player;
+import entities.Zombie;
 import entities.ZombieMom;
-import weapons.ArmaImpl;
-import weapons.Fucile;
-import weapons.Mitra;
-import weapons.Pistola;
+import threads.BulletThread;
+import threads.ZombieThread;
+import weapons.WeaponImpl;
+import weapons.AK47;
+import weapons.Minigun;
+import weapons.Glock;
 
 public class LevelOne extends GameSession{
 	
@@ -32,10 +36,11 @@ public class LevelOne extends GameSession{
 	/* Una mappa */
 	private Map mappa;
 	/* Vettore contenenti le armi */
-	private ArmaImpl[] armi = new ArmaImpl [3];
+	private WeaponImpl[] armi = new WeaponImpl [3];
 	/* Zombie */
-	private List<ZombieMom> zombies;
-	private static final int NUMZOMBIE = 50;
+	private List<Zombie> zombies;
+	private static final int NUMZOMBIE = 30;
+	private int zombieCreated = 0;
 	/* Sangue */
 	private List<Blood> sangue;
 	/* Base da difendere */
@@ -54,7 +59,10 @@ public class LevelOne extends GameSession{
 	/* Posizione del mouse */
 	private int xMouse;
 	private int yMouse;
-	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
 	
 	public LevelOne(SessionController cds){
 		
@@ -70,31 +78,19 @@ public class LevelOne extends GameSession{
 		/*Inizializziamo le armi*/
 		weaponInit();		
 		/*Inizializziamo la lista degli zombie*/
-		zombies = Collections.synchronizedList(new ArrayList<ZombieMom>());		
+		zombies = Collections.synchronizedList(new ArrayList<Zombie>());	
 		/*Inizializziamo la lista dei proiettili*/
 		proiettili =  Collections.synchronizedList(new ArrayList<Bullet>()) ;
 		/*Inizializziamo la lista delle chiazze di sangue*/
-		sangue = Collections.synchronizedList(new ArrayList<Blood>());
-		/*Inizializziamo uno zombie*/
-		for(int i =0; i <NUMZOMBIE; i++){
-			Random rn = new Random();
-			int n = 800;
-			int j = (rn.nextInt() % n)+100;
-			synchronized (zombies) {
-				zombies.add(new ZombieMom(j,1000));
-			}			
-		}
-		
+		sangue = Collections.synchronizedList(new ArrayList<Blood>());		
 		/*Inizializziamo il thread per lo zombie*/		
 		zt = new ZombieThread(zombies,30);
 		t = new Thread(zt);
-		t.start();
-		
+		t.start();		
 		/*Inizializziamo il thread per i proiettili*/
 		pt = new BulletThread(proiettili,zombies,sangue);
 		p = new Thread(pt);
-		p.start();
-		
+		p.start();		
 		/*Inizializziamo l'HUD di gioco*/
 		h = new HUD();
 	}
@@ -112,28 +108,89 @@ public class LevelOne extends GameSession{
 		}
 	}
 	
-	private void weaponInit(){
-		
-		armi[0] = new Pistola();
-		armi[1] = new Fucile();
-		armi[2] = new Mitra();
+	private void weaponInit(){		
+		armi[0] = new Glock();
+		armi[1] = new AK47();
+		armi[2] = new Minigun();
 		giocatore.setWeapons(armi);
 	}
+	/*Create a zombie to the Left Spawn */
+	private void zombieLeftSpawn(){
+		/*Left spawn*/
+		Random rn = new Random();
+		int n = 1000;
+		int j = (rn.nextInt() % n)+100;
+		synchronized (zombies) {
+			if(j % 2 != 0){
+				zombies.add(new ZombieMom(-500,Math.abs(j)));
+			}else{
+				zombies.add(new EnrageZombie(-500,Math.abs(j)));
+			}				
+		}
+	}
+	/*Create a zombie to the Bottom Spawn */
+	private void zombieBottomSpawn(){
+		/*Bottom spawn*/
+		Random rn = new Random();
+		int n = 700;
+		int j = (rn.nextInt() % n)+100;
+		synchronized (zombies) {
+			if(j % 2 != 0){
+				zombies.add(new ZombieMom(Math.abs(j),1000));
+			}else{
+				zombies.add(new EnrageZombie(Math.abs(j),1000));
+			}				
+		}
+	}
+	/*Create a zombie to the Right Spawn */
+	private void zombieRightSpawn(){
+		/*Right spawn*/
+		Random rn = new Random();
+		int n = 1000;
+		int j = (rn.nextInt() % n)+100;
+		synchronized (zombies) {
+			if(j % 2 != 0){
+				zombies.add(new ZombieMom(1300,j));
+			}else{
+				zombies.add(new EnrageZombie(1300,j));
+			}
+
+		}
+	}	
 	
+	private void addZombies(){
+		/* Timer create new zombies */
+		Random rn = new Random();
+		int choice = rn.nextInt(3) + 1;
+		/* Must add other zombies to the level */
+		/* Random position */
+		switch(choice){
+		case 1: zombieLeftSpawn();
+		case 2: zombieBottomSpawn();
+		case 3: zombieRightSpawn();
+		}
+	}
+
 	/**
 	 * This method is called by the main thread.
 	 * It update the player, the map and the HUD.
 	 * Also check if we won or lost the game. 
 	 * 
 	 */
-	public void update(){	
-		/*Imponiamo l'update al giocatore*/
+	
+	public void update(){
+		/* Add zombies to the game */
+		if(zombieCreated < NUMZOMBIE){
+			addZombies();
+			zombieCreated ++ ;
+		}		
+		/* Imponiamo l'update al giocatore*/
 		giocatore.update(xMouse,yMouse);		
-		/*Spostiamo la posizione della mappa*/
+		/* Spostiamo la posizione della mappa*/
 		mappa.update(giocatore.getXMap(), giocatore.getYMap());
-		/*Update dell'HUD*/
+		/* Update HUD */
 		h.update();
-		/*al massimo 50 schizzi di sangue*/
+		/* al massimo 50 schizzi di sangue*/
 		synchronized (sangue) {
 			if(sangue.size()>50){			
 				sangue.remove(0);
@@ -143,33 +200,33 @@ public class LevelOne extends GameSession{
 	}
 	
 	public void draw(Graphics2D grafica){		
-		/*Disegniamo la mappa*/
+		/* Draw Map */
 		mappa.draw(grafica);
-		/*Disegniamo il sangue*/
+		/* Draw blood */
 		synchronized (sangue) {
 			for(int x =0;x<sangue.size();x++){
 				sangue.get(x).draw(grafica);
 			}
 		}
-		/*Disegniamo il giocatore*/
+		/* Draw player */
 		giocatore.draw(grafica);		
-		/*Disegniamo gli zombie*/
+		/* Draw zombies */
 		synchronized (zombies) {
 			for(int x=0;x<zombies.size();x++){
 				zombies.get(x).draw(grafica);
 			}
 		}
-		/*Disegniamo i proiettili*/		
+		/* Draw bullets */		
 		synchronized (proiettili) {
 			for(int x =0; x<proiettili.size();x++){
 				proiettili.get(x).draw(grafica);	
 			}			
 		}
 		
-		/*Disegniamo l'HUD di gioco*/
+		/* Draw HUD */
 		h.draw(grafica);
 		
-		/*Controlliamo se il giocatore o la base sono ancora vivi*/
+		/* Check if player and base are still alive */
 		if(!giocatore.isAlive() || !base.isAlive()){
 			/*Terminiamo i thread*/
 			t.interrupt();
@@ -225,8 +282,7 @@ public class LevelOne extends GameSession{
 			break;		
 		}
 		
-	}
-	
+	}	
 	
 	public void keyReleased(int k){
 		/*Imponiamo al personaggio di stare fermo*/

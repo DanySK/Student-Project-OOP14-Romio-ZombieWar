@@ -5,28 +5,30 @@ import java.util.List;
 
 import entities.Bullet;
 
-public abstract class ArmaImpl implements Arma {
+public abstract class WeaponImpl implements Weapon {
+	
 	/**
 	 * Abstarct class that implements Arma. This class let use the polimorfism construct.
 	 * ArmaImpl describe the common methods shared by all Weapons and the common variables.
 	 * 
 	 * @author Giovanni Romio
 	 */
-	protected String nome;
-	protected int danno;
-	protected int colpi;
-	protected int caricatore;
+	
+	protected String name;
+	protected int damage;
+	protected int bullets;
+	protected int bulletsPerRound;
 	protected BufferedImage sprite;
 	protected BufferedImage HUDsprite;
-	/* Timer del caricatore */
+	/* Reload timer */
 	protected boolean reloading;
 	protected int realoadTime;
 	protected long start;
 	protected long end;
-	/* Coordinate per il draw */
+	/* draw coordinates */
 	protected int x;
 	protected int y;
-	/* Lista contenente tutti i colpi attualmente in esecuzione */
+	/* This list contains all diplayed bullets */
 	protected List<Bullet> list;
 
 	/**
@@ -41,8 +43,8 @@ public abstract class ArmaImpl implements Arma {
 		if(reloading){
 			if((end=System.currentTimeMillis())>(start+1500))
 			{
-				/** Ha finito di caricare */
-				this.colpi=caricatore;
+				/* Stop reload */
+				this.bullets = bulletsPerRound;
 				reloading = false;
 			}
 		}
@@ -56,47 +58,59 @@ public abstract class ArmaImpl implements Arma {
 	public BufferedImage getImage() {
 		return sprite;
 	}
+	
 	/**
 	 * 
 	 * @return gives the sprite to display in HUD
 	 */
+	
 	public BufferedImage getHUDImage(){
 		return HUDsprite;
 	}
+	
 	/**
 	 * 
 	 * @return return the position of the weapon
 	 */
+	
 	public int getX(){
 		return this.x;
 	}
+	
 	/**
 	 * 
 	 * @return the position of the weapon
 	 */
+	
 	public int getY(){
 		return this.y;
 	}
+	
 	/**
 	 * 
 	 * @return the damage of the weapon
 	 */
+	
 	public int getDamage() {
-		return danno;
+		return damage;
 	}
+	
 	/**
 	 * 
 	 * @return the name of the weapon
 	 */
+	
 	public String getWeaponName(){
-		return nome;
+		return name;
 	}
+	
 	/**
 	 * 
 	 * @return how many bullets left
 	 */
+	
 	public int getColpi(){
-		return this.colpi;
+		return this.bullets;
 	}
 
 }

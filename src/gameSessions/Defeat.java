@@ -18,7 +18,7 @@ public class Defeat extends GameSession{
 	
 	/**
 	 * 
-	 * @param cds is thse SessionController
+	 * @param cds is thse SessionController wich allow to switch between session
 	 */
 	
 	public Defeat(SessionController cds){
@@ -47,9 +47,9 @@ public class Defeat extends GameSession{
 	
 	public void keyPressed(int k) throws InterruptedException {
 		if(k == KeyEvent.VK_ENTER){
-			/*Reinizializzo il gioco*/
+			/* Reset the game */
 			this.cds.reset();
-			/*Ritorno al menu*/
+			/* Return tho MainMenu */
 			this.cds.setState(SessionController.MENU);		
 		}		
 	}

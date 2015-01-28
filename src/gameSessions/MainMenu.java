@@ -12,6 +12,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class MainMenu extends GameSession{
+	
 	private BufferedImage background;
 	private String[] scelta={
 			"Start",
@@ -24,6 +25,11 @@ public class MainMenu extends GameSession{
 	private Color defaultColor;
 	private Color choiceColor;
 	private GraphicsEnvironment ge ;
+	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
 
 	public MainMenu(SessionController cds){
 		this.cds=cds;
@@ -33,7 +39,7 @@ public class MainMenu extends GameSession{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		/*Seleziono il font della nostra finestra e i colori per stampare le stringhe*/
+		/*Select font and color to draw Strings*/
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/font/TrueLies.ttf")).deriveFont(40f);
 			ge = GraphicsEnvironment.getLocalGraphicsEnvironment();

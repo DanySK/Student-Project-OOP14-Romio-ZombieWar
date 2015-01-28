@@ -17,6 +17,11 @@ public class Credits extends GameSession{
 	
 	private BufferedImage background;
 	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
+	
 	public Credits(SessionController cds){
 		
 		this.cds = cds;

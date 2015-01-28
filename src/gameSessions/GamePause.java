@@ -19,6 +19,11 @@ public class GamePause extends GameSession{
 	private Color choiceColor;
 	private int currentchoice = 0;
 	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
+	
 	public GamePause(SessionController cds){
 		this.cds = cds;
 		defaultColor = Color.white;

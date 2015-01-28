@@ -6,7 +6,7 @@ import entities.Bullet;
 import entities.Player;
 
 
-public interface Arma {
+public interface Weapon {
 	/**
 	 * This is the interface for each Weapon in our game, it implements methods for
 	 * set up the image of the gun and other stuff as reload and shoot.

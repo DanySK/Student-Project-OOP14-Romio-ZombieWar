@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	private GamePanel(){
 		super();
 		this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
-		/* Per utilizzare il keyListener dobbiamo imporre il requestFocus al nostro JPanel */
+		/*Request focus necessary to use keyLister and mouseListener */
 		setFocusable(true);
 		requestFocus();
 		/* Initialize gameThread */		
@@ -69,42 +69,46 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	 * Initialize the graphic component
 	 */
 	private void init(){
-		/** Inizializziamo l'immagine di default e il componente g che permettono di stampare
-		i vari sprites nel gioco nel nostro schermo */
+		/* Initializie default image and graphic component g */
 		image = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
 		g= (Graphics2D) image.getGraphics();
 		/** Inizializiamo la variabile per avviare il gameThread*/
 		running = true;
-		/** Creiamo un'istanza di cds che permette di effettuare lo switch tra le varie sessioni
-		di gioco */
+		/*S essionControoler istance allow switch different session and save sessions status */
 		cds = new SessionController();
 	}	
+	
 	/**
-	 * Panel update >> cds update >> currentSession update
+	 * GamePanel update >> cds update >> currentSession update
 	 */
+	
 	private void update(){
-		/** Il gamePanel richiama il metodo update del controllerDiSessione che a sua volta ritrasmette
-		tale compito alla Sessione di Gioco interessata */
 		cds.update();
 	}
+	
 	/**
 	 * Panel draw >> cds draw >> currentSession draw
 	 */
+	
 	private void draw(){
 		cds.draw(this.g);
 	}
+	
 	/**
 	 * Draw in the Panel the graphic componenet g
 	 */
+	
 	private void drawToScreen(){
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,WIDTH,HEIGHT, null);
 		g2.dispose();
 	}
+	
 	/**
 	 * 
 	 * @return the graphic componenet of the Panel
 	 */
+	
 	public Graphics2D getgraphics(){
 		return g;
 	}
@@ -115,6 +119,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	 * This thread will also call draw method for:
 	 * player, map, HUD, Zombies, Bullets 
 	 */
+	
 	public void run() {
 		this.init();
 		long start;
@@ -126,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 			draw();
 			drawToScreen();
 			elapsed = System.nanoTime() - start;
-			/** Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni */
+			/* Detraggo al tempo di attesa standard la durata dell'ultime 3 operazioni */
 			wait = targetTime - elapsed/1000000;
 			if(wait < 0) wait =0;
 			try {
@@ -150,7 +155,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 		try{
 			cds.MouseMovement(e.getX(), e.getY());	
 		}catch(NullPointerException n){
-			/** Se il mouse non è nella finestra */
+			/* If mouse in not in the screen */
 			return;
 		}
 		

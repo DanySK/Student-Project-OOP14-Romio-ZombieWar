@@ -1,9 +1,9 @@
-package gameSessions;
+package threads;
 
 import java.util.Collections;
 import java.util.List;
 
-import entities.ZombieMom;
+import entities.Zombie;
 
 public class ZombieThread extends UpdateThread{
 	
@@ -14,9 +14,9 @@ public class ZombieThread extends UpdateThread{
 	 * 
 	 */
 	
-	private List<ZombieMom> m;
+	private List<Zombie> m;
 	
-	public ZombieThread(List<ZombieMom> l,int w) {
+	public ZombieThread(List<Zombie> l,int w) {
 		this.m = Collections.synchronizedList(l);
 		this.waiting = w;
 	}
@@ -68,7 +68,7 @@ public class ZombieThread extends UpdateThread{
 
 		}
 	}
-	private void checkCollision(ZombieMom m){
+	private void checkCollision(Zombie m){
 		m.attack();
 	}	
 

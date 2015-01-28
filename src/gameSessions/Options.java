@@ -9,6 +9,11 @@ import javax.imageio.ImageIO;
 public class Options extends GameSession {
 	private BufferedImage background;
 	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
+	
 	public Options(SessionController cds){
 		
 		this.cds = cds;

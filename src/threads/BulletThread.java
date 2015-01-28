@@ -1,25 +1,25 @@
-package gameSessions;
+package threads;
 
 import java.util.Collections;
 import java.util.List;
 
 import entities.Blood;
 import entities.Bullet;
-import entities.ZombieMom;
+import entities.Zombie;
 
 public class BulletThread extends UpdateThread{
 	
 	private List<Bullet> p;
-	private List<ZombieMom> m;
+	private List<Zombie> m;
 	private List<Blood> s;
-	public BulletThread(List<Bullet> list,List<ZombieMom> list2, List<Blood> list3){
+	public BulletThread(List<Bullet> list,List<Zombie> list2, List<Blood> list3){
 		this.p = Collections.synchronizedList(list);
 		this.m = Collections.synchronizedList(list2);
 		this.s = Collections.synchronizedList(list3);
 	}
 	public void run() {
 		while (!Thread.currentThread().isInterrupted()) {
-			/* Se la variabile pausa è true allora mettiamo in wait il nostro thread */
+			/* If pausa == true set thread wait */
 			if (pauseFlag.get()) {
 				synchronized (pauseFlag) {
 					while (pauseFlag.get()) {

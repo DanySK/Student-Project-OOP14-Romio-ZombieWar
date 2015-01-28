@@ -1,8 +1,9 @@
-package gameSessions;
+package threads;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class UpdateThread implements Runnable {
+	
 	/**
 	 * Abstract class define how thread in game will be structured
 	 * 

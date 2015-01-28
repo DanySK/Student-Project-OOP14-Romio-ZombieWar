@@ -5,6 +5,11 @@ import java.awt.event.KeyEvent;
 
 public class Victory extends GameSession {
 	
+	/**
+	 * 
+	 * @param cds is thse SessionController wich allow to switch between session
+	 */
+	
 	public Victory(SessionController cds){
 		this.cds = cds;		
 	}
