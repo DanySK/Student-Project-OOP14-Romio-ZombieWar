@@ -8,7 +8,7 @@ import java.util.List;
 
 import weapons.WeaponImpl;
 
-public class PlayerImpl extends SpriteObject implements ActiveElement, Player{
+public class PlayerImpl extends SpriteObject implements Player{
 	/**
 	 * This class Rapresent the Player of the game.
 	 * It implementes the Singleton pattern: there is only one istance of this class in the game.
