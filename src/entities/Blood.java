@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Blood extends Sprite implements DisplayObject{
+public class Blood extends SpriteObject {
 	
 	/**
 	 * Blood of the zombie while hitten

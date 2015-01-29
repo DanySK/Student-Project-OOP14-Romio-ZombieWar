@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
-public class BaseImpl implements DisplayObject,Base {
+public class BaseImpl{
 	/**
 	 * This is the Base, the player must defende his base while trying to stay alive.
 	 * The base is defined by a polygon and other stuff is to describe the position on the

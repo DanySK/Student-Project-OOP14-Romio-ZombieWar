@@ -28,7 +28,7 @@ public interface ActiveElement {
 	 * @return true if o intersect the current object
 	 */
 	
-	public boolean intersects(Sprite o);
+	public boolean intersects(SpriteObject o);
 	
 	/**
 	 * 

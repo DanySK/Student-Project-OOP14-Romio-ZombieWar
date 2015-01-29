@@ -1,11 +1,13 @@
 package entities;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+
 import javax.imageio.ImageIO;
 
-public abstract class Sprite{
+public abstract class SpriteObject implements ActiveElement{
 	
 	/**
 	 * Absrtarct class define 2dModels as Player or Zombies
@@ -53,7 +55,7 @@ public abstract class Sprite{
 		walk.calculateDefaultDelay();
 	}	
 		
-	public boolean intersects(Sprite o){
+	public boolean intersects(SpriteObject o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
@@ -117,5 +119,24 @@ public abstract class Sprite{
 	public double getHp(){
 		return this.hp;
 	}
+	
+	/**
+	 * Initialize the component
+	 */
+	
+	public abstract  void init();
+	
+	/**
+	 * Methos called in the main thread ruotine, it contains operation to calculate
+	 */
+	
+	public abstract void update();
+	
+	/**
+	 * 
+	 * @param g rapresent the graphic component of the Panel
+	 */
+	
+	public abstract void draw(Graphics2D g);
 	
 }

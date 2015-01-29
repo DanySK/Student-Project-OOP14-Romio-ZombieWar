@@ -1,6 +1,6 @@
 package entities;
 
-public class EnrageZombie extends Zombie implements DisplayObject,ActiveElement{
+public class EnrageZombie extends Zombie {
 	/**
 	 * 
 	 * @param xSpawn origin position

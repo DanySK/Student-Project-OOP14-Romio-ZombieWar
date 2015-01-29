@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.io.IOException;
-public class HUD implements DisplayObject{
+public class HUD{
 	
 	/**
 	 * This class is used to display the player status, current weapon and the status of the Base.

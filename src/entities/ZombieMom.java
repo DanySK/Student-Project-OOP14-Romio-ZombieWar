@@ -1,6 +1,6 @@
 package entities;
 
-public class ZombieMom extends Zombie implements DisplayObject,ActiveElement{
+public class ZombieMom extends Zombie{
 
 	public ZombieMom(int xSpawn, int ySpawn) {
 		super(xSpawn, ySpawn);

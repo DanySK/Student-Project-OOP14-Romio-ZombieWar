@@ -8,7 +8,7 @@ import java.util.List;
 
 import weapons.WeaponImpl;
 
-public class PlayerImpl extends Sprite implements ActiveElement, Player{
+public class PlayerImpl extends SpriteObject implements ActiveElement, Player{
 	/**
 	 * This class Rapresent the Player of the game.
 	 * It implementes the Singleton pattern: there is only one istance of this class in the game.
@@ -304,6 +304,11 @@ public class PlayerImpl extends Sprite implements ActiveElement, Player{
 	
 	public boolean isRealoading(){
 		return this.reloading;
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}		
 	
 }

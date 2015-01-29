@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Bullet extends Sprite {
+public class Bullet extends SpriteObject {
 	
 	/**
 	 * This class rapreset a asingle bullet of the game
@@ -71,5 +71,10 @@ public class Bullet extends Sprite {
 	 */
 	public int getDamage(){
 		return this.damage;
+	}
+	@Override
+	public void init() {
+		// TODO Auto-generated method stub
+		
 	}
 }

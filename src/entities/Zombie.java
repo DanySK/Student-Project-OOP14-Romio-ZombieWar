@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 import audio.AudioPlayer;
 
-public abstract class Zombie extends Sprite{
+public abstract class Zombie extends SpriteObject{
 
 	/**
 	 * This class implements a type of Zombie, the correct gerarchy for zombies should be
