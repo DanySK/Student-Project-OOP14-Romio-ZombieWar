@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-import entities.Player;
+import entities.PlayerImpl;
 
 public class CharacterSelect extends GameSession{
 	
@@ -28,7 +28,7 @@ public class CharacterSelect extends GameSession{
 	
 	public CharacterSelect(SessionController cds){
 		this.cds = cds;
-		giocatore = Player.getIstance();
+		giocatore = PlayerImpl.getIstance();
 		ritratti = new BufferedImage[2];
 		try{
 			ritratti[0] = ImageIO.read(getClass().getResourceAsStream("/backgrounds/avionSelect.png"));

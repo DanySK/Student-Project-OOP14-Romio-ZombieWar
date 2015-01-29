@@ -1,7 +1,11 @@
 package entities;
 
-public class EnrageZombie extends Zombie {
-
+public class EnrageZombie extends Zombie implements DisplayObject,ActiveElement{
+	/**
+	 * 
+	 * @param xSpawn origin position
+	 * @param ySpawn origin position
+	 */
 	public EnrageZombie(int xSpawn, int ySpawn) {
 		super(xSpawn, ySpawn);
 	}
@@ -13,17 +17,21 @@ public class EnrageZombie extends Zombie {
 		this.width = sprite.getWidth()/4;
 		this.height = sprite.getHeight();
 		/* Create the animation */
-		this.setCamminata(sprite, width, height);
+		this.setWalkAnimation(sprite, width, height);
 		this.hp = 25;	
 		this.damage = 1;
 		this.speed = 1;
 	}
 	
-	public void enrage(){
+	/**
+	 * if zombie has low hp encrease his speed
+	 */
+	
+	private void enrage(){
 		this.speed = 2;
 	}
 	
-	@Override
+	
 	public void update(){
 		/* If zombies got low hp it encrease his speed */
 		if(hp<10){

@@ -69,7 +69,7 @@ public class BulletThread extends UpdateThread{
 				for(int i = 0; i <m.size(); i++){
 					if(m.get(i).getRectangle().contains(pr.getPosition()))			
 					{
-						m.get(i).hit(pr.getDanno());
+						m.get(i).hit(pr.getDamage());
 						p.remove(pr);
 						s.add(new Blood(m.get(i).getXMap(), m.get(i).getYMap(),m.get(i).getXScreen(),m.get(i).getYScreen()));
 						return;

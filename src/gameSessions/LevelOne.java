@@ -4,13 +4,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-import entities.Base;
+import entities.BaseImpl;
 import entities.Blood;
 import entities.Bullet;
 import entities.EnrageZombie;
 import entities.HUD;
-import entities.Map;
-import entities.Player;
+import entities.MapImpl;
+import entities.PlayerImpl;
 import entities.Zombie;
 import entities.ZombieMom;
 import threads.BulletThread;
@@ -34,7 +34,7 @@ public class LevelOne extends GameSession{
 	
 	
 	/* Una mappa */
-	private Map mappa;
+	private MapImpl mappa;
 	/* Vettore contenenti le armi */
 	private WeaponImpl[] armi = new WeaponImpl [3];
 	/* Zombie */
@@ -44,7 +44,7 @@ public class LevelOne extends GameSession{
 	/* Sangue */
 	private List<Blood> sangue;
 	/* Base da difendere */
-	private Base base;
+	private BaseImpl base;
 	/* Thread degli zombie */
 	private Thread t;
 	private ZombieThread zt;
@@ -71,12 +71,12 @@ public class LevelOne extends GameSession{
 		
 		this.cds = cds;			
 		/*Inizializziamo la mappa*/
-		mappa = new Map("/backgrounds/map.png");		
+		mappa = new MapImpl("/backgrounds/map.png");		
 		/*Inizializziamo la base*/
-		base = Base.getIstance();
+		base = BaseImpl.getIstance();
 		base.init();		
 		/*Inizializziamo il giocatore*/
-		giocatore = Player.getIstance();
+		giocatore = PlayerImpl.getIstance();
 		giocatore.init();		
 		/*Inizializziamo le armi*/
 		weaponInit();		

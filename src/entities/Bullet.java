@@ -6,7 +6,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Bullet extends Model2D {
+public class Bullet extends Sprite {
 	
 	/**
 	 * This class rapreset a asingle bullet of the game
@@ -24,7 +24,7 @@ public class Bullet extends Model2D {
 	 * @param yCursore rapresent yMouse coordinate
 	 * @param damage rapresent damage of the current weapon
 	 */
-	public Bullet(Player g,double xCursore,double yCursore,int damage){
+	public Bullet(PlayerImpl g,double xCursore,double yCursore,int damage){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
 		} catch (IOException e) {
@@ -42,7 +42,7 @@ public class Bullet extends Model2D {
 	 * Start>> Player(X,Y)
 	 * Forward>> Crosshair(X,Y)
 	 */
-	public void calcolaPosizione(){
+	private void calculatePosition(){
 		/** Calcoliamo la taiettoria del proiettile */
 		this.xScreen += 10 * Math.cos(rapporto);
 		this.yScreen += 10 * Math.sin(rapporto);
@@ -51,7 +51,7 @@ public class Bullet extends Model2D {
 	}
 	
 	public void update(){
-		this.calcolaPosizione();
+		this.calculatePosition();
 	}
 	
 	public void draw(Graphics2D g){
@@ -64,11 +64,12 @@ public class Bullet extends Model2D {
 	public Point getPosition(){
 		return new Point((int)xMap,(int)yMap);
 	}
+	
 	/**
 	 * 
 	 * @return the damage associated to this bullet
 	 */
-	public int getDanno(){
+	public int getDamage(){
 		return this.damage;
 	}
 }

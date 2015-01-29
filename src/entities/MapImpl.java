@@ -12,7 +12,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Map{
+public class MapImpl implements Map{
 	
 	/*Immagine della mappa*/
 	private BufferedImage mappa;
@@ -21,8 +21,8 @@ public class Map{
 	/*Coordinate per calcolare la traiettoria del personaggio*/
 	private double previous_Yposition=0;
 	private double previous_Xposition=0;
-	/*Vettore contenente gli spruzzi di sangue*/
-	public Map(String path){
+	
+	public MapImpl(String path){
 		
 		try {
 			mappa = ImageIO.read(getClass().getResourceAsStream(path));
@@ -30,11 +30,13 @@ public class Map{
 			e.printStackTrace();
 		}
 	}
+	
 	/**
 	 * 
 	 * @param d rapresent the xpostion of the player
 	 * @param e rapresent the yposition of the player
 	 */
+	
 	public void update(double d,double e){
 		/*Dobbiamo seguire il personaggio con la nostra camera, noi muoviamo la mappa sotto*/
 		if(d>320 && d<410 && previous_Xposition<=this.camerax){
@@ -58,13 +60,16 @@ public class Map{
 			previous_Yposition=this.cameray;			
 		}
 	}
+	
 	/**
 	 * 
 	 * @param g is the graphic component of the main Panel
 	 */
+	
 	public void draw(Graphics2D g){
 		
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}
+	
 
 }

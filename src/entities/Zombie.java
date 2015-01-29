@@ -6,7 +6,7 @@ import java.awt.geom.AffineTransform;
 
 import audio.AudioPlayer;
 
-public abstract class Zombie extends Model2D{
+public abstract class Zombie extends Sprite{
 
 	/**
 	 * This class implements a type of Zombie, the correct gerarchy for zombies should be
@@ -25,9 +25,9 @@ public abstract class Zombie extends Model2D{
 	/* Check if player is in the range of the zombie */
 	protected int range;
 	/* Player */
-	protected Player player;	
+	protected PlayerImpl player;	
 	/* Base */
-	protected Base base;
+	protected BaseImpl base;
 	/* Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	protected double damage;
 	protected boolean attackingPlayer;
@@ -49,8 +49,8 @@ public abstract class Zombie extends Model2D{
 		/* When the new zombies is create we set the coordinate wich it will appear */
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
-		this.player = Player.getIstance();
-		this.base = Base.getIstance();
+		this.player = PlayerImpl.getIstance();
+		this.base = BaseImpl.getIstance();
 		this.attackingBase = false;
 		this.attackingPlayer = false;
 		this.hitDelay = 1000;
@@ -70,7 +70,7 @@ public abstract class Zombie extends Model2D{
 	 * @return true if player in in vision range of the zombie otherwise return false
 	 */
 
-	public boolean visionRange() {
+	private boolean visionRange() {
 		vision = new Rectangle((int)xMap - (range/2), (int)yMap - (range/2), range + width, range + height);
 		if(vision.intersects(player.getRectangle())){
 			return true;
@@ -83,7 +83,7 @@ public abstract class Zombie extends Model2D{
 	 * Calculate the position where the zombie will move forward 
 	 */
 
-	public void calculatePosition(){
+	protected void calculatePosition(){
 		/* Calculate distance between zombie and player, zombie base. */
 		if(visionRange()){
 			double rapporto = Math.atan2((player.getYMap() - yMap),(player.getXMap() - xMap));
@@ -186,7 +186,7 @@ public abstract class Zombie extends Model2D{
 			}
 			attackingPlayer = true;
 			if(System.currentTimeMillis() > (timerPlayerAttack+hitDelay)){
-				player.colpito(this.damage);
+				player.hit(this.damage);
 				attackingPlayer = false;
 			}
 		}
@@ -196,7 +196,7 @@ public abstract class Zombie extends Model2D{
 			}
 			attackingBase = true;
 			if(System.currentTimeMillis() > (timerBaseAttack+hitDelay)){
-				base.colpito(this.damage);
+				base.hit(this.damage);
 				attackingBase = false;
 			}
 		}

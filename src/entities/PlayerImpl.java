@@ -8,7 +8,7 @@ import java.util.List;
 
 import weapons.WeaponImpl;
 
-public class Player extends Model2D {
+public class PlayerImpl extends Sprite implements ActiveElement, Player{
 	/**
 	 * This class Rapresent the Player of the game.
 	 * It implementes the Singleton pattern: there is only one istance of this class in the game.
@@ -16,25 +16,36 @@ public class Player extends Model2D {
 	 *  @author Giovanni Romio
 	 */
 	
+	/* Movements */
+	private boolean left;
+	private boolean right;
+	private boolean up;
+	private boolean down;
 	//Vogliamo che all'interno del gioco venga creata un'unica entita player
-	private static Player giocatore;
+	private static PlayerImpl giocatore;
 	//Base del gioco, utile per impostare i limiti di percorso
-	private Base base;
+	private BaseImpl base;
 	//Sprite del personaggio
 	private BufferedImage player;
 	private WeaponImpl [] arsenale;
 	private WeaponImpl armacorrente;
 	//Sparo
 	private boolean reloading;
+	/*Player bounds*/
+	private static final int leftx=0;
+	private static final int rightx=720;
+	private static final int topy=0;
+	private static final int bottomy=1054;
 	
 	/**
 	 * 
 	 * @return singleTon istance
 	 */
-	public static Player getIstance(){	
+	
+	public static PlayerImpl getIstance(){	
 
 		if(giocatore == null){
-			giocatore = new Player();
+			giocatore = new PlayerImpl();
 		}
 		return giocatore;		
 		
@@ -47,7 +58,7 @@ public class Player extends Model2D {
 		xScreen = yScreen = 50;
 		hp = 25;
 		alive = true;
-		base = Base.getIstance();
+		base = BaseImpl.getIstance();
 		speed = 2;
 	}
 	/**
@@ -85,8 +96,8 @@ public class Player extends Model2D {
 	 * the Map will be moved so the effect of the player moving in the Map is granted!
 	 */
 
-	public void calcolaPosizione(){
-		//MOVIMENTI
+	private void calculatePosition(){
+		//MOVEMENTS
 		if (left){
 			if(xMap < (640 / 2) || xMap > 730 - 320 ){
 				//siamo nei due range in cui lo sprite si deve effettivamente muovere nella finestra
@@ -169,7 +180,7 @@ public class Player extends Model2D {
 	 * The player will always be oriented to the mouse Cursor
 	 */
 	
-	public void calcolaRotazione(int x, int y){
+	private void calculateRotation(int x, int y){
 		/*Rotazione dello sprite*/
 		rotation = Math.atan2(y-(this.yScreen+height/2),x-(this.xScreen+width/2))-Math.PI/2;
 	}
@@ -228,14 +239,13 @@ public class Player extends Model2D {
 	 * @param path soruce for the image of the player
 	 */
 	
-	public void setSkin(String path){
-		
+	public void setSkin(String path){		
 		this.player=setSprite(path);
 		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
 		this.width= player.getWidth()/5;
 		this.height= player.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setCamminata(player, width, height);
+		this.setWalkAnimation(player, width, height);
 		
 	}
 	
@@ -244,8 +254,7 @@ public class Player extends Model2D {
 	 * @param d is the damage of the zombi
 	 */
 	
-	public void colpito(double d){	
-		
+	public void hit(double d){			
 		if(hp==0){
 			alive = false;
 		}else{
@@ -268,26 +277,18 @@ public class Player extends Model2D {
 		/*Se comandiamo al personaggio di spostarsi eseguiamo questa routine*/
 		if(left||right||up||down){
 			walk.update();
-			this.calcolaPosizione();
+			this.calculatePosition();
 		}
-		this.calcolaRotazione(x,y);		
+		this.calculateRotation(x,y);		
 	}
 	
-	/**
-	 * Player use the update method with x and y parameter
-	 */
-	
-	public void update() {
-		
-	}
 	
 	/**
 	 * Draw is called from the Contoller di Sessione draw() wich is called from the main thread.
 	 * @param g rapresent the graphic component to display and draw sprites.
 	 */
 	
-	public void draw(Graphics2D g){	
-		
+	public void draw(Graphics2D g){			
 		AffineTransform at = new AffineTransform();
 		at.translate(xScreen, yScreen);
 		at.rotate(rotation,width/2,height/2);
@@ -303,6 +304,6 @@ public class Player extends Model2D {
 	
 	public boolean isRealoading(){
 		return this.reloading;
-	}
+	}		
 	
 }

@@ -6,14 +6,17 @@ import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
-public class Blood extends Model2D{
+public class Blood extends Sprite implements DisplayObject{
+	
 	/**
 	 * Blood of the zombie while hitten
 	 * 
 	 * @author Giovanni Romio
 	 */
+	
 	private BufferedImage blood;
-	private Player player;
+	private PlayerImpl player;
+	
 	/**
 	 * 
 	 * @param xMap x Coordinate of the blood in the Map
@@ -22,6 +25,7 @@ public class Blood extends Model2D{
 	 * @param yScreen  y Coordinate of the blood in the Screen
 	 * 
 	 */
+	
 	public Blood(double xMap, double yMap, double xScreen, double yScreen){
 		this.xMap = xMap;
 		this.xScreen = xScreen;
@@ -33,7 +37,11 @@ public class Blood extends Model2D{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		player = Player.getIstance();
+		player = PlayerImpl.getIstance();
+	}
+	
+	public void init() {
+		
 	}
 	
 	public void update() {		
@@ -53,5 +61,7 @@ public class Blood extends Model2D{
 		at.translate(xScreen, yScreen);
 		g.drawImage(blood, at , null);		
 	}
+
+	
 
 }

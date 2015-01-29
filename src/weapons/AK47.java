@@ -6,7 +6,7 @@ import javax.imageio.ImageIO;
 
 import audio.AudioPlayer;
 import entities.Bullet;
-import entities.Player;
+import entities.PlayerImpl;
 import weapons.WeaponImpl;
 
 public class AK47 extends WeaponImpl {
@@ -36,8 +36,7 @@ public class AK47 extends WeaponImpl {
 	 * @param l rapresent the List wich contains all the bullets that are current displayed 
 	 */
 	
-	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {
-		
+	public int shoot(PlayerImpl g,double xMouse,double yMouse,List<Bullet>l) {		
 		if(this.bullets>0){
 			this.reloading=false;
 			this.ap.stop();

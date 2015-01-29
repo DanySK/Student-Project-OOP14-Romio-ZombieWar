@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
-public class Base {
+public class BaseImpl implements DisplayObject,Base {
 	/**
 	 * This is the Base, the player must defende his base while trying to stay alive.
 	 * The base is defined by a polygon and other stuff is to describe the position on the
@@ -14,7 +14,7 @@ public class Base {
 	 * 
 	 *  @author GiovanniRomio
 	 */
-	private static Base base;
+	private static BaseImpl base;
 	private Polygon p;
 	/*Coordinate della base*/
 	private int [] xPoint = {200,220,270,470,555,555}; 
@@ -22,16 +22,16 @@ public class Base {
 	private int hp;
 	private boolean alive;
 	
-	private Base(){
+	private BaseImpl(){
 		p = new Polygon(xPoint,yPoint,6);
 	}
 	/**
 	 * 
 	 * @return SingleTon istance
 	 */
-	public static Base getIstance(){
+	public static BaseImpl getIstance(){
 		if(base == null){
-			base = new Base();
+			base = new BaseImpl();
 		}
 		return base;
 	}
@@ -48,6 +48,9 @@ public class Base {
 	public boolean intersect(Rectangle o){
 		return p.intersects(o);
 	}
+	
+	public void update() {
+	}
 	/**
 	 * 
 	 * @param g rapresent the graphic component of the JFrame
@@ -59,7 +62,7 @@ public class Base {
 	 * 
 	 * @return the helt poin of the base
 	 */
-	public int getVita(){
+	public int getHp(){
 		return hp;
 	}
 	/**
@@ -72,7 +75,7 @@ public class Base {
 	 * 
 	 * @param d is the damage of the zombie, different zombie make different damage
 	 */
-	public void colpito(double d){
+	public void hit(double d){
 		if(hp == 0 ){
 			alive = false;
 		}else{
@@ -84,5 +87,6 @@ public class Base {
 	 */
 	public boolean isAlive(){
 		return alive;
-	}
+	}	
+	
 }

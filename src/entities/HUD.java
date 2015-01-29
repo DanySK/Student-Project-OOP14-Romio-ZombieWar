@@ -5,7 +5,7 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
 import java.io.IOException;
-public class HUD {
+public class HUD implements DisplayObject{
 	
 	/**
 	 * This class is used to display the player status, current weapon and the status of the Base.
@@ -14,8 +14,8 @@ public class HUD {
 	 *  @autor Giovanni Romio
 	 */	
 
-	private Player player;
-	private Base base;
+	private PlayerImpl player;
+	private BaseImpl base;
 	private int baseHp;
 	private int playerHp;
 	private Color HUDColor;
@@ -32,18 +32,21 @@ public class HUD {
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		this.player = Player.getIstance();
-		this.base = Base.getIstance();
+		this.player = PlayerImpl.getIstance();
+		this.base = BaseImpl.getIstance();
 				
+	}
+	
+	public void init() {
+
 	}
 	
 	/**
 	 * This method is called by the main thread
-	 */
+	 */	
 	
-	public void update(){
-		
-		baseHp = base.getVita();
+	public void update(){		
+		baseHp = base.getHp();
 		playerHp = (int) player.getHp();
 	}
 	
@@ -52,8 +55,7 @@ public class HUD {
 	 * @param g is the grapich componenet of the main Jframe
 	 */
 	
-	public void draw(Graphics2D g){
-		
+	public void draw(Graphics2D g){		
 		g.setColor(HUDColor);
 		g.setFont(HUDFont);
 		//DRAW WEAPON NAME
@@ -68,5 +70,7 @@ public class HUD {
 		g.drawString("HP: "+playerHp, 5, 110);
 		g.drawString("BASE: "+baseHp, 5, 140);
 	}
+
+	
 	
 }

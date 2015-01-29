@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 
 import entities.Bullet;
-import entities.Player;
+import entities.PlayerImpl;
 
 
 public interface Weapon {
@@ -25,5 +25,5 @@ public interface Weapon {
 	 * @param l is the list wich contains all bullets displayer
 	 * @return
 	 */
-	public int shoot(Player g, double xMouse, double yMouse,List<Bullet>l);
+	public int shoot(PlayerImpl g, double xMouse, double yMouse,List<Bullet>l);
 }
