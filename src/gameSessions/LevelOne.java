@@ -39,7 +39,7 @@ public class LevelOne extends GameSession{
 	private WeaponImpl[] armi = new WeaponImpl [3];
 	/* Zombie */
 	private List<Zombie> zombies;
-	private static final int NUMZOMBIE = 300;
+	private static final int NUMZOMBIE = 10;
 	private int zombieCreated = 0;
 	/* Sangue */
 	private List<Blood> sangue;

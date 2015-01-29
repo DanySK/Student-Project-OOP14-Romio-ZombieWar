@@ -60,7 +60,6 @@ public class ZombieThread extends UpdateThread{
 				try {
 					Thread.sleep(waiting);
 				} catch (InterruptedException e) {
-					Thread.currentThread().interrupt();
 					/* If thread is interrupted we stop the iteration */
 					return;
 				}

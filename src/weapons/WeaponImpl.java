@@ -3,6 +3,7 @@ package weapons;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import audio.AudioPlayer;
 import entities.Bullet;
 
 public abstract class WeaponImpl implements Weapon {
@@ -30,6 +31,8 @@ public abstract class WeaponImpl implements Weapon {
 	protected int y;
 	/* This list contains all diplayed bullets */
 	protected List<Bullet> list;
+	/*Sound effect*/
+	protected AudioPlayer ap;
 
 	/**
 	 * This method use a Timer to block and restart the gun.
@@ -111,6 +114,15 @@ public abstract class WeaponImpl implements Weapon {
 	
 	public int getColpi(){
 		return this.bullets;
+	}
+	
+	/**
+	 * 
+	 * @return if the current weapon is realoding or not
+	 */
+	
+	public boolean isReloading(){
+		return reloading;
 	}
 
 }

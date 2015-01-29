@@ -1,6 +1,9 @@
 package weapons;
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
+import audio.AudioPlayer;
 import entities.Bullet;
 import entities.Player;
 
@@ -32,6 +35,7 @@ public class Minigun extends WeaponImpl{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		ap = new AudioPlayer("/audio/weaponSound.wav");
 	}
 	
 	/**
@@ -45,6 +49,8 @@ public class Minigun extends WeaponImpl{
 	
 	public int shoot(Player g, double xMouse, double yMouse, List<Bullet>l) {
 		if(this.bullets>0){
+			this.ap.stop();
+			this.ap.start();
 			this.reloading=false;
 			/* Add 3 bullets */
 			this.bullets-=3;

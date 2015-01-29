@@ -61,7 +61,7 @@ public class HUD {
 		// DRAW WEAPON IMAGE
 		g.drawImage(player.getWeapon().getHUDImage(), 5, 25,null);
 		// DRAW BULLETS
-		if(!player.isRealoading())
+		if(!player.getWeapon().isReloading())
 			g.drawString("X "+ player.getWeapon().getColpi(), 150,80);
 		else g.drawString("Reloading", 150, 80);
 		//DRAW HEALT POINT

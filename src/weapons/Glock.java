@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import audio.AudioPlayer;
 import entities.Bullet;
 import entities.Player;
 
@@ -28,6 +29,7 @@ public class Glock extends WeaponImpl {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		ap = new AudioPlayer("/audio/weaponSound.wav");
 	}
 	
 	/**
@@ -38,9 +40,11 @@ public class Glock extends WeaponImpl {
 	 * @param l rapresent the List wich contains all the bullets that are current displayed 
 	 */
 	
-	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {		
+	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {
 		if(this.bullets>0){
 			this.reloading=false;
+			this.ap.stop();
+			this.ap.start();
 			/* Add one single bullet */
 			this.bullets--;
 			l.add(new Bullet(g,xMouse,yMouse,damage));

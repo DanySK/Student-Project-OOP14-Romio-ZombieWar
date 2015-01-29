@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 
+import audio.AudioPlayer;
+
 public abstract class Zombie extends Model2D{
 
 	/**
@@ -34,6 +36,8 @@ public abstract class Zombie extends Model2D{
 	protected long timerBaseAttack;
 	protected long hitDelay;
 	protected Rectangle vision;
+	/* Audio when zombies gets hit*/
+	AudioPlayer ap;
 
 	/**
 	 * Constructor for the Zombie
@@ -52,6 +56,7 @@ public abstract class Zombie extends Model2D{
 		this.hitDelay = 1000;
 		this.range = 200;
 		this.init();
+		ap = new AudioPlayer("/audio/zombie2.wav");
 	}
 
 	/**
@@ -110,6 +115,8 @@ public abstract class Zombie extends Model2D{
 	 */
 
 	public void hit(int damage){
+		ap.stop();
+		ap.start();
 		this.hp -= damage;
 		if(hp <= 0){
 			alive = false;
@@ -170,6 +177,7 @@ public abstract class Zombie extends Model2D{
 	 * This method use a Timer to subdivide the zombies attacks in different actions.
 	 * By doing this we avoid the speed of the game influence the gameplay.
 	 */
+	
 	public void attack(){
 
 		if(this.getRectangle().intersects(player.getRectangle())){

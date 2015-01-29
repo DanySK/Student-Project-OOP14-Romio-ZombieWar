@@ -1,7 +1,10 @@
 package weapons;
 
 import java.util.List;
+
 import javax.imageio.ImageIO;
+
+import audio.AudioPlayer;
 import entities.Bullet;
 import entities.Player;
 import weapons.WeaponImpl;
@@ -21,6 +24,8 @@ public class AK47 extends WeaponImpl {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		//load sound
+		this.ap = new AudioPlayer("/audio/weaponSound.wav");
 	}
 	
 	/**
@@ -32,8 +37,11 @@ public class AK47 extends WeaponImpl {
 	 */
 	
 	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {
+		
 		if(this.bullets>0){
 			this.reloading=false;
+			this.ap.stop();
+			this.ap.start();
 			/* Add one single bullet */
 			this.bullets--;
 			l.add(new Bullet(g,xMouse,yMouse,damage));

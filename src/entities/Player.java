@@ -36,13 +36,13 @@ public class Player extends Model2D {
 		if(giocatore == null){
 			giocatore = new Player();
 		}
-		return giocatore;				
+		return giocatore;		
+		
 	}
 	/**
 	 * Initialize player parameters such as position in the map and Health Point.
-	 * */
-	public void init(){		
-		
+	 */
+	public void init(){				
 		xMap = yMap = 50;
 		xScreen = yScreen = 50;
 		hp = 25;
@@ -54,32 +54,28 @@ public class Player extends Model2D {
 	 * 
 	 * @param value allow player move left or stop move left
 	 */
-	public void setLeft(boolean value){		
-		
+	public void setLeft(boolean value){				
 		left = (value == true) ? true : false;		
 	}
 	/**
 	 * 
 	 * @param value allow player move right or stop move right
 	 */
-	public void setRight(boolean value){
-		
+	public void setRight(boolean value){		
 		right = (value == true) ? true : false;		
 	}
 	/**
 	 * 
 	 * @param value allow player move up or stop move up
 	 */
-	public void setUp(boolean value){
-		
+	public void setUp(boolean value){		
 		up = (value == true) ? true : false;		
 	}
 	/**
 	 * 
 	 * @param value allow player move down or stop move down
 	 */
-	public void setDown(boolean value){	
-		
+	public void setDown(boolean value){			
 		down = (value == true) ? true : false;		
 	}
 	
@@ -164,8 +160,7 @@ public class Player extends Model2D {
 	 * @param arsenale rapresent the weapon of the Player
 	 */
 	
-	public void setWeapons(WeaponImpl[]arsenale){	
-		
+	public void setWeapons(WeaponImpl[]arsenale){			
 		this.arsenale=arsenale;
 		armacorrente=this.arsenale[0];		
 	}
@@ -186,7 +181,6 @@ public class Player extends Model2D {
 	 */
 	
 	public boolean shoot(double xMouse,double yMouse,List<Bullet>l){
-
 		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
 			reloading=false;
 			return true;
@@ -203,10 +197,12 @@ public class Player extends Model2D {
 	 */
 	
 	private void reload(){
-
-		this.reloading = true;
 		armacorrente.reload();
-
+		if(armacorrente.isReloading()){
+			reloading = true;
+		}else{
+			reloading = false;
+		}
 	}
 	
 	/**
@@ -214,9 +210,8 @@ public class Player extends Model2D {
 	 * @param i value to change the current gun hold by the player
 	 */
 	
-	public void setGun(int i){	
-		
-		armacorrente = this.arsenale[i];		
+	public void setGun(int i){			
+		armacorrente = this.arsenale[i];	
 	}
 	
 	/**
@@ -243,10 +238,12 @@ public class Player extends Model2D {
 		this.setCamminata(player, width, height);
 		
 	}
+	
 	/**
 	 * 
 	 * @param d is the damage of the zombi
 	 */
+	
 	public void colpito(double d){	
 		
 		if(hp==0){
@@ -257,7 +254,6 @@ public class Player extends Model2D {
 	}
 	
 	
-	
 	/**
 	 *  Update is called from called from the Contoller di Sessione wich is called form the main
 	 *  thread and will update player position rotation and stutus.
@@ -266,10 +262,9 @@ public class Player extends Model2D {
 	 */
 
 	public void update(int x, int y){
-		
 		if(reloading){
 			this.reload();
-		}
+		}		
 		/*Se comandiamo al personaggio di spostarsi eseguiamo questa routine*/
 		if(left||right||up||down){
 			walk.update();
