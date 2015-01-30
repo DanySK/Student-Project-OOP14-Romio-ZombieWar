@@ -21,11 +21,11 @@ public class AudioPlayer {
 	public AudioPlayer(String path){
 
 		try{
-			audioInputStream = AudioSystem.getAudioInputStream(getClass().getResourceAsStream(path));
+			audioInputStream = AudioSystem.getAudioInputStream(getClass().getResource(path));
 			clip = AudioSystem.getClip();
 			clip.open(audioInputStream);			
 		}catch(Exception ex){
-			ex.printStackTrace();
+			return;
 		}	
 
 	}
@@ -38,7 +38,7 @@ public class AudioPlayer {
 		  try {		 
 			  clip.start();
 		  }catch(Exception e){
-			  e.printStackTrace();
+			  return;
 		  }
 		
 	}
@@ -51,7 +51,7 @@ public class AudioPlayer {
 		try{
 			clip.setFramePosition(1);
 		}catch( Exception e){
-			e.printStackTrace();
+			
 		}
 	}
 	
@@ -64,7 +64,7 @@ public class AudioPlayer {
 		try{
 			clip.loop(100);
 		}catch( Exception e){
-			e.printStackTrace();
+			return;
 		}
 	}
 }
