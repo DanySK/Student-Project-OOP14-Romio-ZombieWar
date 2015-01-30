@@ -66,8 +66,7 @@ public class MapImpl implements Map{
 	 * @param g is the graphic component of the main Panel
 	 */
 	
-	public void draw(Graphics2D g){
-		
+	public void draw(Graphics2D g){		
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}
 	

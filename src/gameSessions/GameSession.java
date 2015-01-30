@@ -1,12 +1,12 @@
 package gameSessions;
 import java.awt.Graphics2D;
 
-import entities.PlayerImpl;
+import entities.Player;
 
 public abstract class GameSession {
 	
 	protected SessionController cds;
-	protected PlayerImpl giocatore;
+	protected Player giocatore;
 	public abstract void init();
 	public abstract void update();
 	public abstract void draw(Graphics2D g);

@@ -25,7 +25,7 @@ public abstract class Zombie extends SpriteObject{
 	/* Check if player is in the range of the zombie */
 	protected int range;
 	/* Player */
-	protected PlayerImpl player;	
+	protected Player player;	
 	/* Base */
 	protected BaseImpl base;
 	/* Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
@@ -49,7 +49,7 @@ public abstract class Zombie extends SpriteObject{
 		/* When the new zombies is create we set the coordinate wich it will appear */
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
-		this.player = PlayerImpl.getIstance();
+		this.player = Player.getIstance();
 		this.base = BaseImpl.getIstance();
 		this.attackingBase = false;
 		this.attackingPlayer = false;

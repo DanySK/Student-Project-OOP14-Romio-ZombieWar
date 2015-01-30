@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public abstract class SpriteObject implements ActiveElement{
+public abstract class SpriteObject {
 	
 	/**
 	 * Absrtarct class define 2dModels as Player or Zombies
@@ -42,6 +42,14 @@ public abstract class SpriteObject implements ActiveElement{
 		return sprite;
 	}
 	
+	/**
+	 * Subdivide one BufferedImage in more frames. Those frame showed on sequence will
+	 * make the walk animation
+	 * 
+	 *  @param sprite contain all the sprtes of the animation
+	 *  @width width of the single frame
+	 *  @height height of the single frame
+	 */
 	
 	public void setWalkAnimation(BufferedImage sprite, int width, int height){
 		/**Ritaglio i frame dallo sprite*/
@@ -54,12 +62,22 @@ public abstract class SpriteObject implements ActiveElement{
 		walk= new Animation(tmp);
 		walk.calculateDefaultDelay();
 	}	
-		
+	/**
+	 * 
+	 * @param o rapresent the model to analize
+	 * @return true if o intersect the current object
+	 */
+	
 	public boolean intersects(SpriteObject o){
 		Rectangle r1 = getRectangle();
 		Rectangle r2 = o.getRectangle();
 		return r1.intersects(r2);
 	}
+
+	/**
+	 * 
+	 * @return the Rectangle associated to this object
+	 */
 	
 	
 	public Rectangle getRectangle(){

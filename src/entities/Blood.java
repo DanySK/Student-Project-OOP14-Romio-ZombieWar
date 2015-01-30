@@ -15,7 +15,7 @@ public class Blood extends SpriteObject {
 	 */
 	
 	private BufferedImage blood;
-	private PlayerImpl player;
+	private Player player;
 	
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class Blood extends SpriteObject {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		player = PlayerImpl.getIstance();
+		player = Player.getIstance();
 	}
 	
 	public void init() {

@@ -24,7 +24,7 @@ public class Bullet extends SpriteObject {
 	 * @param yCursore rapresent yMouse coordinate
 	 * @param damage rapresent damage of the current weapon
 	 */
-	public Bullet(PlayerImpl g,double xCursore,double yCursore,int damage){
+	public Bullet(Player g,double xCursore,double yCursore,int damage){
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
 		} catch (IOException e) {

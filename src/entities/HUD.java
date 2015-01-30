@@ -14,7 +14,7 @@ public class HUD{
 	 *  @autor Giovanni Romio
 	 */	
 
-	private PlayerImpl player;
+	private Player player;
 	private BaseImpl base;
 	private int baseHp;
 	private int playerHp;
@@ -32,7 +32,7 @@ public class HUD{
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
-		this.player = PlayerImpl.getIstance();
+		this.player = Player.getIstance();
 		this.base = BaseImpl.getIstance();
 				
 	}
@@ -70,7 +70,6 @@ public class HUD{
 		g.drawString("HP: "+playerHp, 5, 110);
 		g.drawString("BASE: "+baseHp, 5, 140);
 	}
-
 	
 	
 }

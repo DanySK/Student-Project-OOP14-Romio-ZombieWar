@@ -10,7 +10,7 @@ import entities.Bullet;
 import entities.EnrageZombie;
 import entities.HUD;
 import entities.MapImpl;
-import entities.PlayerImpl;
+import entities.Player;
 import entities.Zombie;
 import entities.ZombieMom;
 import threads.BulletThread;
@@ -76,7 +76,7 @@ public class LevelOne extends GameSession{
 		base = BaseImpl.getIstance();
 		base.init();		
 		/*Inizializziamo il giocatore*/
-		giocatore = PlayerImpl.getIstance();
+		giocatore = Player.getIstance();
 		giocatore.init();		
 		/*Inizializziamo le armi*/
 		weaponInit();		
