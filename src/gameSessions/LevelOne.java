@@ -9,7 +9,8 @@ import entities.Blood;
 import entities.Bullet;
 import entities.EnrageZombie;
 import entities.HUD;
-import entities.MapImpl;
+import entities.MyMap;
+import entities.MyMapImpl;
 import entities.Player;
 import entities.Zombie;
 import entities.ZombieMom;
@@ -29,11 +30,11 @@ public class LevelOne extends GameSession{
 	 */
 	
 	
-	/* Una mappa */
-	private MapImpl mappa;
+	/* Map */
+	private MyMap map;
 	/* Zombie */
 	private List<Zombie> zombies;
-	private static final int NUMZOMBIE = 500;
+	private static final int NUMZOMBIE = 50;
 	private int zombieCreated = 0;
 	/* Sangue */
 	private List<Blood> sangue;
@@ -65,7 +66,7 @@ public class LevelOne extends GameSession{
 		
 		this.cds = cds;			
 		/*Inizializziamo la mappa*/
-		mappa = new MapImpl("/backgrounds/map.png");		
+		map = new MyMapImpl("/backgrounds/map.png");		
 		/*Inizializziamo la base*/
 		base = Base.getIstance();
 		base.init();		
@@ -88,7 +89,7 @@ public class LevelOne extends GameSession{
 		p.start();		
 		/*Inizializziamo l'HUD di gioco*/
 		h = new HUD();
-		/* I nizializziamo il timer*/
+		/* Inizializziamo il timer*/
 		start = System.currentTimeMillis();
 	}
 	
@@ -181,7 +182,7 @@ public class LevelOne extends GameSession{
 		/* Imponiamo l'update al giocatore*/
 		player.update(xMouse,yMouse);		
 		/* Spostiamo la posizione della mappa*/
-		mappa.update(player.getXMap(), player.getYMap());
+		map.update(player.getXMap(), player.getYMap());
 		/* Update HUD */
 		h.update();
 		/* al massimo 50 schizzi di sangue*/
@@ -202,8 +203,7 @@ public class LevelOne extends GameSession{
 			this.cds.aggiungiSessione(new Defeat(cds));
 			this.cds.setState(SessionController.DEFEAT);
 		}
-		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
-		/*
+		/*Check if all zombies died*/		
 		if(zombieCreated == NUMZOMBIE){
 			synchronized (zombies) {
 				if(zombies.size()==0){
@@ -217,13 +217,13 @@ public class LevelOne extends GameSession{
 					this.cds.setState(SessionController.VICTORY);
 				}
 			}		
-		}		*/
+		}		
 		
 	}
 	
 	public void draw(Graphics2D grafica){		
 		/* Draw Map */
-		mappa.draw(grafica);
+		map.draw(grafica);
 		/* Draw blood */
 		synchronized (sangue) {
 			for(int x =0;x<sangue.size();x++){
@@ -257,7 +257,7 @@ public class LevelOne extends GameSession{
 	 */
 	
 	public void keyPressed(int k) throws InterruptedException{
-		/*Imponiamo al personaggio uno spostamento*/
+		/* Set player moving */
 		switch(k){
 		case(KeyEvent.VK_A): player.setLeft(true);break;
 		case(KeyEvent.VK_D): player.setRight(true);break;
@@ -270,12 +270,12 @@ public class LevelOne extends GameSession{
 			pause = true;
 			zt.setPausa(pause);
 			pt.setPausa(pause);
-			/*Blocchiamo i movimenti del giocatore*/
+			/* lock player movements */
 			player.setLeft(false);
 			player.setRight(false);
 			player.setUp(false);
 			player.setDown(false);
-			/*Passiamo allo stato di pausa*/
+			/* Set Pause State */
 			this.cds.setState(SessionController.GAMEPAUSE);}
 			break;		
 		}

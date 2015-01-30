@@ -3,9 +3,7 @@ package entities;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.util.List;
-
 import weapons.AK47;
 import weapons.Glock;
 import weapons.Minigun;
@@ -28,18 +26,16 @@ public class Player extends SpriteObject {
 	private static Player giocatore;
 	//Base del gioco, utile per impostare i limiti di percorso
 	private Base base;
-	//Sprite del personaggio
-	private BufferedImage player;
 	private WeaponImpl [] arsenale;
 	private int armacorrente;
-	//Sparo
+	// Shoot
 	private boolean reloading;
-	/*Player bounds*/
+	/* Player bounds */
 	private static final int leftx=0;
 	private static final int rightx=730;
 	private static final int topy=0;
 	private static final int bottomy=1054;
-	/*weapons*/
+	/* Weapons */
 	public static final int GLOCK = 0;
 	public static final int AK47 = 1;
 	public static final int MINIGUN = 2;
@@ -200,6 +196,9 @@ public class Player extends SpriteObject {
 	 * If the player isn't realoding it calls the current wepaon method shoot wich
 	 * will add a bullet into l
 	 * @return if the player shooted it return true otherwise it return false
+	 * @param xMouse mouse poisition
+	 * @param yMouse mouse position
+	 * @param l rapresent the list wich contain displayed bullet
 	 */
 	
 	public boolean shoot(double xMouse, double yMouse, List<Bullet>l){
@@ -249,12 +248,12 @@ public class Player extends SpriteObject {
 	 */
 	
 	public void setSkin(String path){		
-		this.player=setSprite(path);
+		this.sprite = setSprite(path);
 		/*Il nostro file png contiene 5 diversi sprite che compono la camminata*/
-		this.width= player.getWidth()/5;
-		this.height= player.getHeight();
+		this.width = sprite.getWidth() / 5;
+		this.height = sprite.getHeight();
 		/*Creiamo l'animazione per il nostro personaggio*/
-		this.setWalkAnimation(player, width, height);
+		this.setWalkAnimation(sprite, width, height);
 		
 	}
 	
@@ -264,7 +263,7 @@ public class Player extends SpriteObject {
 	 */
 	
 	public void hit(double d){			
-		if(hp==0){
+		if(hp == 0){
 			alive = false;
 		}else{
 			this.hp -= d;
@@ -280,7 +279,6 @@ public class Player extends SpriteObject {
 	 *  @param x rapresent the realtive position of the Mouse in JFrame
 	 *  @param y rapresent the realtive position of the Mouse in JFrame
 	 */
-
 	public void update(int x, int y){
 		if(reloading){
 			this.reload();
@@ -297,16 +295,15 @@ public class Player extends SpriteObject {
 	/**
 	 * Draw is called from the Contoller di Sessione draw() wich is called from the main thread.
 	 * @param g rapresent the graphic component to display and draw sprites.
-	 */
-	
+	 */	
 	public void draw(Graphics2D g){			
 		AffineTransform at = new AffineTransform();
 		at.translate(xScreen, yScreen);
 		at.rotate(rotation,width/2,height/2);
-		/*Disegno il giocatore*/
+		/* Draw player */
 		g.drawImage(walk.getImage(),at,null);
-		/*Disegno l'arma corrente, associando le stesse operazione di movimento legate al giocatore*/
-		//draw GUN
+		/*Draw current weapon with player affine trasform operation */
+		/* Draw GUN */
 		AffineTransform gun =new AffineTransform(at);	
 		gun.scale(0.8,0.8);
 		gun.translate(arsenale[armacorrente].getX(),arsenale[armacorrente].getY());
@@ -316,7 +313,4 @@ public class Player extends SpriteObject {
 	public boolean isRealoading(){
 		return this.reloading;
 	}
-	
-		
-	
 }

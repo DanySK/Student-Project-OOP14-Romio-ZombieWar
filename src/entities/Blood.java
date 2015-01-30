@@ -24,24 +24,24 @@ public class Blood extends SpriteObject {
 	 * @param xScreen  x Coordinate of the blood in the Screen
 	 * @param yScreen  y Coordinate of the blood in the Screen
 	 * 
-	 */
-	
+	 */	
 	public Blood(double xMap, double yMap, double xScreen, double yScreen){
+		
 		this.xMap = xMap;
 		this.xScreen = xScreen;
 		this.yMap = yMap;
 		this.yScreen = yScreen;
-		/*Carichiamo l'immagine*/
+		/*Load image*/
 		try{
 			blood = ImageIO.read(getClass().getResourceAsStream("/sprites/sangue.png"));
 		}catch(Exception e){
 			e.printStackTrace();
 		}
 		player = Player.getIstance();
+		
 	}
 	
-	public void init() {
-		
+	public void init() {		
 	}
 	
 	public void update() {		
@@ -50,7 +50,7 @@ public class Blood extends SpriteObject {
 	public void draw(Graphics2D g) {
 		AffineTransform at = new AffineTransform();;
 		/**
-		 * Disegniamo il sangue solo se e nel campo di visibilita del giocatore 
+		 * Draw blood only if is't in player range
 		 */		
 		if(player.getXMap() > 320 && player.getXMap() < 410){
 			xScreen =  320 + (xMap - player.getXMap());

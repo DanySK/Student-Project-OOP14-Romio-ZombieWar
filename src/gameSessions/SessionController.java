@@ -30,6 +30,7 @@ public class SessionController {
 		sessioni.add(new Options(this));
 		sessioni.add(new Credits(this));
 	}
+	
 	/**
 	 * 
 	 * @param level add the specific level to the current session list
@@ -37,12 +38,14 @@ public class SessionController {
 	public void aggiungiSessione(GameSession level){
 		sessioni.add(level);
 	}
+	
 	/**
 	 * Update the current Session
 	 */
 	public void update(){
 		sessioni.get(sessioneCorrente).update();
 	}
+	
 	/**
 	 * 
 	 * @param state rapresent the state we want to go for
@@ -61,6 +64,7 @@ public class SessionController {
 	public void keyReleased(int k){
 		sessioni.get(sessioneCorrente).keyReleased(k);
 	}
+	
 	/**
 	 * 
 	 * @param x coordinatex of the Mouse
@@ -72,6 +76,7 @@ public class SessionController {
 	public void mouseReleased(){
 		sessioni.get(sessioneCorrente).mouseReleased();
 	}
+	
 	/**
 	 * 
 	 * @param x Position of the mouse
@@ -80,6 +85,7 @@ public class SessionController {
 	public void MouseMovement(int x, int y){
 		sessioni.get(sessioneCorrente).setMouse(x,y);
 	}
+	
 	/**
 	 * Reset all states add after performing action during the game
 	 */

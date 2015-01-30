@@ -2,13 +2,12 @@ package threads;
 
 import java.util.Collections;
 import java.util.List;
-
 import entities.Zombie;
 
 public class ZombieThread extends UpdateThread{
 	
 	/**
-	 * Very important thread wich call the update method for the zombies
+	 * Essential thread wich call the update method for the zombies
 	 * 
 	 * @author Giovanni Romio
 	 * 
@@ -20,6 +19,7 @@ public class ZombieThread extends UpdateThread{
 		this.m = Collections.synchronizedList(l);
 		this.waiting = w;
 	}
+	
 	/**
 	 * Main loop of the ZombieThread
 	 * If it is not paused call the update method for each zombie then it checkCollisions.

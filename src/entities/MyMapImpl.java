@@ -12,17 +12,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class MapImpl implements Map{
+public class MyMapImpl implements MyMap{
 	
-	/*Immagine della mappa*/
+	/*Map image*/
 	private BufferedImage mappa;
-	/*Coordinate del personaggio*/
+	/*player position equals to camera position*/
 	private double camerax,cameray;
-	/*Coordinate per calcolare la traiettoria del personaggio*/
+	/*Coordinates to calculate player trajectory*/
 	private double previous_Yposition=0;
 	private double previous_Xposition=0;
 	
-	public MapImpl(String path){
+	public MyMapImpl(String path){
 		
 		try {
 			mappa = ImageIO.read(getClass().getResourceAsStream(path));
@@ -64,8 +64,7 @@ public class MapImpl implements Map{
 	/**
 	 * 
 	 * @param g is the graphic component of the main Panel
-	 */
-	
+	 */	
 	public void draw(Graphics2D g){		
 		g.drawImage(mappa,(int)-camerax,(int)-cameray,null);
 	}

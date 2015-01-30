@@ -55,6 +55,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 			gameThread.start();
 		}
 	}
+	
 	/**
 	 * 
 	 * @return the istance of the current Panel
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 		}
 		return p;
 	}
+	
 	/**
 	 * Initialize the graphic component
 	 */
@@ -80,24 +82,21 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	
 	/**
 	 * GamePanel update >> cds update >> currentSession update
-	 */
-	
+	 */	
 	private void update(){
 		cds.update();
 	}
 	
 	/**
 	 * Panel draw >> cds draw >> currentSession draw
-	 */
-	
+	 */	
 	private void draw(){
 		cds.draw(this.g);
 	}
 	
 	/**
 	 * Draw in the Panel the graphic componenet g
-	 */
-	
+	 */	
 	private void drawToScreen(){
 		Graphics g2 = getGraphics();
 		g2.drawImage(image, 0, 0,WIDTH,HEIGHT, null);
@@ -107,8 +106,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	/**
 	 * 
 	 * @return the graphic componenet of the Panel
-	 */
-	
+	 */	
 	public Graphics2D getgraphics(){
 		return g;
 	}
@@ -118,8 +116,7 @@ public class GamePanel extends JPanel implements Runnable,KeyListener,MouseListe
 	 * player, map, HUD;
 	 * This thread will also call draw method for:
 	 * player, map, HUD, Zombies, Bullets 
-	 */
-	
+	 */	
 	public void run() {
 		this.init();
 		long start;

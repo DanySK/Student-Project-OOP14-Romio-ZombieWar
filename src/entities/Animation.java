@@ -51,7 +51,9 @@ public class Animation {
 	public void setDelay(int delay){
 		this.delay=delay;
 	}
-	
+	/**
+	 * Update the current animation frame
+	 */
 	public void update() {
 		/*if delay isn't set*/
 		if(delay == -1) return;	

@@ -39,22 +39,18 @@ public class HUD{
 	
 	public void init() {
 
-	}
-	
+	}	
 	/**
 	 * This method is called by the main thread
-	 */	
-	
+	 */		
 	public void update(){		
 		baseHp = base.getHp();
 		playerHp = (int) player.getHp();
-	}
-	
+	}	
 	/**
 	 * 
 	 * @param g is the grapich componenet of the main Jframe
-	 */
-	
+	 */	
 	public void draw(Graphics2D g){		
 		g.setColor(HUDColor);
 		g.setFont(HUDFont);

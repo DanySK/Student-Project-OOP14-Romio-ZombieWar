@@ -7,7 +7,9 @@ import javax.swing.JFrame;
 public class Main {
 	
 	/**
-	 * Main Class of the game, instance a Jframe and a Jpanel 
+	 * Main Class of the game, instance a Jframe and a Jpanel
+	 * 
+	 * @author Giovanni Romio
 	 * 
 	 */
 	

@@ -56,7 +56,7 @@ public class AudioPlayer {
 	}
 	
 	/**
-	 * 
+	 * Methos used in case of background sound
 	 * @param n how many time the sound will be played
 	 */
 	

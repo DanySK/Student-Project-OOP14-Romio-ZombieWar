@@ -7,6 +7,7 @@ public class EnrageZombie extends Zombie {
 	 * @param ySpawn origin position
 	 */
 	public EnrageZombie(int xSpawn, int ySpawn) {
+		
 		super(xSpawn, ySpawn);
 	}
 	
@@ -25,13 +26,13 @@ public class EnrageZombie extends Zombie {
 	
 	/**
 	 * if zombie has low hp encrease his speed
-	 */
-	
+	 */	
 	private void enrage(){
 		this.speed = 2;
-	}
-	
-	
+	}	
+	/**
+	 * Update the zombie
+	 */
 	public void update(){
 		/* If zombies got low hp it encrease his speed */
 		if(hp < 10){
@@ -39,7 +40,6 @@ public class EnrageZombie extends Zombie {
 		}
 		walk.update();
 		this.calculatePosition();	
-	}
-	
+	}	
 
 }

@@ -47,19 +47,18 @@ public abstract class SpriteObject {
 	 * make the walk animation
 	 * 
 	 *  @param sprite contain all the sprtes of the animation
-	 *  @width width of the single frame
-	 *  @height height of the single frame
+	 *  @param width width of the single frame
+	 *  @param height height of the single frame
 	 */
 	
 	public void setWalkAnimation(BufferedImage sprite, int width, int height){
-		/**Ritaglio i frame dallo sprite*/
+		/**Cut frame sprite from original image*/
 		BufferedImage[] tmp = new BufferedImage[sprite.getWidth() / height];
-		for(int i = 0; i < tmp.length; i++){
-			/**Ritagliamo gli sprite dal file png di origine uno alla volta*/
+		for(int i = 0; i < tmp.length; i++){			
 			tmp[i] = sprite.getSubimage(i*width, 0, width, height);
 		}
-		/**Imposto l'animazione della camminata*/
-		walk= new Animation(tmp);
+		/** Set walk animation*/
+		walk = new Animation(tmp);
 		walk.calculateDefaultDelay();
 	}	
 	/**
@@ -77,9 +76,7 @@ public abstract class SpriteObject {
 	/**
 	 * 
 	 * @return the Rectangle associated to this object
-	 */
-	
-	
+	 */	
 	public Rectangle getRectangle(){
 		return new Rectangle((int)xMap,(int)yMap,width,height);
 	}
@@ -87,8 +84,7 @@ public abstract class SpriteObject {
 	/**
 	 * 
 	 * @return xPosition on the screen
-	 */
-	
+	 */	
 	public double getXScreen(){
 		return xScreen;
 	}
@@ -96,8 +92,7 @@ public abstract class SpriteObject {
 	/**
 	 * 
 	 * @return yPosition on the screen
-	 */
-	
+	 */	
 	public double getYScreen(){
 		return yScreen;
 	}
@@ -105,8 +100,7 @@ public abstract class SpriteObject {
 	/**
 	 * 
 	 * @return xPosition on the Map
-	 */
-	
+	 */	
 	public double getXMap(){
 		return xMap;
 	}
@@ -115,16 +109,14 @@ public abstract class SpriteObject {
 	 * 
 	 * @return yPosition on the Map
 	 */
-	
-	public double getYMap(){
+		public double getYMap(){
 		return yMap;
 	}
 	
 	/**
 	 * 
 	 * @return if the Object is alive
-	 */
-	
+	 */	
 	public boolean isAlive(){
 		return this.alive;
 	}
@@ -132,29 +124,25 @@ public abstract class SpriteObject {
 	/**
 	 * 
 	 * @return the Health point of the current object
-	 */
-	
+	 */	
 	public double getHp(){
 		return this.hp;
 	}
 	
 	/**
 	 * Initialize the component
-	 */
-	
+	 */	
 	public abstract  void init();
 	
 	/**
 	 * Methos called in the main thread ruotine, it contains operation to calculate
-	 */
-	
+	 */	
 	public abstract void update();
 	
 	/**
 	 * 
 	 * @param g rapresent the graphic component of the Panel
-	 */
-	
+	 */	
 	public abstract void draw(Graphics2D g);
 	
 }

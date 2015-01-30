@@ -24,7 +24,9 @@ public class Bullet extends SpriteObject {
 	 * @param yCursore rapresent yMouse coordinate
 	 * @param damage rapresent damage of the current weapon
 	 */
+	
 	public Bullet(Player g,double xCursore,double yCursore,int damage){
+		
 		try {
 			this.sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/proiettile.png"));
 		} catch (IOException e) {
@@ -36,6 +38,9 @@ public class Bullet extends SpriteObject {
 		this.yScreen = g.getYScreen() + g.height / 2;
 		this.xMap = g.getXMap() + g.width / 2;
 		this.yMap = g.getYMap() + g.height / 2;
+		
+	}
+	public void init() {		
 	}
 	/**
 	 * Calculate the position of the Bullet:
@@ -63,8 +68,7 @@ public class Bullet extends SpriteObject {
 	 */
 	public Point getPosition(){
 		return new Point((int)xMap,(int)yMap);
-	}
-	
+	}	
 	/**
 	 * 
 	 * @return the damage associated to this bullet
@@ -72,9 +76,5 @@ public class Bullet extends SpriteObject {
 	public int getDamage(){
 		return damage;
 	}
-	@Override
-	public void init() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 }

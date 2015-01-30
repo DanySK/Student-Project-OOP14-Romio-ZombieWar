@@ -62,16 +62,14 @@ public abstract class Zombie extends SpriteObject{
 	/**
 	 * Initialize zombie parameters
 	 */
-
 	public abstract void init();	
 
 	/** 
 	 * Check if player if on range vision of the zombie
 	 * @return true if player in in vision range of the zombie otherwise return false
 	 */
-
 	private boolean visionRange() {
-		vision = new Rectangle((int)xMap - (range/2), (int)yMap - (range/2), range + width, range + height);
+		vision = new Rectangle((int)xMap - (range / 2), (int)yMap - (range / 2), range + width, range + height);
 		if(vision.intersects(player.getRectangle())){
 			return true;
 		}else{
@@ -113,7 +111,6 @@ public abstract class Zombie extends SpriteObject{
 	 * If one bullet hit the zombie, we decrease the zombie life
 	 * @param danno rapresent the damage of the bullet wich hit the zombie
 	 */
-
 	public void hit(int damage){
 		ap.stop();
 		ap.start();
@@ -127,7 +124,6 @@ public abstract class Zombie extends SpriteObject{
 	/**
 	 * @return the damage of the zombie
 	 */
-
 	public double getDamage(){
 		return damage;
 	}
@@ -144,7 +140,6 @@ public abstract class Zombie extends SpriteObject{
 	 * Draw is called from the Contoller di Sessione draw() wich is called from the main thread.
 	 * @param g rapresent the graphic component to display and draw sprites.
 	 */
-
 	public void draw(Graphics2D g){
 		AffineTransform at = new AffineTransform();
 		/**
@@ -174,7 +169,7 @@ public abstract class Zombie extends SpriteObject{
 			g.drawImage(walk.getImage(), at, null);
 		}
 		catch(IndexOutOfBoundsException e){
-			/* Se l'animazione da un index out of bound perdiamo solamente un frame */
+			/* If animation lunch indexoutofBound we lose only a single frame */
 			return;
 		}
 
@@ -183,8 +178,7 @@ public abstract class Zombie extends SpriteObject{
 	/** 
 	 * This method use a Timer to subdivide the zombies attacks in different actions.
 	 * By doing this we avoid the speed of the game influence the gameplay.
-	 */
-	
+	 */	
 	public void attack(){
 
 		if(this.getRectangle().intersects(player.getRectangle())){
