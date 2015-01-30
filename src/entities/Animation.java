@@ -78,7 +78,7 @@ public class Animation {
 	/**
 	 * 
 	 * @return the current frame to diplay in the screen
-	 * @throws IndexOutOfBoundsException
+	 * @throws IndexOutOfBoundsException if animation cannot return the current fram
 	 */
 	public BufferedImage getImage() throws IndexOutOfBoundsException { 
 		return frames[currentFrame]; 

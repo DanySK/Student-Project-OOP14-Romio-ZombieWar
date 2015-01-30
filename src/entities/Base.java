@@ -44,7 +44,8 @@ public class Base{
 	}
 	/**
 	 * @param o rapresent the collision box of the zombies
-	 * */
+	 * @return if the base intersect the o rectangle
+	 */
 	public boolean intersect(Rectangle o){
 		return p.intersects(o);
 	}

@@ -109,7 +109,7 @@ public abstract class Zombie extends SpriteObject{
 
 	/**
 	 * If one bullet hit the zombie, we decrease the zombie life
-	 * @param danno rapresent the damage of the bullet wich hit the zombie
+	 * @param damage rapresent the damage of the bullet wich hit the zombie
 	 */
 	public void hit(int damage){
 		ap.stop();

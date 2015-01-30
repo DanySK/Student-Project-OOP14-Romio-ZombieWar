@@ -23,7 +23,7 @@ public interface Weapon {
 	 * @param xMouse is the x location of the mouse in the Frame
 	 * @param yMouse is the y location of the mouse in the Frame
 	 * @param l is the list wich contains all bullets displayer
-	 * @return
+	 * @return how many bullet left
 	 */
 	public int shoot(Player g, double xMouse, double yMouse,List<Bullet>l);
 }
