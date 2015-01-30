@@ -195,11 +195,7 @@ public class LevelOne extends GameSession{
 		if(!player.isAlive() || !base.isAlive()){
 			/*Terminiamo i thread*/
 			t.interrupt();
-			p.interrupt();
-			player.setLeft(false);
-			player.setRight(false);
-			player.setUp(false);
-			player.setDown(false);
+			p.interrupt();			
 			this.cds.aggiungiSessione(new Defeat(cds));
 			this.cds.setState(SessionController.DEFEAT);
 		}
@@ -209,10 +205,6 @@ public class LevelOne extends GameSession{
 				if(zombies.size()==0){
 					t.interrupt();
 					p.interrupt();
-					player.setLeft(false);
-					player.setRight(false);
-					player.setUp(false);
-					player.setDown(false);
 					this.cds.aggiungiSessione(new Victory(cds));
 					this.cds.setState(SessionController.VICTORY);
 				}

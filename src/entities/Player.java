@@ -67,6 +67,10 @@ public class Player extends SpriteObject {
 		arsenale[0] = new Glock();
 		arsenale[1] = new AK47();
 		arsenale[2] = new Minigun();
+		left = false;
+		up = false;
+		right = false;
+		down = false;
 	}
 	/**
 	 * 
@@ -263,11 +267,10 @@ public class Player extends SpriteObject {
 	 */
 	
 	public void hit(double d){			
+		this.hp -= d;
 		if(hp == 0){
 			alive = false;
-		}else{
-			this.hp -= d;
-		}		
+		}
 	}
 	
 	public void update() {		

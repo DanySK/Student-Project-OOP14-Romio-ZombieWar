@@ -43,7 +43,6 @@ public class Glock extends WeaponImpl {
 	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {
 		if(this.bullets>0){
 			this.reloading=false;
-			this.ap.stop();
 			this.ap.start();
 			/* Add one single bullet */
 			this.bullets--;

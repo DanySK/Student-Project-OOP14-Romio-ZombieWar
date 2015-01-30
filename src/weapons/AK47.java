@@ -39,7 +39,6 @@ public class AK47 extends WeaponImpl {
 	public int shoot(Player g,double xMouse,double yMouse,List<Bullet>l) {		
 		if(this.bullets>0){
 			reloading=false;
-			ap.stop();
 			ap.start();
 			/* Add one single bullet */
 			bullets--;
