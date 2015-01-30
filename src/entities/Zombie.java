@@ -27,7 +27,7 @@ public abstract class Zombie extends SpriteObject{
 	/* Player */
 	protected Player player;	
 	/* Base */
-	protected BaseImpl base;
+	protected Base base;
 	/* Di oggetti di questa classe, a differenze del player ne vogliamo istanzare certamente piu di uno*/
 	protected double damage;
 	protected boolean attackingPlayer;
@@ -50,7 +50,7 @@ public abstract class Zombie extends SpriteObject{
 		this.xMap=this.xScreen = xSpawn;
 		this.yMap=this.yScreen = ySpawn;
 		this.player = Player.getIstance();
-		this.base = BaseImpl.getIstance();
+		this.base = Base.getIstance();
 		this.attackingBase = false;
 		this.attackingPlayer = false;
 		this.hitDelay = 1000;

@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-import entities.BaseImpl;
+import entities.Base;
 import entities.Blood;
 import entities.Bullet;
 import entities.EnrageZombie;
@@ -44,7 +44,7 @@ public class LevelOne extends GameSession{
 	/* Sangue */
 	private List<Blood> sangue;
 	/* Base da difendere */
-	private BaseImpl base;
+	private Base base;
 	/* Thread degli zombie */
 	private Thread t;
 	private ZombieThread zt;
@@ -73,11 +73,11 @@ public class LevelOne extends GameSession{
 		/*Inizializziamo la mappa*/
 		mappa = new MapImpl("/backgrounds/map.png");		
 		/*Inizializziamo la base*/
-		base = BaseImpl.getIstance();
+		base = Base.getIstance();
 		base.init();		
 		/*Inizializziamo il giocatore*/
-		giocatore = Player.getIstance();
-		giocatore.init();		
+		player = Player.getIstance();
+		player.init();		
 		/*Inizializziamo le armi*/
 		weaponInit();		
 		/*Inizializziamo la lista degli zombie*/
@@ -117,7 +117,7 @@ public class LevelOne extends GameSession{
 		armi[0] = new Glock();
 		armi[1] = new AK47();
 		armi[2] = new Minigun();
-		giocatore.setWeapons(armi);
+		player.setWeapons(armi);
 	}
 	/*Create a zombie to the Left Spawn */
 	private void zombieLeftSpawn(){
@@ -193,9 +193,9 @@ public class LevelOne extends GameSession{
 			start = System.currentTimeMillis();
 		}			
 		/* Imponiamo l'update al giocatore*/
-		giocatore.update(xMouse,yMouse);		
+		player.update(xMouse,yMouse);		
 		/* Spostiamo la posizione della mappa*/
-		mappa.update(giocatore.getXMap(), giocatore.getYMap());
+		mappa.update(player.getXMap(), player.getYMap());
 		/* Update HUD */
 		h.update();
 		/* al massimo 50 schizzi di sangue*/
@@ -217,7 +217,7 @@ public class LevelOne extends GameSession{
 			}
 		}
 		/* Draw player */
-		giocatore.draw(grafica);		
+		player.draw(grafica);		
 		/* Draw zombies */
 		synchronized (zombies) {
 			for(int x=0;x<zombies.size();x++){
@@ -235,14 +235,14 @@ public class LevelOne extends GameSession{
 		h.draw(grafica);
 		
 		/* Check if player and base are still alive */
-		if(!giocatore.isAlive() || !base.isAlive()){
+		if(!player.isAlive() || !base.isAlive()){
 			/*Terminiamo i thread*/
 			t.interrupt();
 			p.interrupt();
-			giocatore.setLeft(false);
-			giocatore.setRight(false);
-			giocatore.setUp(false);
-			giocatore.setDown(false);
+			player.setLeft(false);
+			player.setRight(false);
+			player.setUp(false);
+			player.setDown(false);
 			this.cds.aggiungiSessione(new Defeat(cds));
 			this.cds.setState(SessionController.DEFEAT);
 		}
@@ -252,10 +252,10 @@ public class LevelOne extends GameSession{
 				if(zombies.size()==0){
 					t.interrupt();
 					p.interrupt();
-					giocatore.setLeft(false);
-					giocatore.setRight(false);
-					giocatore.setUp(false);
-					giocatore.setDown(false);
+					player.setLeft(false);
+					player.setRight(false);
+					player.setUp(false);
+					player.setDown(false);
 					this.cds.aggiungiSessione(new Victory(cds));
 					this.cds.setState(SessionController.VICTORY);
 				}
@@ -271,22 +271,22 @@ public class LevelOne extends GameSession{
 	public void keyPressed(int k) throws InterruptedException{
 		/*Imponiamo al personaggio uno spostamento*/
 		switch(k){
-		case(KeyEvent.VK_A): giocatore.setLeft(true);break;
-		case(KeyEvent.VK_D): giocatore.setRight(true);break;
-		case(KeyEvent.VK_W): giocatore.setUp(true);break;
-		case(KeyEvent.VK_S): giocatore.setDown(true);break;
-		case(KeyEvent.VK_1): giocatore.setGun(0);break;
-		case(KeyEvent.VK_2): giocatore.setGun(1);break;
-		case(KeyEvent.VK_3): giocatore.setGun(2);break;
+		case(KeyEvent.VK_A): player.setLeft(true);break;
+		case(KeyEvent.VK_D): player.setRight(true);break;
+		case(KeyEvent.VK_W): player.setUp(true);break;
+		case(KeyEvent.VK_S): player.setDown(true);break;
+		case(KeyEvent.VK_1): player.setGun(0);break;
+		case(KeyEvent.VK_2): player.setGun(1);break;
+		case(KeyEvent.VK_3): player.setGun(2);break;
 		case(KeyEvent.VK_P):{
 			pause = true;
 			zt.setPausa(pause);
 			pt.setPausa(pause);
 			/*Blocchiamo i movimenti del giocatore*/
-			giocatore.setLeft(false);
-			giocatore.setRight(false);
-			giocatore.setUp(false);
-			giocatore.setDown(false);
+			player.setLeft(false);
+			player.setRight(false);
+			player.setUp(false);
+			player.setDown(false);
 			/*Passiamo allo stato di pausa*/
 			this.cds.setState(SessionController.GAMEPAUSE);}
 			break;		
@@ -297,10 +297,10 @@ public class LevelOne extends GameSession{
 	public void keyReleased(int k){
 		/*Imponiamo al personaggio di stare fermo*/
 		switch(k){
-		case(KeyEvent.VK_A): giocatore.setLeft(false);break;
-		case(KeyEvent.VK_D): giocatore.setRight(false);break;
-		case(KeyEvent.VK_W): giocatore.setUp(false);break;
-		case(KeyEvent.VK_S): giocatore.setDown(false);break;		
+		case(KeyEvent.VK_A): player.setLeft(false);break;
+		case(KeyEvent.VK_D): player.setRight(false);break;
+		case(KeyEvent.VK_W): player.setUp(false);break;
+		case(KeyEvent.VK_S): player.setDown(false);break;		
 		}
 	}
 	
@@ -308,7 +308,7 @@ public class LevelOne extends GameSession{
 			double xMOUSE=x+15*Math.random();
 			double yMOUSE=y+15*Math.random();
 			synchronized (proiettili) {
-				giocatore.shoot(xMOUSE, yMOUSE,proiettili);
+				player.shoot(xMOUSE, yMOUSE,proiettili);
 			}
 	}
 	

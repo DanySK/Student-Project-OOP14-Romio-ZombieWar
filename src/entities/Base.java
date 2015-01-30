@@ -4,7 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 
-public class BaseImpl{
+public class Base{
 	/**
 	 * This is the Base, the player must defende his base while trying to stay alive.
 	 * The base is defined by a polygon and other stuff is to describe the position on the
@@ -14,7 +14,7 @@ public class BaseImpl{
 	 * 
 	 *  @author GiovanniRomio
 	 */
-	private static BaseImpl base;
+	private static Base base;
 	private Polygon p;
 	/*Coordinate della base*/
 	private int [] xPoint = {200,220,270,470,555,555}; 
@@ -22,16 +22,16 @@ public class BaseImpl{
 	private int hp;
 	private boolean alive;
 	
-	private BaseImpl(){
+	private Base(){
 		p = new Polygon(xPoint,yPoint,6);
 	}
 	/**
 	 * 
 	 * @return SingleTon istance
 	 */
-	public static BaseImpl getIstance(){
+	public static Base getIstance(){
 		if(base == null){
-			base = new BaseImpl();
+			base = new Base();
 		}
 		return base;
 	}

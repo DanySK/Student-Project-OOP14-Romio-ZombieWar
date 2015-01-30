@@ -1,10 +1,8 @@
 package weapons;
 
 import java.awt.image.BufferedImage;
-import java.util.List;
 
 import audio.AudioPlayer;
-import entities.Bullet;
 
 public abstract class WeaponImpl implements Weapon {
 	
@@ -29,8 +27,6 @@ public abstract class WeaponImpl implements Weapon {
 	/* draw coordinates */
 	protected int x;
 	protected int y;
-	/* This list contains all diplayed bullets */
-	protected List<Bullet> list;
 	/*Sound effect*/
 	protected AudioPlayer ap;
 

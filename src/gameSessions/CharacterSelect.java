@@ -28,7 +28,7 @@ public class CharacterSelect extends GameSession{
 	
 	public CharacterSelect(SessionController cds){
 		this.cds = cds;
-		giocatore = Player.getIstance();
+		player = Player.getIstance();
 		ritratti = new BufferedImage[2];
 		try{
 			ritratti[0] = ImageIO.read(getClass().getResourceAsStream("/backgrounds/avionSelect.png"));
@@ -61,9 +61,9 @@ public class CharacterSelect extends GameSession{
 		}
 		if(k== KeyEvent.VK_ENTER){
 			if(playerSelect){
-				giocatore.setSkin("/sprites/avion2.png");
+				player.setSkin("/sprites/avion2.png");
 			}else{
-				giocatore.setSkin("/sprites/marine.png");
+				player.setSkin("/sprites/marine.png");
 			}
 			this.cds.aggiungiSessione(new LevelOne(cds));
 			this.cds.aggiungiSessione(new GamePause(cds));

@@ -15,7 +15,7 @@ public class HUD{
 	 */	
 
 	private Player player;
-	private BaseImpl base;
+	private Base base;
 	private int baseHp;
 	private int playerHp;
 	private Color HUDColor;
@@ -33,7 +33,7 @@ public class HUD{
 			e.printStackTrace();
 		}
 		this.player = Player.getIstance();
-		this.base = BaseImpl.getIstance();
+		this.base = Base.getIstance();
 				
 	}
 	

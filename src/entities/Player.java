@@ -24,11 +24,11 @@ public class Player extends SpriteObject {
 	//Vogliamo che all'interno del gioco venga creata un'unica entita player
 	private static Player giocatore;
 	//Base del gioco, utile per impostare i limiti di percorso
-	private BaseImpl base;
+	private Base base;
 	//Sprite del personaggio
 	private BufferedImage player;
 	private WeaponImpl [] arsenale;
-	private WeaponImpl armacorrente;
+	private int armacorrente;
 	//Sparo
 	private boolean reloading;
 	/*Player bounds*/
@@ -36,6 +36,10 @@ public class Player extends SpriteObject {
 	private static final int rightx=730;
 	private static final int topy=0;
 	private static final int bottomy=1054;
+	/*weapons*/
+	public static final int GLOCK = 0;
+	public static final int AK47 = 1;
+	public static final int MINIGUN = 2;
 	
 	/**
 	 * 
@@ -58,7 +62,7 @@ public class Player extends SpriteObject {
 		xScreen = yScreen = 50;
 		hp = 25;
 		alive = true;
-		base = BaseImpl.getIstance();
+		base = Base.getIstance();
 		speed = 2;
 	}
 	/**
@@ -172,8 +176,8 @@ public class Player extends SpriteObject {
 	 */
 	
 	public void setWeapons(WeaponImpl[]arsenale){			
-		this.arsenale=arsenale;
-		armacorrente=this.arsenale[0];		
+		this.arsenale = arsenale;
+		armacorrente = GLOCK;		
 	}
 	
 	/**
@@ -192,7 +196,7 @@ public class Player extends SpriteObject {
 	 */
 	
 	public boolean shoot(double xMouse,double yMouse,List<Bullet>l){
-		if(armacorrente.shoot(this,xMouse,yMouse,l)>0){
+		if(arsenale[armacorrente].shoot(this,xMouse,yMouse,l)>0){
 			reloading=false;
 			return true;
 		}
@@ -208,8 +212,8 @@ public class Player extends SpriteObject {
 	 */
 	
 	private void reload(){
-		armacorrente.reload();
-		if(armacorrente.isReloading()){
+		arsenale[armacorrente].reload();
+		if(arsenale[armacorrente].isReloading()){
 			reloading = true;
 		}else{
 			reloading = false;
@@ -222,7 +226,7 @@ public class Player extends SpriteObject {
 	 */
 	
 	public void setGun(int i){			
-		armacorrente = this.arsenale[i];	
+		armacorrente = i;	
 	}
 	
 	/**
@@ -231,7 +235,7 @@ public class Player extends SpriteObject {
 	 */
 	
 	public WeaponImpl getWeapon(){
-		return armacorrente;
+		return arsenale[armacorrente];
 	}
 	
 	/**
@@ -262,6 +266,8 @@ public class Player extends SpriteObject {
 		}		
 	}
 	
+	public void update() {		
+	}	
 	
 	/**
 	 *  Update is called from called from the Contoller di Sessione wich is called form the main
@@ -298,17 +304,14 @@ public class Player extends SpriteObject {
 		//draw GUN
 		AffineTransform gun =new AffineTransform(at);	
 		gun.scale(0.8,0.8);
-		gun.translate(armacorrente.getX(),armacorrente.getY());
-		g.drawImage(armacorrente.getImage(),gun,null);		
+		gun.translate(arsenale[armacorrente].getX(),arsenale[armacorrente].getY());
+		g.drawImage(arsenale[armacorrente].getImage(),gun,null);		
 	}
 	
 	public boolean isRealoading(){
 		return this.reloading;
 	}
-	@Override
-	public void update() {
-		// TODO Auto-generated method stub
+	
 		
-	}		
 	
 }
