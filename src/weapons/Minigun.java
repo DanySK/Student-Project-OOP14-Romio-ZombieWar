@@ -23,12 +23,12 @@ public class Minigun extends WeaponImpl{
 	 */
 	
 	public Minigun(){
-		this.name = "MINIGUN";
-		this.damage = 8;
-		this.bulletsPerRound = 60;
-		this.bullets = 60;
-		this.x = 7;
-		this.y = 17;
+		name = "MINIGUN";
+		damage = 6;
+		bulletsPerRound = 120;
+		bullets = 120;
+		x = 7;
+		y = 17;
 		try{
 			sprite = ImageIO.read(getClass().getResourceAsStream("/sprites/minigun.png"));
 			HUDsprite =  ImageIO.read(getClass().getResourceAsStream("/sprites/weaponsHUD/minigun.png"));
@@ -53,21 +53,23 @@ public class Minigun extends WeaponImpl{
 			this.ap.start();
 			this.reloading=false;
 			/* Add 3 bullets */
-			this.bullets-=3;
+			this.bullets -= 3;
 			/*
 			 * To get other 2 bullet trajectory:
 			 * translate cursor to origin,
 			 * rotation of the selected angle,
-			 * translate again in original position.
-			 */
-			l.add(new Bullet(g,xMouse,yMouse,8));
+			 * translate again in original position.			
+			 *  */
+
+			l.add(new Bullet(g,xMouse,yMouse,damage));
 			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(0.2) - (yMouse-g.getYScreen())*Math.sin(0.2);
 			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(0.2) + (yMouse-g.getYScreen())*Math.cos(0.2);
 			l.add(new Bullet(g,newX,newY,damage));
 			newX = g.getXScreen() + (xMouse-g.getXScreen())*Math.cos(-0.2) - (yMouse-g.getYScreen())*Math.sin(-0.2);
 			newY = g.getYScreen() + (xMouse-g.getXScreen())*Math.sin(-0.2) + (yMouse-g.getYScreen())*Math.cos(-0.2);
-			l.add(new Bullet(g,newX,newY,damage));
+			l.add(new Bullet(g,newX,newY,damage));					
 		}
+	
 		return this.bullets;
 	}
 }

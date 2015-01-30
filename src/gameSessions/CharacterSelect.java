@@ -53,10 +53,10 @@ public class CharacterSelect extends GameSession{
 	}
 	
 	public void keyPressed(int k) {
-		if(k== KeyEvent.VK_D){
+		if(k== KeyEvent.VK_D || k == KeyEvent.VK_RIGHT){
 			playerSelect=!playerSelect;
 		}
-		if(k== KeyEvent.VK_A){
+		if(k== KeyEvent.VK_A || k == KeyEvent.VK_LEFT){
 			playerSelect=!playerSelect;
 		}
 		if(k== KeyEvent.VK_ENTER){

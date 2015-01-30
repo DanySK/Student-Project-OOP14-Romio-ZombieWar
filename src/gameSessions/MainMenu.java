@@ -92,13 +92,13 @@ public class MainMenu extends GameSession{
 		if(k== KeyEvent.VK_ENTER){
 			select();
 		}
-		if(k== KeyEvent.VK_W){
+		if(k== KeyEvent.VK_W || k == KeyEvent.VK_UP){
 			currentChoice --;
 			if( currentChoice==-1){
 				currentChoice= scelta.length-1;
 			}
 		}
-		if(k== KeyEvent.VK_S){
+		if(k== KeyEvent.VK_S || k == KeyEvent.VK_DOWN){
 			currentChoice ++;
 			if (currentChoice==scelta.length){
 				currentChoice=0;

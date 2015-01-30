@@ -6,6 +6,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.util.List;
 
+import weapons.AK47;
+import weapons.Glock;
+import weapons.Minigun;
 import weapons.WeaponImpl;
 
 public class Player extends SpriteObject {
@@ -64,6 +67,10 @@ public class Player extends SpriteObject {
 		alive = true;
 		base = Base.getIstance();
 		speed = 2;
+		arsenale = new WeaponImpl[3];
+		arsenale[0] = new Glock();
+		arsenale[1] = new AK47();
+		arsenale[2] = new Minigun();
 	}
 	/**
 	 * 
@@ -195,18 +202,16 @@ public class Player extends SpriteObject {
 	 * @return if the player shooted it return true otherwise it return false
 	 */
 	
-	public boolean shoot(double xMouse,double yMouse,List<Bullet>l){
-		if(arsenale[armacorrente].shoot(this,xMouse,yMouse,l)>0){
+	public boolean shoot(double xMouse, double yMouse, List<Bullet>l){
+		if(arsenale[armacorrente].shoot(this,xMouse,yMouse,l) > 0){
 			reloading=false;
 			return true;
-		}
-		else{	
+		}else{	
 			this.reload();
 			return false;
-		}
-
+		}		
 	}
-	
+
 	/**
 	 * Set the gun to reload 
 	 */

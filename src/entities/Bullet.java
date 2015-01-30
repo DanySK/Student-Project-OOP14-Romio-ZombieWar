@@ -44,10 +44,10 @@ public class Bullet extends SpriteObject {
 	 */
 	private void calculatePosition(){
 		/** Calcoliamo la taiettoria del proiettile */
-		this.xScreen += 10 * Math.cos(rapporto);
-		this.yScreen += 10 * Math.sin(rapporto);
-		this.xMap += 10 * Math.cos(rapporto);
-		this.yMap += 10 * Math.sin(rapporto);
+		this.xScreen += 20 * Math.cos(rapporto);
+		this.yScreen += 20 * Math.sin(rapporto);
+		this.xMap += 20 * Math.cos(rapporto);
+		this.yMap += 20 * Math.sin(rapporto);
 	}
 	
 	public void update(){
@@ -70,7 +70,7 @@ public class Bullet extends SpriteObject {
 	 * @return the damage associated to this bullet
 	 */
 	public int getDamage(){
-		return this.damage;
+		return damage;
 	}
 	@Override
 	public void init() {

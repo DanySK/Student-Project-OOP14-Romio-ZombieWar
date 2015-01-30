@@ -121,6 +121,7 @@ public abstract class Zombie extends SpriteObject{
 		if(hp <= 0){
 			alive = false;
 		}
+		
 	}
 
 	/**
@@ -150,10 +151,16 @@ public abstract class Zombie extends SpriteObject{
 		 * Disegniamo lo zombie solo se � nel campo di visibilit� del giocatore 
 		 */
 		if(player.getXMap() > 320 && player.getXMap() < 410){
-			xScreen =  320+(xMap-player.getXMap());
+			xScreen =  320 + (xMap - player.getXMap());
+		}
+		if(player.getXMap() > 410){
+			xScreen = 640 - (730 - xMap);
 		}
 		if(player.getYMap() > 240 && player.getYMap() < 814){
 			yScreen = 240 + (yMap - player.getYMap());
+		}
+		if(player.getYMap() > 814){
+			yScreen = 480 - (1054 - yMap);
 		}
 		at.translate(xScreen, yScreen);
 		if(visionRange()){
@@ -161,7 +168,7 @@ public abstract class Zombie extends SpriteObject{
 			at.rotate(Math.atan2(player.getYScreen() - yScreen,player.getXScreen() - xScreen) + 1.5, 14.5, 17);
 		}else{
 			/* Turn on base position */
-			at.rotate(Math.atan2(0-yMap,310-xMap)+1.5,14.5,17);
+			at.rotate(Math.atan2(0 - yMap, 310 - xMap) + 1.5, 14.5, 17);
 		}
 		try{
 			g.drawImage(walk.getImage(), at, null);

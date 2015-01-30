@@ -30,7 +30,7 @@ public abstract class SpriteObject {
 	/*Object velocity while moving*/
 	protected double speed;
 	/* Campi del personaggio */
-	protected double hp;
+	protected int hp;
 	protected boolean alive = true;
 
 	public BufferedImage setSprite(String path){

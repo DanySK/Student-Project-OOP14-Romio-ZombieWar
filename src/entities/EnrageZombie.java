@@ -34,7 +34,7 @@ public class EnrageZombie extends Zombie {
 	
 	public void update(){
 		/* If zombies got low hp it encrease his speed */
-		if(hp<10){
+		if(hp < 10){
 			this.enrage();
 		}
 		walk.update();

@@ -15,10 +15,6 @@ import entities.Zombie;
 import entities.ZombieMom;
 import threads.BulletThread;
 import threads.ZombieThread;
-import weapons.WeaponImpl;
-import weapons.AK47;
-import weapons.Minigun;
-import weapons.Glock;
 
 public class LevelOne extends GameSession{
 	
@@ -35,11 +31,9 @@ public class LevelOne extends GameSession{
 	
 	/* Una mappa */
 	private MapImpl mappa;
-	/* Vettore contenenti le armi */
-	private WeaponImpl[] armi = new WeaponImpl [3];
 	/* Zombie */
 	private List<Zombie> zombies;
-	private static final int NUMZOMBIE = 10;
+	private static final int NUMZOMBIE = 500;
 	private int zombieCreated = 0;
 	/* Sangue */
 	private List<Blood> sangue;
@@ -77,9 +71,7 @@ public class LevelOne extends GameSession{
 		base.init();		
 		/*Inizializziamo il giocatore*/
 		player = Player.getIstance();
-		player.init();		
-		/*Inizializziamo le armi*/
-		weaponInit();		
+		player.init();				
 		/*Inizializziamo la lista degli zombie*/
 		zombies = Collections.synchronizedList(new ArrayList<Zombie>());	
 		/*Inizializziamo la lista dei proiettili*/
@@ -113,12 +105,6 @@ public class LevelOne extends GameSession{
 		}
 	}
 	
-	private void weaponInit(){		
-		armi[0] = new Glock();
-		armi[1] = new AK47();
-		armi[2] = new Minigun();
-		player.setWeapons(armi);
-	}
 	/*Create a zombie to the Left Spawn */
 	private void zombieLeftSpawn(){
 		/*Left spawn*/
@@ -141,9 +127,9 @@ public class LevelOne extends GameSession{
 		int j = (rn.nextInt() % n)+100;
 		synchronized (zombies) {
 			if(j % 2 != 0){
-				zombies.add(new ZombieMom(Math.abs(j),1000));
+				zombies.add(new ZombieMom(Math.abs(j),1054));
 			}else{
-				zombies.add(new EnrageZombie(Math.abs(j),1000));
+				zombies.add(new EnrageZombie(Math.abs(j),1054));
 			}				
 		}
 	}
@@ -204,6 +190,34 @@ public class LevelOne extends GameSession{
 				sangue.remove(0);
 			}
 		}
+		/* Check if player and base are still alive */
+		if(!player.isAlive() || !base.isAlive()){
+			/*Terminiamo i thread*/
+			t.interrupt();
+			p.interrupt();
+			player.setLeft(false);
+			player.setRight(false);
+			player.setUp(false);
+			player.setDown(false);
+			this.cds.aggiungiSessione(new Defeat(cds));
+			this.cds.setState(SessionController.DEFEAT);
+		}
+		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
+		/*
+		if(zombieCreated == NUMZOMBIE){
+			synchronized (zombies) {
+				if(zombies.size()==0){
+					t.interrupt();
+					p.interrupt();
+					player.setLeft(false);
+					player.setRight(false);
+					player.setUp(false);
+					player.setDown(false);
+					this.cds.aggiungiSessione(new Victory(cds));
+					this.cds.setState(SessionController.VICTORY);
+				}
+			}		
+		}		*/
 		
 	}
 	
@@ -234,33 +248,7 @@ public class LevelOne extends GameSession{
 		/* Draw HUD */
 		h.draw(grafica);
 		
-		/* Check if player and base are still alive */
-		if(!player.isAlive() || !base.isAlive()){
-			/*Terminiamo i thread*/
-			t.interrupt();
-			p.interrupt();
-			player.setLeft(false);
-			player.setRight(false);
-			player.setUp(false);
-			player.setDown(false);
-			this.cds.aggiungiSessione(new Defeat(cds));
-			this.cds.setState(SessionController.DEFEAT);
-		}
-		/*Controlliamo se ci sono ancora degli zombie altrimenti abbiamo vinto*/
-		if(zombieCreated == NUMZOMBIE){
-			synchronized (zombies) {
-				if(zombies.size()==0){
-					t.interrupt();
-					p.interrupt();
-					player.setLeft(false);
-					player.setRight(false);
-					player.setUp(false);
-					player.setDown(false);
-					this.cds.aggiungiSessione(new Victory(cds));
-					this.cds.setState(SessionController.VICTORY);
-				}
-			}		
-		}		
+		
 	}
 	
 	/**
